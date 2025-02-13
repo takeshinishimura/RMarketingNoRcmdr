@@ -1,0 +1,277 @@
+---
+title: "Rコマンダーを使わずに『現代マーケティング・リサーチ』を読む"
+title-block-banner: true
+format:
+  html:
+    toc: true
+    toc-title: TOC
+    toc_float: true
+    toc-depth: 4
+    number-sections: false
+    theme: united
+    code-fold: false
+lang: ja
+---
+
+[照井伸彦・佐藤忠彦（2022）『現代マーケティング・リサーチ—市場を読み解くデータ分析 新版』有斐閣](https://www.yuhikaku.co.jp/books/detail/9784641166080){target="_blank"} は，Rを用いたマーケティング・リサーチの入門書として位置づけられる。
+
+本書の想定読者は，Rを初めて使用する学生であり，プログラミングに戸惑うことが予想されるため，Rコマンダーを利用して解説している。
+しかし，Rに慣れた読者にとっては，Rコマンダーの処理がブラックボックス化されており，かえって分かりにくい。
+そこで，本サイトでは，Rコマンダーによって生成されたコードと，それと同じ処理をRに習熟したユーザーが記述する場合のコードを並べて示し，理解を助ける構成としている。
+
+また，本書にはいくつか誤植があり，本書の指示通りに操作を進めると，Rコマンダーの利用において行き詰まる箇所がある。
+そのような部分については適宜修正しながら進めることを推奨する。
+
+
+## 第3章 サンプリング
+
+### 4 単純無作為サンプリング
+
+#### 4.1 Rコマンダーによる乱数表作成
+
+##### ▶ Rコマンダーによって生成されたコード（p. 37）
+
+```{r}
+#| eval: false
+UniformSamples <- as.data.frame(matrix(runif(1*100, min=0, max=1), ncol=100))
+rownames(UniformSamples) <- "sample"
+colnames(UniformSamples) <- paste("obs", 1:100, sep="")
+```
+
+##### ▶ 手入力するコード
+
+```{r}
+#| eval: false
+x <- UniformSamples * 100
+rx <- round(x) + 1
+ux <- unique(rx)
+ux[1:10]
+```
+
+##### ▶ 一般的なRコード
+
+乱数を生成する際に，あらかじめ `set.seed()` を実行しておくと，同じ操作を繰り返したときに同じ乱数を再現できる。
+```{r}
+set.seed(100)
+```
+`set.seed()` のかっこ中の数字は何でもよい。
+
+```{r}
+ux <- unique(ceiling(runif(100, min = 0, max = 100)))
+ux[1:10]
+```
+または
+```{r}
+ux <- sample(1:100, 100, replace = FALSE)
+ux[1:10]
+```
+
+## 第5章 市場反応分析（I）
+
+### 3 相関分析
+
+#### 3.2 売上と価格のデータ：散布図の作成
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 84
+
+- （誤）欠損値はないこと“NA”で表している。
+- （正）欠損値を“NA”で表すように設定している。
+
+p. 85
+
+- （誤）小数点の記号がピリオドかカンマの指定もできる。
+- （正）小数点の記号をピリオドかカンマに指定できる。
+
+p. 86
+
+- （誤）“売上”を選択し，図5.5のようにそれぞれ反転させる。
+- （正）“売上”を選択する（図5.5左）。選択すると色が反転する。
+:::
+
+##### ▶ Rコマンダーによって生成されたコード（p. 84）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+scatterplot(売上~価格, regLine=FALSE, smooth=FALSE, boxplots=FALSE, data=Dataset)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+library(car)
+
+Dataset <- read.csv(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
+names(Dataset)[1] <- "売上数量"
+```
+```{r}
+#| echo: false
+#| message: false
+library(car)
+
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5//sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
+names(Dataset)[1] <- "売上数量"
+```
+
+図5.2の縦軸が「売上数量」となっていたため，列名を変更した。
+一般的に「売上」は売上高を指すため，価格と売上の相関関係を図示するのはやや不自然である（価格が上がれば，売上数量が一定の場合，売上高も上昇する）。
+この点を踏まえると，本書では図が修正されたものの，本文の修正が反映されないまま出版された可能性があると考えられる。
+なお，p. 102の本文では「売上数量」と明確に同じ意味で使わる「売上」の記述が見られる。
+
+```{r}
+Dataset
+scatterplot(売上数量 ~ 価格, regLine = FALSE, smooth = FALSE, boxplots = FALSE, las = 1, data = Dataset)
+```
+
+`scatterplot()` は `car` パッケージの関数であるため，最初に `car` パッケージをロードしている。
+
+あるいは，次のように汎用的な作図関数 `plot()` を使ってもよい。
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.csv(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
+names(Dataset)[1] <- "売上数量"
+Dataset
+plot(売上数量 ~ 価格, las = 1, data = Dataset)
+```
+```{r}
+#| echo: false
+#| message: false
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5//sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
+names(Dataset)[1] <- "売上数量"
+Dataset
+plot(売上数量 ~ 価格, las = 1, data = Dataset)
+```
+
+#### 3.3 売上と価格に相関はあるか：標本相関係数の検定
+
+##### ▶ Rコマンダーによって生成されたコード（p. 87）
+
+```{r}
+#| eval: false
+with(Dataset, cor.test(価格, 売上, alternative="two.sided", method="pearson"))
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+cor.test(Dataset$価格, Dataset$売上数量, alternative = "two.sided", method = "pearson")
+```
+
+
+### 4 売上と価格の市場反応分析：回帰モデル
+
+##### ▶ Rコマンダーによって生成されたコード（p. 91）
+
+```{r}
+#| eval: false
+RegModel.1 <- lm(売上~価格, data=Dataset)
+summary(RegModel.1)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+RegModel_1 <- lm(売上数量 ~ 価格, data = Dataset)
+summary(RegModel_1)
+```
+
+昔は変数名（先頭ではなく途中）に `.` が使用されることもあったが，最近は使用しないのが一般的である。
+
+#### 4.1 価格反応係数推定値の精度と信頼区間
+
+##### ▶ Rコマンダーによって生成されたコード（p. 93）
+
+```{r}
+#| eval: false
+Confint(RegModel.1, level=0.95)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+Confint(RegModel_1, level = 0.95)
+```
+
+`Confint()`は`car`パッケージの関数である。
+
+
+### 5 複数の説明変数を持つ市場反応分析：重回帰モデル
+
+#### 5.1 価格と販売促進の効果
+
+##### ▶ Rコマンダーによって生成されたコード（p. 98）
+
+```{r}
+#| eval: false
+RegModel.2 <- lm(売上~価格+販促, data=Dataset)
+summary(RegModel.2)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+RegModel_2 <- lm(売上数量 ~ 価格 + 販促, data = Dataset)
+summary(RegModel_2)
+```
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 100
+
+- （誤）適合度が0.08程度
+- （正）適合度が0.008程度
+:::
+
+### 6 弾力性測定モデル
+
+#### 6.1 交差価格弾力性による競合関係の測定
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 106
+
+- （誤）売上を【新しい変数名】に“LY”，【計算式】に“log(売り上げ)”と入力する。
+- （正）【新しい変数名】に“LY1”，【計算式】に“log(Y1)”と入力する。
+:::
+
+##### ▶ Rコマンダーによって生成されたコード（p. 105）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset$LY1 <- with(Dataset, log(Y1))
+Dataset$LX1 <- with(Dataset, log(X1))
+Dataset$LX2 <- with(Dataset, log(X2))
+RegModel.3 <- lm(LY1~LX1+LX2, data=Dataset)
+summary(RegModel.3)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.table(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
+Dataset$LY1 <- log(Dataset$Y1)
+Dataset$LX1 <- log(Dataset$X1)
+Dataset$LX2 <- log(Dataset$X2)
+RegModel_3 <- lm(LY1 ~ LX1 + LX2, data = Dataset)
+summary(RegModel_3)
+```
+```{r}
+#| echo: false
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5//yogurt.txt", header = TRUE, sep = "", strip.white = TRUE)
+Dataset$LY1 <- log(Dataset$Y1)
+Dataset$LX1 <- log(Dataset$X1)
+Dataset$LX2 <- log(Dataset$X2)
+RegModel_3 <- lm(LY1 ~ LX1 + LX2, data = Dataset)
+summary(RegModel_3)
+```
