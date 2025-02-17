@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Rコマンダーを使わずに『現代マーケティング・リサーチ』を読む</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-5cf72aeb05ad37414ccd9374578a01f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Rコマンダーを使わずに『現代マーケティング・リサーチ』を読む</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">TOC</h2>
+   
+  <ul>
+  <li><a href="#第3章-サンプリング" id="toc-第3章-サンプリング" class="nav-link active" data-scroll-target="#第3章-サンプリング">第3章 サンプリング</a>
+  <ul>
+  <li><a href="#単純無作為サンプリング" id="toc-単純無作為サンプリング" class="nav-link" data-scroll-target="#単純無作為サンプリング">4 単純無作為サンプリング</a>
+  <ul class="collapse">
+  <li><a href="#rコマンダーによる乱数表作成" id="toc-rコマンダーによる乱数表作成" class="nav-link" data-scroll-target="#rコマンダーによる乱数表作成">4.1 Rコマンダーによる乱数表作成</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#第5章-市場反応分析i" id="toc-第5章-市場反応分析i" class="nav-link" data-scroll-target="#第5章-市場反応分析i">第5章 市場反応分析（I）</a>
+  <ul>
+  <li><a href="#相関分析" id="toc-相関分析" class="nav-link" data-scroll-target="#相関分析">3 相関分析</a>
+  <ul class="collapse">
+  <li><a href="#売上と価格のデータ散布図の作成" id="toc-売上と価格のデータ散布図の作成" class="nav-link" data-scroll-target="#売上と価格のデータ散布図の作成">3.2 売上と価格のデータ：散布図の作成</a></li>
+  <li><a href="#売上と価格に相関はあるか標本相関係数の検定" id="toc-売上と価格に相関はあるか標本相関係数の検定" class="nav-link" data-scroll-target="#売上と価格に相関はあるか標本相関係数の検定">3.3 売上と価格に相関はあるか：標本相関係数の検定</a></li>
+  </ul></li>
+  <li><a href="#売上と価格の市場反応分析回帰モデル" id="toc-売上と価格の市場反応分析回帰モデル" class="nav-link" data-scroll-target="#売上と価格の市場反応分析回帰モデル">4 売上と価格の市場反応分析：回帰モデル</a>
+  <ul class="collapse">
+  <li><a href="#価格反応係数推定値の精度と信頼区間" id="toc-価格反応係数推定値の精度と信頼区間" class="nav-link" data-scroll-target="#価格反応係数推定値の精度と信頼区間">4.1 価格反応係数推定値の精度と信頼区間</a></li>
+  </ul></li>
+  <li><a href="#複数の説明変数を持つ市場反応分析重回帰モデル" id="toc-複数の説明変数を持つ市場反応分析重回帰モデル" class="nav-link" data-scroll-target="#複数の説明変数を持つ市場反応分析重回帰モデル">5 複数の説明変数を持つ市場反応分析：重回帰モデル</a>
+  <ul class="collapse">
+  <li><a href="#価格と販売促進の効果" id="toc-価格と販売促進の効果" class="nav-link" data-scroll-target="#価格と販売促進の効果">5.1 価格と販売促進の効果</a></li>
+  </ul></li>
+  <li><a href="#弾力性測定モデル" id="toc-弾力性測定モデル" class="nav-link" data-scroll-target="#弾力性測定モデル">6 弾力性測定モデル</a>
+  <ul class="collapse">
+  <li><a href="#交差価格弾力性による競合関係の測定" id="toc-交差価格弾力性による競合関係の測定" class="nav-link" data-scroll-target="#交差価格弾力性による競合関係の測定">6.1 交差価格弾力性による競合関係の測定</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#第6章-市場の発見と知覚マップ" id="toc-第6章-市場の発見と知覚マップ" class="nav-link" data-scroll-target="#第6章-市場の発見と知覚マップ">第6章 市場の発見と知覚マップ</a>
+  <ul>
+  <li><a href="#rコマンダーでの手順" id="toc-rコマンダーでの手順" class="nav-link" data-scroll-target="#rコマンダーでの手順">5 Rコマンダーでの手順</a></li>
+  <li><a href="#その他の問題" id="toc-その他の問題" class="nav-link" data-scroll-target="#その他の問題">6 その他の問題</a>
+  <ul class="collapse">
+  <li><a href="#共通因子数の設定" id="toc-共通因子数の設定" class="nav-link" data-scroll-target="#共通因子数の設定">6.2 共通因子数の設定</a></li>
+  </ul></li>
+  <li><a href="#サブマーケットと市場構造" id="toc-サブマーケットと市場構造" class="nav-link" data-scroll-target="#サブマーケットと市場構造">7 サブマーケットと市場構造</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p><a href="https://www.yuhikaku.co.jp/books/detail/9784641166080" target="_blank">照井伸彦・佐藤忠彦（2022）『現代マーケティング・リサーチ—市場を読み解くデータ分析 新版』有斐閣</a> は，Rを用いたマーケティング・リサーチの入門書として位置づけられる。</p>
+<p>本書の想定読者は，Rを初めて使用する学生であり，プログラミングに戸惑うことが予想されるため，Rコマンダーを利用して解説している。 しかし，Rに慣れた読者にとっては，Rコマンダーの処理がブラックボックス化されており，かえって分かりにくい。 そこで，本サイトでは，Rコマンダーによって生成されたコードと，それと同じ処理をRに習熟したユーザーが記述する場合のコードを並べて示し，理解を助ける構成としている。</p>
+<p>また，本書にはいくつか誤植があり，本書の指示通りに操作を進めると，Rコマンダーの利用において行き詰まる箇所がある。 そのような部分については適宜修正しながら進めることを推奨する。</p>
+<section id="第3章-サンプリング" class="level2">
+<h2 class="anchored" data-anchor-id="第3章-サンプリング">第3章 サンプリング</h2>
+<section id="単純無作為サンプリング" class="level3">
+<h3 class="anchored" data-anchor-id="単純無作為サンプリング">4 単純無作為サンプリング</h3>
+<section id="rコマンダーによる乱数表作成" class="level4">
+<h4 class="anchored" data-anchor-id="rコマンダーによる乱数表作成">4.1 Rコマンダーによる乱数表作成</h4>
+<section id="rコマンダーによって生成されたコードp.-37" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-37">▶ Rコマンダーによって生成されたコード（p.&nbsp;37）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>UniformSamples <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">1</span><span class="sc">*</span><span class="dv">100</span>, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">1</span>), <span class="at">ncol=</span><span class="dv">100</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(UniformSamples) <span class="ot">&lt;-</span> <span class="st">"sample"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(UniformSamples) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"obs"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="手入力するコード" class="level5">
+<h5 class="anchored" data-anchor-id="手入力するコード">▶ 手入力するコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> UniformSamples <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>rx <span class="ot">&lt;-</span> <span class="fu">round</span>(x) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(rx)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ux[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード">▶ 一般的なRコード</h5>
+<p>乱数を生成する際に，あらかじめ <code>set.seed()</code> を実行しておくと，同じ操作を繰り返したときに同じ乱数を再現できる。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>set.seed()</code> のかっこ中の数字は何でもよい。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ux <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">ceiling</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">100</span>)))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>ux[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 31 26 56  6 47 49 82 38 55 18</code></pre>
+</div>
+</div>
+<p>または</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ux <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ux[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 82 53  3  5 44 85 28 52 25 42</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="第5章-市場反応分析i" class="level2">
+<h2 class="anchored" data-anchor-id="第5章-市場反応分析i">第5章 市場反応分析（I）</h2>
+<section id="相関分析" class="level3">
+<h3 class="anchored" data-anchor-id="相関分析">3 相関分析</h3>
+<section id="売上と価格のデータ散布図の作成" class="level4">
+<h4 class="anchored" data-anchor-id="売上と価格のデータ散布図の作成">3.2 売上と価格のデータ：散布図の作成</h4>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+誤植
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>p.&nbsp;84</p>
+<ul>
+<li>（誤）欠損値はないこと“NA”で表している。</li>
+<li>（正）欠損値を“NA”で表すように設定している。</li>
+</ul>
+<p>p.&nbsp;85</p>
+<ul>
+<li>（誤）小数点の記号がピリオドかカンマの指定もできる。</li>
+<li>（正）小数点の記号をピリオドかカンマに指定できる。</li>
+</ul>
+<p>p.&nbsp;86</p>
+<ul>
+<li>（誤）“売上”を選択し，図5.5のようにそれぞれ反転させる。</li>
+<li>（正）“売上”を選択し，図5.5左のようにそれぞれ青色に反転させる。</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="rコマンダーによって生成されたコードp.-84" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-84">▶ Rコマンダーによって生成されたコード（p.&nbsp;84）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">""</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(売上<span class="sc">~</span>価格, <span class="at">regLine=</span><span class="cn">FALSE</span>, <span class="at">smooth=</span><span class="cn">FALSE</span>, <span class="at">boxplots=</span><span class="cn">FALSE</span>, <span class="at">data=</span>Dataset)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-1" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-1">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Dataset)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"売上数量"</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>図5.2の縦軸が「売上数量」となっていたため，列名を変更した。 一般的に「売上」は売上高を指すため，価格と売上の相関関係を図示するのはやや不自然である（価格が上がれば，売上数量が一定の場合，売上高も上昇する）。 この点を踏まえると，本書では図が修正されたものの，本文の修正が反映されないまま出版された可能性があると考えられる。 なお，p.&nbsp;102の本文では「売上数量」と明確に同じ意味で使わる「売上」の記述が見られる。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Dataset</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   売上数量 価格 販促
+1      2052  840    0
+2      2105  820    0
+3      2450  790    1
+4      2131  780    0
+5      2806  640    1
+6      2532  710    0
+7      3650  350    1
+8      2968  560    0
+9      2605  780    1
+10     2652  640    0
+11     3062  600    1
+12     3237  510    1
+13     2831  480    0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(売上数量 <span class="sc">~</span> 価格, <span class="at">regLine =</span> <span class="cn">FALSE</span>, <span class="at">smooth =</span> <span class="cn">FALSE</span>, <span class="at">boxplots =</span> <span class="cn">FALSE</span>, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">data =</span> Dataset)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>scatterplot()</code> は <code>car</code> パッケージの関数であるため，最初に <code>car</code> パッケージをロードしている。</p>
+<p>あるいは，次のように汎用的な作図関数 <code>plot()</code> を使ってもよい。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Dataset)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"売上数量"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>Dataset</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(売上数量 <span class="sc">~</span> 価格, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">data =</span> Dataset)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   売上数量 価格 販促
+1      2052  840    0
+2      2105  820    0
+3      2450  790    1
+4      2131  780    0
+5      2806  640    1
+6      2532  710    0
+7      3650  350    1
+8      2968  560    0
+9      2605  780    1
+10     2652  640    0
+11     3062  600    1
+12     3237  510    1
+13     2831  480    0</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="売上と価格に相関はあるか標本相関係数の検定" class="level4">
+<h4 class="anchored" data-anchor-id="売上と価格に相関はあるか標本相関係数の検定">3.3 売上と価格に相関はあるか：標本相関係数の検定</h4>
+<section id="rコマンダーによって生成されたコードp.-87" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-87">▶ Rコマンダーによって生成されたコード（p.&nbsp;87）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Dataset, <span class="fu">cor.test</span>(価格, 売上, <span class="at">alternative=</span><span class="st">"two.sided"</span>, <span class="at">method=</span><span class="st">"pearson"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-2" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-2">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(Dataset<span class="sc">$</span>価格, Dataset<span class="sc">$</span>売上数量, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  Dataset$価格 and Dataset$売上数量
+t = -8.1457, df = 11, p-value = 5.5e-06
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.9780506 -0.7661642
+sample estimates:
+       cor 
+-0.9261709 </code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="売上と価格の市場反応分析回帰モデル" class="level3">
+<h3 class="anchored" data-anchor-id="売上と価格の市場反応分析回帰モデル">4 売上と価格の市場反応分析：回帰モデル</h3>
+<section id="rコマンダーによって生成されたコードp.-91" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-91">▶ Rコマンダーによって生成されたコード（p.&nbsp;91）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>RegModel<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(売上<span class="sc">~</span>価格, <span class="at">data=</span>Dataset)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel<span class="fl">.1</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-3" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-3">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>RegModel_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(売上数量 <span class="sc">~</span> 価格, <span class="at">data =</span> Dataset)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = 売上数量 ~ 価格, data = Dataset)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-368.25 -110.38   -0.84  124.15  269.81 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 4581.7523   236.7640  19.352 7.61e-10 ***
+価格          -2.8802     0.3536  -8.146 5.50e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 184.1 on 11 degrees of freedom
+Multiple R-squared:  0.8578,    Adjusted R-squared:  0.8449 
+F-statistic: 66.35 on 1 and 11 DF,  p-value: 5.5e-06</code></pre>
+</div>
+</div>
+<p>昔は変数名（先頭ではなく途中）に <code>.</code> が使用されることもあったが，最近は使用しないのが一般的である。</p>
+</section>
+<section id="価格反応係数推定値の精度と信頼区間" class="level4">
+<h4 class="anchored" data-anchor-id="価格反応係数推定値の精度と信頼区間">4.1 価格反応係数推定値の精度と信頼区間</h4>
+<section id="rコマンダーによって生成されたコードp.-93" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-93">▶ Rコマンダーによって生成されたコード（p.&nbsp;93）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Confint</span>(RegModel<span class="fl">.1</span>, <span class="at">level=</span><span class="fl">0.95</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-4" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-4">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Confint</span>(RegModel_1, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               Estimate       2.5 %      97.5 %
+(Intercept) 4581.752298 4060.638183 5102.866414
+価格          -2.880209   -3.658452   -2.101967</code></pre>
+</div>
+</div>
+<p><code>Confint()</code>は<code>car</code>パッケージの関数である。</p>
+</section>
+</section>
+</section>
+<section id="複数の説明変数を持つ市場反応分析重回帰モデル" class="level3">
+<h3 class="anchored" data-anchor-id="複数の説明変数を持つ市場反応分析重回帰モデル">5 複数の説明変数を持つ市場反応分析：重回帰モデル</h3>
+<section id="価格と販売促進の効果" class="level4">
+<h4 class="anchored" data-anchor-id="価格と販売促進の効果">5.1 価格と販売促進の効果</h4>
+<section id="rコマンダーによって生成されたコードp.-98" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-98">▶ Rコマンダーによって生成されたコード（p.&nbsp;98）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>RegModel<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(売上<span class="sc">~</span>価格<span class="sc">+</span>販促, <span class="at">data=</span>Dataset)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel<span class="fl">.2</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-5" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-5">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>RegModel_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(売上数量 <span class="sc">~</span> 価格 <span class="sc">+</span> 販促, <span class="at">data =</span> Dataset)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_2)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = 売上数量 ~ 価格 + 販促, data = Dataset)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-182.876  -54.165    0.597   63.301  162.349 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 4263.2262   148.6279  28.684 6.18e-11 ***
+価格          -2.6028     0.2077 -12.531 1.94e-07 ***
+販促         297.1607    60.1706   4.939 0.000588 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 104.1 on 10 degrees of freedom
+Multiple R-squared:  0.9586,    Adjusted R-squared:  0.9504 
+F-statistic: 115.9 on 2 and 10 DF,  p-value: 1.209e-07</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+誤植
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>p.&nbsp;100</p>
+<ul>
+<li>（誤）適合度が0.08程度</li>
+<li>（正）適合度が0.008程度</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="弾力性測定モデル" class="level3">
+<h3 class="anchored" data-anchor-id="弾力性測定モデル">6 弾力性測定モデル</h3>
+<section id="交差価格弾力性による競合関係の測定" class="level4">
+<h4 class="anchored" data-anchor-id="交差価格弾力性による競合関係の測定">6.1 交差価格弾力性による競合関係の測定</h4>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+誤植
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>p.&nbsp;106</p>
+<ul>
+<li>（誤）売上を【新しい変数名】に“LY”，【計算式】に“log(売上)”と入力する。</li>
+<li>（正）【新しい変数名】に“LY1”，【計算式】に“log(Y1)”と入力する。</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="rコマンダーによって生成されたコードp.-105" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-105">▶ Rコマンダーによって生成されたコード（p.&nbsp;105）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">""</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LY1 <span class="ot">&lt;-</span> <span class="fu">with</span>(Dataset, <span class="fu">log</span>(Y1))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX1 <span class="ot">&lt;-</span> <span class="fu">with</span>(Dataset, <span class="fu">log</span>(X1))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX2 <span class="ot">&lt;-</span> <span class="fu">with</span>(Dataset, <span class="fu">log</span>(X2))</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>RegModel<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(LY1<span class="sc">~</span>LX1<span class="sc">+</span>LX2, <span class="at">data=</span>Dataset)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel<span class="fl">.3</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-6" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-6">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LY1 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>Y1)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX1 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>X1)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX2 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>X2)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>RegModel_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LY1 <span class="sc">~</span> LX1 <span class="sc">+</span> LX2, <span class="at">data =</span> Dataset)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_3)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = LY1 ~ LX1 + LX2, data = Dataset)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.52555 -0.13583 -0.05818  0.18692  0.38784 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    7.720      7.097   1.088    0.286    
+LX1           -7.033      1.290  -5.451 9.08e-06 ***
+LX2            6.504      1.187   5.479 8.42e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.2199 on 27 degrees of freedom
+Multiple R-squared:  0.6221,    Adjusted R-squared:  0.5941 
+F-statistic: 22.22 on 2 and 27 DF,  p-value: 1.973e-06</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="第6章-市場の発見と知覚マップ" class="level2">
+<h2 class="anchored" data-anchor-id="第6章-市場の発見と知覚マップ">第6章 市場の発見と知覚マップ</h2>
+<section id="rコマンダーでの手順" class="level3">
+<h3 class="anchored" data-anchor-id="rコマンダーでの手順">5 Rコマンダーでの手順</h3>
+<section id="rコマンダーによって生成されたコードp.-119" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-119">▶ Rコマンダーによって生成されたコード（p.&nbsp;119）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"clipboard"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">"¥t"</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">local</span>({</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  .FA <span class="ot">&lt;-</span> <span class="fu">factanal</span>(<span class="sc">~</span>キャンペーンイベント<span class="sc">+</span>パッケージデザイン<span class="sc">+</span>広告宣伝<span class="sc">+</span>素材栄養素<span class="sc">+</span>味, <span class="at">factors=</span><span class="dv">2</span>, <span class="at">rotation=</span><span class="st">"varimax"</span>, <span class="at">scores=</span><span class="st">"regression"</span>, <span class="at">data=</span>Dataset)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(.FA)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  Dataset <span class="ot">&lt;&lt;-</span> <span class="fu">within</span>(Dataset, {</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    F2 <span class="ot">&lt;-</span> .FA<span class="sc">$</span>scores[,<span class="dv">2</span>]</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    F1 <span class="ot">&lt;-</span> .FA<span class="sc">$</span>scores[,<span class="dv">1</span>]</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(F2<span class="sc">~</span>F1, <span class="at">regLine=</span><span class="cn">FALSE</span>, <span class="at">smooth=</span><span class="cn">FALSE</span>, <span class="at">id=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">'identify'</span>), <span class="at">boxplots=</span><span class="cn">FALSE</span>, <span class="at">xlab=</span><span class="st">"マーケティング因子"</span>, <span class="at">ylab=</span><span class="st">"製品因子"</span>, <span class="at">data=</span>Dataset)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-7" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-7">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"clipboard"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"¥t"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>FA <span class="ot">&lt;-</span> <span class="fu">factanal</span>(</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> キャンペーンイベント <span class="sc">+</span> パッケージデザイン <span class="sc">+</span> 広告宣伝 <span class="sc">+</span> 素材栄養素 <span class="sc">+</span> 味,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">factors =</span> <span class="dv">2</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">rotation =</span> <span class="st">"varimax"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">scores =</span> <span class="st">"regression"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Dataset</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(FA)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>F1 <span class="ot">&lt;-</span> FA<span class="sc">$</span>scores[, <span class="dv">1</span>]</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>F2 <span class="ot">&lt;-</span> FA<span class="sc">$</span>scores[, <span class="dv">2</span>]</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Dataset) <span class="ot">&lt;-</span> Dataset<span class="sc">$</span>製品名</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  F2 <span class="sc">~</span> F1,</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">regLine =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">smooth =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">list</span>(<span class="at">method =</span> <span class="st">'identify'</span>),</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">boxplots =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"マーケティング因子"</span>,</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"製品因子"</span>,</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Dataset</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+factanal(x = ~キャンペーンイベント + パッケージデザイン +     広告宣伝 + 素材栄養素 + 味, factors = 2, data = Dataset,     scores = "regression", rotation = "varimax", rownames = 1)
+
+Uniquenesses:
+キャンペーンイベント   パッケージデザイン             広告宣伝 
+               0.158                0.318                0.005 
+          素材栄養素                   味 
+               0.407                0.005 
+
+Loadings:
+                     Factor1 Factor2
+キャンペーンイベント 0.886   0.237  
+パッケージデザイン   0.696   0.445  
+広告宣伝             0.985   0.158  
+素材栄養素           0.119   0.761  
+味                   0.371   0.926  
+
+               Factor1 Factor2
+SS loadings      2.392   1.715
+Proportion Var   0.478   0.343
+Cumulative Var   0.478   0.821
+
+Test of the hypothesis that 2 factors are sufficient.
+The chi square statistic is 4.16 on 1 degree of freedom.
+The p-value is 0.0415 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>1つの関数が長い場合は，引数のカンマの後で改行した方が見やすいため，コードを書く際に改行を入れるのが一般的である。 このとき，改行した行の先頭にはスペースを2つ入れる。</p>
+<p>なお，クリップボードからデータを読むコードはOSによって異なる。 上に示したコードはWindowsの場合であり，macOSの場合，<code>Dataset &lt;- read.csv(pipe("pbpaste"), header = TRUE, sep = "\t")</code> とする。 また，タブを表す記号 <code>¥t</code> はWindowsの場合であり，macOSでは <code>\t</code> とする。</p>
+<p>さらに，本文の指示通りだと，図6.6の知覚マップには製品名ではなく，データフレーム <code>Dataset</code> の行番号が表示されることになる。 知覚マップ上に製品名を表示するには，<code>rownames(Dataset) &lt;- Dataset$製品名</code> を追加するか，あるいは，<code>read.csv()</code> の引数に <code>row.names = 1</code> を指定する必要がある，</p>
+</section>
+</section>
+<section id="その他の問題" class="level3">
+<h3 class="anchored" data-anchor-id="その他の問題">6 その他の問題</h3>
+<section id="共通因子数の設定" class="level4">
+<h4 class="anchored" data-anchor-id="共通因子数の設定">6.2 共通因子数の設定</h4>
+<section id="rコマンダーによって生成されたコードp.-84-1" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-84-1">▶ Rコマンダーによって生成されたコード（p.&nbsp;84）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">local</span>({</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  .PC <span class="ot">&lt;-</span> <span class="fu">princomp</span>(<span class="sc">~</span>キャンペーンイベント<span class="sc">+</span>パッケージデザイン<span class="sc">+</span>広告宣伝<span class="sc">+</span>素材栄養素<span class="sc">+</span>味, <span class="at">cor=</span><span class="cn">TRUE</span>, <span class="at">data=</span>Dataset)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Component loadings:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">unclass</span>(<span class="fu">loadings</span>(.PC)))</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Component variances:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(.PC<span class="sc">$</span>sd<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">summary</span>(.PC))</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">screeplot</span>(.PC)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-8" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-8">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>PC <span class="ot">&lt;-</span> <span class="fu">princomp</span>( <span class="sc">~</span> キャンペーンイベント <span class="sc">+</span> パッケージデザイン <span class="sc">+</span> 広告宣伝 <span class="sc">+</span> 素材栄養素 <span class="sc">+</span> 味, <span class="at">cor =</span> <span class="cn">TRUE</span>, <span class="at">data =</span> Dataset)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Component Loadings"</span> <span class="ot">=</span> <span class="fu">unclass</span>(<span class="fu">loadings</span>(PC)),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Component Variances"</span> <span class="ot">=</span> PC<span class="sc">$</span>sd<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Summary"</span> <span class="ot">=</span> <span class="fu">summary</span>(PC)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`Component Loadings`
+                        Comp.1     Comp.2     Comp.3     Comp.4     Comp.5
+キャンペーンイベント 0.4714356  0.3769183  0.4597706  0.3613854  0.5419342
+パッケージデザイン   0.4781955  0.1375293 -0.7804739 -0.2277185  0.3023567
+広告宣伝             0.4871404  0.3588612  0.2664691 -0.4602804 -0.5924939
+素材栄養素           0.3058296 -0.7333420  0.2987866 -0.4441059  0.2866606
+味                   0.4671617 -0.4152667 -0.1385361  0.6391062 -0.4262212
+
+$`Component Variances`
+   Comp.1    Comp.2    Comp.3    Comp.4    Comp.5 
+3.2672933 1.1601639 0.3588058 0.1815096 0.0322274 
+
+$Summary
+Importance of components:
+                          Comp.1    Comp.2     Comp.3     Comp.4      Comp.5
+Standard deviation     1.8075656 1.0771091 0.59900398 0.42603945 0.179519902
+Proportion of Variance 0.6534587 0.2320328 0.07176115 0.03630192 0.006445479
+Cumulative Proportion  0.6534587 0.8854914 0.95725260 0.99355452 1.000000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(PC)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(PC, <span class="at">type =</span> <span class="st">"lines"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-27-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>スクリープロットは折れ線グラフの方が一般的である。</p>
+</section>
+</section>
+</section>
+<section id="サブマーケットと市場構造" class="level3">
+<h3 class="anchored" data-anchor-id="サブマーケットと市場構造">7 サブマーケットと市場構造</h3>
+<section id="rコマンダーによって生成されたコードp.-84-2" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-84-2">▶ Rコマンダーによって生成されたコード（p.&nbsp;84）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>HClust<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(<span class="fu">model.matrix</span>(<span class="sc">~-</span><span class="dv">1</span> <span class="sc">+</span> F1<span class="sc">+</span>F2, Dataset)) , <span class="at">method=</span> <span class="st">"ward"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(HClust<span class="fl">.1</span>, <span class="at">main=</span> <span class="st">"Cluster Dendrogram for Solution HClust.1"</span>, <span class="at">xlab=</span> <span class="st">"Observation Number in Data Set Dataset"</span>, <span class="at">sub=</span><span class="st">"Method=ward; Distance=euclidian"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-9" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-9">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dist_1 <span class="ot">&lt;-</span> <span class="fu">dist</span>(Dataset[, <span class="fu">c</span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>)], <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>HClust_1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist_1, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  HClust_1,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Cluster Dendrogram for Solution HClust_1"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Observation Number in Data Set Dataset"</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sub =</span> <span class="st">"Method=ward.D2; Distance=euclidean"</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ウォード法は <code>ward</code> や <code>ward.D</code> ではなく，<code>ward.D2</code> を指定する。 詳細な説明は関数 <code>hclust()</code> の<a href="https://stat.ethz.ch/R-manual/R-patched/library/stats/html/hclust.html" target="_blank">ヘルプ</a>を参照のこと。</p>
+<p>なお，知覚マップのところで <code>rownames(Dataset) &lt;- Dataset$製品名</code> を追加した場合は，図6.9とは異なり，デンドログラムに製品名が表示される。 製品名ではなく番号を使ってデンドログラムを描くには，次のコードを実行する。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Dataset) <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Dataset)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>dist_1 <span class="ot">&lt;-</span> <span class="fu">dist</span>(Dataset[, <span class="fu">c</span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>)], <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>HClust_1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist_1, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  HClust_1,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Cluster Dendrogram for Solution HClust_1"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Observation Number in Data Set Dataset"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">sub =</span> <span class="st">"Method=ward.D2; Distance=euclidean"</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>以下は，図6.10の作図のためのコードである。 なお，クラスター分析に <code>ward.D2</code> を使用しているため，クラスター間距離が本書の記述とは異なる。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(HClust_1, <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clusters)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">as.numeric</span>(Dataset<span class="sc">$</span>Cluster),</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"マーケティング因子"</span>, <span class="at">ylab =</span> <span class="st">"製品因子"</span>,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"クラスター間距離3"</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2, <span class="at">labels =</span> Dataset<span class="sc">$</span>製品名, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">unique</span>(Dataset<span class="sc">$</span>Cluster)) {</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataEllipse</span>(</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    Dataset<span class="sc">$</span>F1[Dataset<span class="sc">$</span>Cluster <span class="sc">==</span> k],</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    Dataset<span class="sc">$</span>F2[Dataset<span class="sc">$</span>Cluster <span class="sc">==</span> k],</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> k, <span class="at">lty =</span> <span class="dv">2</span>,</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fl">0.5</span>)</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(HClust_1, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clusters)</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>  Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2,</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">as.numeric</span>(Dataset<span class="sc">$</span>Cluster),</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"マーケティング因子"</span>, <span class="at">ylab =</span> <span class="st">"製品因子"</span>,</span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"クラスター間距離1"</span></span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2, <span class="at">labels =</span> Dataset<span class="sc">$</span>製品名, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">unique</span>(Dataset<span class="sc">$</span>Cluster)) {</span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>  cluster_data <span class="ot">&lt;-</span> Dataset[Dataset<span class="sc">$</span>Cluster <span class="sc">==</span> k, <span class="fu">c</span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>)]</span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(cluster_data) <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dataEllipse</span>(</span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>      cluster_data<span class="sc">$</span>F1,</span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>      cluster_data<span class="sc">$</span>F2,</span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> k, <span class="at">lty =</span> <span class="dv">2</span>,</span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fl">0.5</span>)</span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>dataEllipse()</code> はデータのばらつきをもとに楕円を描くため，2点しかないと警告が出て，直線が描かれる点に注意が必要である。</p>
+<p>図を横に並べて表示する設定を行ったため，次のコードを実行してデフォルトの設定に戻しておく。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "コピーしました");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "コピーしました");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
