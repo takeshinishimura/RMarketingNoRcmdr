@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -63,7 +63,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="index_files/libs/quarto-html/anchor.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="index_files/libs/bootstrap/bootstrap-5cf72aeb05ad37414ccd9374578a01f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -121,6 +121,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#交差価格弾力性による競合関係の測定" id="toc-交差価格弾力性による競合関係の測定" class="nav-link" data-scroll-target="#交差価格弾力性による競合関係の測定">6.1 交差価格弾力性による競合関係の測定</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#第6章-市場の発見と知覚マップ" id="toc-第6章-市場の発見と知覚マップ" class="nav-link" data-scroll-target="#第6章-市場の発見と知覚マップ">第6章 市場の発見と知覚マップ</a>
+  <ul>
+  <li><a href="#rコマンダーでの手順" id="toc-rコマンダーでの手順" class="nav-link" data-scroll-target="#rコマンダーでの手順">5 Rコマンダーでの手順</a></li>
+  <li><a href="#その他の問題" id="toc-その他の問題" class="nav-link" data-scroll-target="#その他の問題">6 その他の問題</a>
+  <ul class="collapse">
+  <li><a href="#共通因子数の設定" id="toc-共通因子数の設定" class="nav-link" data-scroll-target="#共通因子数の設定">6.2 共通因子数の設定</a></li>
+  </ul></li>
+  <li><a href="#サブマーケットと市場構造" id="toc-サブマーケットと市場構造" class="nav-link" data-scroll-target="#サブマーケットと市場構造">7 サブマーケットと市場構造</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -214,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>p.&nbsp;86</p>
 <ul>
 <li>（誤）“売上”を選択し，図5.5のようにそれぞれ反転させる。</li>
-<li>（正）“売上”を選択する（図5.5左）。選択すると色が反転する。</li>
+<li>（正）“売上”を選択し，図5.5左のようにそれぞれ青色に反転させる。</li>
 </ul>
 </div>
 </div>
@@ -266,9 +275,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>あるいは，次のように汎用的な作図関数 <code>plot()</code> を使ってもよい。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Dataset)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"売上数量"</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Dataset</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(売上数量 <span class="sc">~</span> 価格, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">data =</span> Dataset)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Dataset)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"売上数量"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>Dataset</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(売上数量 <span class="sc">~</span> 価格, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">data =</span> Dataset)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -464,7 +475,7 @@ F-statistic: 115.9 on 2 and 10 DF,  p-value: 1.209e-07</code></pre>
 <div class="callout-body-container callout-body">
 <p>p.&nbsp;106</p>
 <ul>
-<li>（誤）売上を【新しい変数名】に“LY”，【計算式】に“log(売り上げ)”と入力する。</li>
+<li>（誤）売上を【新しい変数名】に“LY”，【計算式】に“log(売上)”と入力する。</li>
 <li>（正）【新しい変数名】に“LY1”，【計算式】に“log(Y1)”と入力する。</li>
 </ul>
 </div>
@@ -485,11 +496,13 @@ F-statistic: 115.9 on 2 and 10 DF,  p-value: 1.209e-07</code></pre>
 <h5 class="anchored" data-anchor-id="一般的なrコード-6">▶ 一般的なRコード</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LY1 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>Y1)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX1 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>X1)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX2 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>X2)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>RegModel_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LY1 <span class="sc">~</span> LX1 <span class="sc">+</span> LX2, <span class="at">data =</span> Dataset)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_3)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LY1 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>Y1)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX1 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>X1)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>LX2 <span class="ot">&lt;-</span> <span class="fu">log</span>(Dataset<span class="sc">$</span>X2)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>RegModel_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LY1 <span class="sc">~</span> LX1 <span class="sc">+</span> LX2, <span class="at">data =</span> Dataset)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_3)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -515,6 +528,288 @@ F-statistic: 22.22 on 2 and 27 DF,  p-value: 1.973e-06</code></pre>
 </div>
 </div>
 </section>
+</section>
+</section>
+</section>
+<section id="第6章-市場の発見と知覚マップ" class="level2">
+<h2 class="anchored" data-anchor-id="第6章-市場の発見と知覚マップ">第6章 市場の発見と知覚マップ</h2>
+<section id="rコマンダーでの手順" class="level3">
+<h3 class="anchored" data-anchor-id="rコマンダーでの手順">5 Rコマンダーでの手順</h3>
+<section id="rコマンダーによって生成されたコードp.-119" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-119">▶ Rコマンダーによって生成されたコード（p.&nbsp;119）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"clipboard"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">"¥t"</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">local</span>({</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  .FA <span class="ot">&lt;-</span> <span class="fu">factanal</span>(<span class="sc">~</span>キャンペーンイベント<span class="sc">+</span>パッケージデザイン<span class="sc">+</span>広告宣伝<span class="sc">+</span>素材栄養素<span class="sc">+</span>味, <span class="at">factors=</span><span class="dv">2</span>, <span class="at">rotation=</span><span class="st">"varimax"</span>, <span class="at">scores=</span><span class="st">"regression"</span>, <span class="at">data=</span>Dataset)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(.FA)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  Dataset <span class="ot">&lt;&lt;-</span> <span class="fu">within</span>(Dataset, {</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    F2 <span class="ot">&lt;-</span> .FA<span class="sc">$</span>scores[,<span class="dv">2</span>]</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    F1 <span class="ot">&lt;-</span> .FA<span class="sc">$</span>scores[,<span class="dv">1</span>]</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(F2<span class="sc">~</span>F1, <span class="at">regLine=</span><span class="cn">FALSE</span>, <span class="at">smooth=</span><span class="cn">FALSE</span>, <span class="at">id=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">'identify'</span>), <span class="at">boxplots=</span><span class="cn">FALSE</span>, <span class="at">xlab=</span><span class="st">"マーケティング因子"</span>, <span class="at">ylab=</span><span class="st">"製品因子"</span>, <span class="at">data=</span>Dataset)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-7" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-7">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"clipboard"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"¥t"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>FA <span class="ot">&lt;-</span> <span class="fu">factanal</span>(</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> キャンペーンイベント <span class="sc">+</span> パッケージデザイン <span class="sc">+</span> 広告宣伝 <span class="sc">+</span> 素材栄養素 <span class="sc">+</span> 味,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">factors =</span> <span class="dv">2</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">rotation =</span> <span class="st">"varimax"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">scores =</span> <span class="st">"regression"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Dataset</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(FA)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>F1 <span class="ot">&lt;-</span> FA<span class="sc">$</span>scores[, <span class="dv">1</span>]</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>F2 <span class="ot">&lt;-</span> FA<span class="sc">$</span>scores[, <span class="dv">2</span>]</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Dataset) <span class="ot">&lt;-</span> Dataset<span class="sc">$</span>製品名</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  F2 <span class="sc">~</span> F1,</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">regLine =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">smooth =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">list</span>(<span class="at">method =</span> <span class="st">'identify'</span>),</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">boxplots =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"マーケティング因子"</span>,</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"製品因子"</span>,</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Dataset</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+factanal(x = ~キャンペーンイベント + パッケージデザイン +     広告宣伝 + 素材栄養素 + 味, factors = 2, data = Dataset,     scores = "regression", rotation = "varimax", rownames = 1)
+
+Uniquenesses:
+キャンペーンイベント   パッケージデザイン             広告宣伝 
+               0.158                0.318                0.005 
+          素材栄養素                   味 
+               0.407                0.005 
+
+Loadings:
+                     Factor1 Factor2
+キャンペーンイベント 0.886   0.237  
+パッケージデザイン   0.696   0.445  
+広告宣伝             0.985   0.158  
+素材栄養素           0.119   0.761  
+味                   0.371   0.926  
+
+               Factor1 Factor2
+SS loadings      2.392   1.715
+Proportion Var   0.478   0.343
+Cumulative Var   0.478   0.821
+
+Test of the hypothesis that 2 factors are sufficient.
+The chi square statistic is 4.16 on 1 degree of freedom.
+The p-value is 0.0415 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>1つの関数が長い場合は，引数のカンマの後で改行した方が見やすいため，コードを書く際に改行を入れるのが一般的である。 このとき，改行した行の先頭にはスペースを2つ入れる。</p>
+<p>なお，クリップボードからデータを読むコードはOSによって異なる。 上に示したコードはWindowsの場合であり，macOSの場合，<code>Dataset &lt;- read.csv(pipe("pbpaste"), header = TRUE, sep = "\t")</code> とする。 また，タブを表す記号 <code>¥t</code> はWindowsの場合であり，macOSでは <code>\t</code> とする。</p>
+<p>さらに，本文の指示通りだと，図6.6の知覚マップには製品名ではなく，データフレーム <code>Dataset</code> の行番号が表示されることになる。 知覚マップ上に製品名を表示するには，<code>rownames(Dataset) &lt;- Dataset$製品名</code> を追加するか，あるいは，<code>read.csv()</code> の引数に <code>row.names = 1</code> を指定する必要がある，</p>
+</section>
+</section>
+<section id="その他の問題" class="level3">
+<h3 class="anchored" data-anchor-id="その他の問題">6 その他の問題</h3>
+<section id="共通因子数の設定" class="level4">
+<h4 class="anchored" data-anchor-id="共通因子数の設定">6.2 共通因子数の設定</h4>
+<section id="rコマンダーによって生成されたコードp.-84-1" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-84-1">▶ Rコマンダーによって生成されたコード（p.&nbsp;84）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">local</span>({</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  .PC <span class="ot">&lt;-</span> <span class="fu">princomp</span>(<span class="sc">~</span>キャンペーンイベント<span class="sc">+</span>パッケージデザイン<span class="sc">+</span>広告宣伝<span class="sc">+</span>素材栄養素<span class="sc">+</span>味, <span class="at">cor=</span><span class="cn">TRUE</span>, <span class="at">data=</span>Dataset)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Component loadings:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">unclass</span>(<span class="fu">loadings</span>(.PC)))</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Component variances:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(.PC<span class="sc">$</span>sd<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">summary</span>(.PC))</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">screeplot</span>(.PC)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-8" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-8">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>PC <span class="ot">&lt;-</span> <span class="fu">princomp</span>( <span class="sc">~</span> キャンペーンイベント <span class="sc">+</span> パッケージデザイン <span class="sc">+</span> 広告宣伝 <span class="sc">+</span> 素材栄養素 <span class="sc">+</span> 味, <span class="at">cor =</span> <span class="cn">TRUE</span>, <span class="at">data =</span> Dataset)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Component Loadings"</span> <span class="ot">=</span> <span class="fu">unclass</span>(<span class="fu">loadings</span>(PC)),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Component Variances"</span> <span class="ot">=</span> PC<span class="sc">$</span>sd<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Summary"</span> <span class="ot">=</span> <span class="fu">summary</span>(PC)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`Component Loadings`
+                        Comp.1     Comp.2     Comp.3     Comp.4     Comp.5
+キャンペーンイベント 0.4714356  0.3769183  0.4597706  0.3613854  0.5419342
+パッケージデザイン   0.4781955  0.1375293 -0.7804739 -0.2277185  0.3023567
+広告宣伝             0.4871404  0.3588612  0.2664691 -0.4602804 -0.5924939
+素材栄養素           0.3058296 -0.7333420  0.2987866 -0.4441059  0.2866606
+味                   0.4671617 -0.4152667 -0.1385361  0.6391062 -0.4262212
+
+$`Component Variances`
+   Comp.1    Comp.2    Comp.3    Comp.4    Comp.5 
+3.2672933 1.1601639 0.3588058 0.1815096 0.0322274 
+
+$Summary
+Importance of components:
+                          Comp.1    Comp.2     Comp.3     Comp.4      Comp.5
+Standard deviation     1.8075656 1.0771091 0.59900398 0.42603945 0.179519902
+Proportion of Variance 0.6534587 0.2320328 0.07176115 0.03630192 0.006445479
+Cumulative Proportion  0.6534587 0.8854914 0.95725260 0.99355452 1.000000000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(PC)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(PC, <span class="at">type =</span> <span class="st">"lines"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-27-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>スクリープロットは折れ線グラフの方が一般的である。</p>
+</section>
+</section>
+</section>
+<section id="サブマーケットと市場構造" class="level3">
+<h3 class="anchored" data-anchor-id="サブマーケットと市場構造">7 サブマーケットと市場構造</h3>
+<section id="rコマンダーによって生成されたコードp.-84-2" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-84-2">▶ Rコマンダーによって生成されたコード（p.&nbsp;84）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>HClust<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(<span class="fu">model.matrix</span>(<span class="sc">~-</span><span class="dv">1</span> <span class="sc">+</span> F1<span class="sc">+</span>F2, Dataset)) , <span class="at">method=</span> <span class="st">"ward"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(HClust<span class="fl">.1</span>, <span class="at">main=</span> <span class="st">"Cluster Dendrogram for Solution HClust.1"</span>, <span class="at">xlab=</span> <span class="st">"Observation Number in Data Set Dataset"</span>, <span class="at">sub=</span><span class="st">"Method=ward; Distance=euclidian"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-9" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-9">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dist_1 <span class="ot">&lt;-</span> <span class="fu">dist</span>(Dataset[, <span class="fu">c</span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>)], <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>HClust_1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist_1, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  HClust_1,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Cluster Dendrogram for Solution HClust_1"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Observation Number in Data Set Dataset"</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sub =</span> <span class="st">"Method=ward.D2; Distance=euclidean"</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ウォード法は <code>ward</code> や <code>ward.D</code> ではなく，<code>ward.D2</code> を指定する。 詳細な説明は関数 <code>hclust()</code> の<a href="https://stat.ethz.ch/R-manual/R-patched/library/stats/html/hclust.html" target="_blank">ヘルプ</a>を参照のこと。</p>
+<p>なお，知覚マップのところで <code>rownames(Dataset) &lt;- Dataset$製品名</code> を追加した場合は，図6.9とは異なり，デンドログラムに製品名が表示される。 製品名ではなく番号を使ってデンドログラムを描くには，次のコードを実行する。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Dataset) <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Dataset)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>dist_1 <span class="ot">&lt;-</span> <span class="fu">dist</span>(Dataset[, <span class="fu">c</span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>)], <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>HClust_1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(dist_1, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  HClust_1,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Cluster Dendrogram for Solution HClust_1"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Observation Number in Data Set Dataset"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">sub =</span> <span class="st">"Method=ward.D2; Distance=euclidean"</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>以下は，図6.10の作図のためのコードである。 なお，クラスター分析に <code>ward.D2</code> を使用しているため，クラスター間距離が本書の記述とは異なる。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(HClust_1, <span class="at">h =</span> <span class="dv">3</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clusters)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">as.numeric</span>(Dataset<span class="sc">$</span>Cluster),</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"マーケティング因子"</span>, <span class="at">ylab =</span> <span class="st">"製品因子"</span>,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"クラスター間距離3"</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2, <span class="at">labels =</span> Dataset<span class="sc">$</span>製品名, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">unique</span>(Dataset<span class="sc">$</span>Cluster)) {</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataEllipse</span>(</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    Dataset<span class="sc">$</span>F1[Dataset<span class="sc">$</span>Cluster <span class="sc">==</span> k],</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    Dataset<span class="sc">$</span>F2[Dataset<span class="sc">$</span>Cluster <span class="sc">==</span> k],</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> k, <span class="at">lty =</span> <span class="dv">2</span>,</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fl">0.5</span>)</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(HClust_1, <span class="at">h =</span> <span class="dv">1</span>)</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clusters)</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>  Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2,</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">as.numeric</span>(Dataset<span class="sc">$</span>Cluster),</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"マーケティング因子"</span>, <span class="at">ylab =</span> <span class="st">"製品因子"</span>,</span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"クラスター間距離1"</span></span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(Dataset<span class="sc">$</span>F1, Dataset<span class="sc">$</span>F2, <span class="at">labels =</span> Dataset<span class="sc">$</span>製品名, <span class="at">pos =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="fu">unique</span>(Dataset<span class="sc">$</span>Cluster)) {</span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>  cluster_data <span class="ot">&lt;-</span> Dataset[Dataset<span class="sc">$</span>Cluster <span class="sc">==</span> k, <span class="fu">c</span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>)]</span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(cluster_data) <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dataEllipse</span>(</span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>      cluster_data<span class="sc">$</span>F1,</span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>      cluster_data<span class="sc">$</span>F2,</span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> k, <span class="at">lty =</span> <span class="dv">2</span>,</span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fl">0.5</span>)</span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>dataEllipse()</code> はデータのばらつきをもとに楕円を描くため，2点しかないと警告が出て，直線が描かれる点に注意が必要である。</p>
+<p>図を横に並べて表示する設定を行ったため，次のコードを実行してデフォルトの設定に戻しておく。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 </section>
