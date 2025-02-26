@@ -883,7 +883,7 @@ Cumulative Proportion  0.6534587 0.8854914 0.95725260 0.99355452 1.000000000</co
 <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>p.&nbsp;153</p>
-<p>誤植というより，おそらく <code>Rcmdr</code> のバージョン違いにより，出力結果が異なっている可能性がある。図8，図9の通り実行しても，エラーになってしまう。以下の「手入力するコード」の部分を実行すると，本書の意図通りになるはずである（1行目のエラーは避けられない）。</p>
+<p>誤植というより，おそらく <code>Rcmdr</code> のバージョン違いにより，出力結果が異なっている可能性がある。図7.8，図7.9の通り実行しても，エラーになってしまう。以下の「手入力するコード」の部分を実行すると，本書の意図通りになるはずである（1行目のエラーは避けられない）。</p>
 </div>
 </div>
 </div>
@@ -1247,7 +1247,7 @@ $`Between Cluster Sum of Squares`
 </div>
 </div>
 </div>
-<p>細かい調整が必要な場合は，自分で調整可能である。 例えば，棒グラフの上に数値を表示したい場合は，次のようにする。</p>
+<p>細かい調整が必要な場合は，自分でカスタマイズ可能である。 例えば，棒グラフの上に数値を表示したい場合は，次のようにする。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>bar_positions <span class="ot">&lt;-</span> <span class="fu">barplot</span>(gender_counts, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(gender_counts) <span class="sc">*</span> <span class="fl">1.2</span>), <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>), <span class="at">alpha.f =</span> .<span class="dv">5</span>))</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(bar_positions, gender_counts, <span class="at">labels =</span> gender_counts, <span class="at">pos =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">1.2</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1259,7 +1259,7 @@ $`Between Cluster Sum of Squares`
 </div>
 </div>
 </div>
-<p>次のように，<code>ggplot2</code> パッケージを使うと，複雑な作図でも容易に実現できる。</p>
+<p><code>ggplot2</code> パッケージを使えば，複雑なグラフも簡単に作成できる。</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1267,7 +1267,7 @@ $`Between Cluster Sum of Squares`
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Dataset, <span class="fu">aes</span>(<span class="at">x =</span> 性別f, <span class="at">fill =</span> 性別f)) <span class="sc">+</span></span>
 <span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"count"</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(count)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"count"</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(count)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"人数"</span>) <span class="sc">+</span></span>
 <span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
