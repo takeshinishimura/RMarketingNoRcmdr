@@ -136,9 +136,7 @@ scatterplot(売上数量 ~ 価格, regLine = FALSE, smooth = FALSE, boxplots = F
 #| echo: true
 #| eval: false
 Dataset <- read.csv(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
-
 names(Dataset)[1] <- "売上数量"
-Dataset
 
 plot(売上数量 ~ 価格, las = 1, data = Dataset)
 ```
@@ -146,9 +144,7 @@ plot(売上数量 ~ 価格, las = 1, data = Dataset)
 #| echo: false
 #| message: false
 Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
-
 names(Dataset)[1] <- "売上数量"
-Dataset
 
 plot(売上数量 ~ 価格, las = 1, data = Dataset)
 ```
@@ -203,7 +199,7 @@ Confint(RegModel.1, level=0.95)
 Confint(RegModel_1, level = 0.95)
 ```
 
-`Confint()`は`car`パッケージの関数である。
+`Confint()` は `car` パッケージの関数である。
 
 
 ### 5 複数の説明変数を持つ市場反応分析：重回帰モデル
@@ -287,6 +283,26 @@ summary(RegModel_3)
 
 
 ## 第6章 市場の発見と知覚マップ
+
+### 4 知覚マップの作成
+
+::: {.callout-tip collapse="false" icon="false"}
+## 補足情報
+
+本文には，表6.1は「消費者の評価調査データである」とされている。
+しかし，同表は実際にはバイヤーに対する調査結果であり，詳細は以下のとおりである。
+
+【調査の方法】  
+日本経済新聞社の「小売業調査」の対象になっているスーパー162社に対し，2010年12月22日に調査票をファクスで送付，2011年1月31日までに回収した。
+回収数は92社，回収率は56.8%。
+調査の実施・分析は日経リサーチが担当した。  
+【表中の数字の見方】  
+せんべい類を扱うバイヤーに5点満点でメーカーとブランドの総合評価をつけてもらい，その合計得点からランキングを作成した。
+採点項目の数字は，メーカーまたはブランドを評価できると回答したバイヤーの割合（%）を表す。  
+<div style="text-align: right;">
+**（出所：『日経MJ（流通新聞）』2011年2月13日，p. 2）**
+</div>
+:::
 
 ### 5 Rコマンダーでの手順
 
@@ -402,8 +418,6 @@ local({
 ##### ▶ 一般的なRコード
 
 ```{r}
-#| echo: true
-#| eval: true
 PC <- princomp( ~ キャンペーンイベント + パッケージデザイン + 広告宣伝 + 素材栄養素 + 味, cor = TRUE, data = Dataset)
 
 result <- list(
@@ -418,7 +432,38 @@ screeplot(PC)
 screeplot(PC, type = "lines")
 ```
 
-スクリープロットは折れ線グラフの方が一般的である。
+スクリープロットを描く際，`screeplot(PC)` の引数として `type = "lines"` を指定すると折れ線グラフになり，こちらが一般的に用いられる。
+
+また，主成分分析を使わずに相関行列の固有値を計算し，スクリープロットを描く方法もある。
+因子分析の際にはこの方法が使われることがある。
+
+```{r}
+cor_matrix <- cor(Dataset[, c("キャンペーンイベント", "パッケージデザイン", "広告宣伝", "素材栄養素", "味")])
+ev <- eigen(cor_matrix)$values
+
+plot(ev, type = "b", main = "スクリープロット", xlab = "因子数", ylab = "固有値", pch = 19)
+abline(h = 1, col = "red", lty = 2)
+```
+
+さらに，`psych` パッケージには簡単にスクリープロットを描く関数が用意されている。
+
+```{r}
+#| eval: false
+library(psych)
+
+fa.parallel(cor_matrix, n.obs = nrow(Dataset), fa = "fa")
+```
+```{r}
+#| echo: false
+#| message: false
+library(psych)
+```
+```{r}
+#| echo: false
+fa.parallel(cor_matrix, n.obs = nrow(Dataset), fa = "fa")
+```
+
+`fa.parallel()` は，単なる固有値のプロットではなく，実データの固有値とランダムデータから計算された固有値を比較するものである。
 
 ### 7 サブマーケットと市場構造
 
@@ -473,15 +518,14 @@ plot(
 
 ```{r}
 #| warning: false
-clusters <- cutree(HClust_1, h = 3)
-Dataset$Cluster <- as.factor(clusters)
+Dataset$Cluster <- as.factor(cutree(HClust_1, h = 3))
 
 par(mfrow = c(1, 2))
 
 plot(
   Dataset$F1, Dataset$F2,
   col = as.numeric(Dataset$Cluster),
-  pch = 19,
+  pch = 16,
   xlab = "マーケティング因子", ylab = "製品因子",
   main = "クラスター間距離3"
 )
@@ -496,13 +540,12 @@ for (k in unique(Dataset$Cluster)) {
     levels = 0.5)
 }
 
-clusters <- cutree(HClust_1, h = 1)
-Dataset$Cluster <- as.factor(clusters)
+Dataset$Cluster <- as.factor(cutree(HClust_1, h = 1))
 
 plot(
   Dataset$F1, Dataset$F2,
   col = as.numeric(Dataset$Cluster),
-  pch = 19,
+  pch = 16,
   xlab = "マーケティング因子", ylab = "製品因子",
   main = "クラスター間距離1"
 )
@@ -528,4 +571,249 @@ for (k in unique(Dataset$Cluster)) {
 
 ```{r}
 par(mfrow = c(1, 1))
+```
+
+
+## 第7章 市場セグメンテーション
+
+### 5 Rコマンダーによる市場セグメンテーション
+
+#### 5.2 因子分析
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 153
+
+誤植というより，おそらく `Rcmdr` のバージョン違いにより，出力結果が異なっている可能性がある。図8，図9の通り実行しても，エラーになってしまう。以下の「手入力するコード」の部分を実行すると，本書の意図通りになるはずである（1行目のエラーは避けられない）。
+:::
+
+##### ▶ Rコマンダーによって生成されたコード（p. 149）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, 
+  sep=",", na.strings="NA", dec=".", strip.white=TRUE)
+local({
+  .FA <- factanal(~q1+q2+q3+q4+q5+q6+q7+q8+q9+q10+q11+q12+q13+q14+q15+q16+q17+q18+q19+q20+q21+q22+q23+q24+q25+q26+q27, factors=4, 
+  rotation="varimax", scores="regression", data=Dataset)
+  print(.FA)
+  Dataset <<- within(Dataset, {
+    F4 <- .FA$scores[,4]
+    F3 <- .FA$scores[,3]
+    F2 <- .FA$scores[,2]
+    F1 <- .FA$scores[,1]
+  })
+})
+```
+
+##### ▶ 手入力するコード
+
+```{r}
+#| eval: false
+remove(.FA)
+.FA <- factanal(~q1+q2+q3+q4+q5+q6+q7+q8+q9+q10+q11+q12+q13+q14+q15+q16+q17+q18+q19+q20+q21+q22+q23+q24+q25+q26+q27, factors=4, rotation="varimax", scores="regression", data=Dataset)
+.FA
+Dataset$FA1 <- .FA$scores[,1]
+Dataset$FA2 <- .FA$scores[,2]
+Dataset$FA3 <- .FA$scores[,3]
+Dataset$FA4 <- .FA$scores[,4]
+print(.FA,cutoff=0,sort=TRUE)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.csv(file.choose(), header = TRUE)
+
+FA <- factanal(
+  ~ q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21 + q22 + q23 + q24 + q25 + q26 + q27,
+  factors = 4,
+  rotation = "varimax",
+  scores = "regression",
+  data = Dataset
+)
+print(FA)
+```
+```{r}
+#| echo: false
+#| message: false
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/7/seg.txt", header = TRUE)
+
+FA <- factanal(
+  ~ q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21 + q22 + q23 + q24 + q25 + q26 + q27,
+  factors = 4,
+  rotation = "varimax",
+  scores = "regression",
+  data = Dataset
+)
+print(FA)
+```
+```{r}
+Dataset$F1 <- FA$scores[, 1]
+Dataset$F2 <- FA$scores[, 2]
+Dataset$F3 <- FA$scores[, 3]
+Dataset$F4 <- FA$scores[, 4]
+
+print(FA, cutoff = 0, sort = TRUE)
+```
+
+#### 5.3 クラスター分析
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 153
+
+- （誤）入力としてF1〜F4（【変数（1つ以上選択）】）を指定し，クラスター数は4つとした。
+- （正）入力としてF1〜F4（【変数（1つ以上選択）】）を指定し，クラスター数は4つとした。さらに，【オプション】タブでは「データセットにクラスタを割り当てる」にチェックを入れる。最後に，OKをクリックする。
+:::
+
+##### ▶ Rコマンダーによって生成されたコード（p. 153）
+
+```{r}
+#| eval: false
+.cluster <-  KMeans(model.matrix(~-1 + F1 + F2 + F3 + F4, Dataset), centers = 4, iter.max = 10, num.seeds = 10)
+.cluster$size # Cluster Sizes
+.cluster$centers # Cluster Centroids
+.cluster$withinss # Within Cluster Sum of Squares
+.cluster$tot.withinss # Total Within Sum of Squares
+.cluster$betweenss # Between Cluster Sum of Squares
+biplot(princomp(model.matrix(~-1 + F1 + F2 + F3 + F4, Dataset)), xlabs = as.character(.cluster$cluster))
+Dataset$KMeans <- assignCluster(model.matrix(~-1 + F1 + F2 + F3 + F4, Dataset), Dataset, .cluster$cluster)
+remove(.cluster)
+local({
+  .Table <- with(Dataset, table(KMeans))
+  cat("\ncounts:\n")
+  print(.Table)
+  cat("\npercentages:\n")
+  print(round(100*.Table/sum(.Table), 2))
+})
+library(abind, pos=16)
+library(e1071, pos=17)
+numSummary(Dataset[,c("F1", "F2", "F3", "F4"), drop=FALSE], groups=Dataset$KMeans, statistics=c("mean"), quantiles=c(0,.25,.5,.75,1))
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: true
+set.seed(10)
+
+cluster <- kmeans(Dataset[, c("F1", "F2", "F3", "F4")], centers = 4, iter.max = 10, nstart = 10)
+
+result <- list(
+  "Cluster Sizes" = cluster$size,
+  "Cluster Centroids" = cluster$centers,
+  "Within Cluster Sum of Squares" = cluster$withinss,
+  "Total Within Sum of Squares" = cluster$tot.withinss,
+  "Between Cluster Sum of Squares" = cluster$betweenss
+)
+
+print(result)
+```
+
+主成分分析のバイプロットを描画し，データポイントを _K-means_ 法によるクラスター分析の結果に基づいてラベル付けする。
+
+```{r}
+biplot(princomp(Dataset[, c("F1", "F2", "F3", "F4")]), xlabs = as.character(cluster$cluster))
+```
+
+_K-means_ 法によるクラスター分析の結果を確認する。
+
+```{r}
+Dataset$KMeans <- cluster$cluster
+
+table(Dataset$KMeans)
+round(prop.table(table(Dataset$KMeans)) * 100, 2)
+split_data <- split(Dataset[, c("F1", "F2", "F3", "F4")], Dataset$KMeans)
+result <- data.frame(セグメント = names(split_data),
+                     t(sapply(split_data, colMeans)),
+                     サンプルサイズ = sapply(split_data, nrow))
+print(result)
+```
+
+`print(result)` の出力結果の行の並び順が表7.9と異なっていても問題ない。
+
+#### 5.4 セグメントのプロファイリング
+
+表7.10〜表7.13もRを使って作成できる。
+
+```{r}
+split_data <- split(Dataset, Dataset$KMeans)
+
+gender <- round(prop.table(sapply(split_data, function(df) table(df$性別)), margin = 2) * 100, 1)
+gender_table <- data.frame(セグメント = names(split_data), t(gender))
+names(gender_table)[-1] <- c("男性", "女性")
+gender_table
+
+data.frame(セグメント = names(split_data),
+           平均年齢 = sapply(split_data, function(df) round(mean(df$年齢), 1)))
+
+data.frame(セグメント = names(split_data),
+           投資経験年数 = sapply(split_data, function(df) round(mean(df$投資経験年数), 1)))
+
+transaction <- round(prop.table(sapply(split_data, function(df) table(df$取引形態)), margin = 2) * 100, 1)
+transaction_table <- data.frame(セグメント = names(split_data), t(transaction))
+names(transaction_table)[-1] <- c("対面取引", "インターネット取引", "対面とインターネットの併用")
+transaction_table
+```
+
+さらに，図7.4もRを使って作成できる。
+
+```{r}
+gender_counts <- table(Dataset$性別)
+names(gender_counts) <- c("男性", "女性") 
+barplot(gender_counts)
+
+Dataset$年齢区分 <- cut(Dataset$年齢, 
+                       breaks = seq(20, max(Dataset$年齢) + 5, by = 5), 
+                       right = FALSE)
+barplot(table(Dataset$年齢区分), 
+        col = "skyblue",
+        las = 2)
+```
+
+細かい調整が必要な場合は，自分で調整可能である。
+例えば，棒グラフの上に数値を表示したい場合は，次のようにする。
+
+```{r}
+bar_positions <- barplot(gender_counts, ylim = c(0, max(gender_counts) * 1.2), col = adjustcolor(c("blue", "red"), alpha.f = .5))
+text(bar_positions, gender_counts, labels = gender_counts, pos = 3, cex = 1.2, col = "black")
+```
+
+次のように，`ggplot2` パッケージを使うと，複雑な作図でも容易に実現できる。
+
+```{r}
+#| echo: true
+#| eval: false
+library(ggplot2)
+
+Dataset$性別f <- factor(Dataset$性別, levels = c(1, 2), labels = c("男性", "女性"))
+
+ggplot(Dataset, aes(x = 性別f, fill = 性別f)) +
+  geom_bar() +
+  geom_text(stat = "count", aes(label = after_stat(count)), vjust = -0.5, size = 1) +
+  labs(x = "性別", y = "人数") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+```{r}
+#| message: false
+#| echo: false
+#| eval: true
+library(ggplot2)
+
+Dataset$性別f <- factor(Dataset$性別, levels = c(1, 2), labels = c("男性", "女性"))
+
+ggplot(Dataset, aes(x = 性別f, fill = 性別f)) +
+  geom_bar() +
+  geom_text(stat = "count", aes(label = after_stat(count)), vjust = -0.5, size = 3) +
+  labs(x = "性別", y = "人数") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  theme(text = element_text(family = "HiraKakuProN-W3"))
 ```
