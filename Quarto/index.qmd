@@ -4,7 +4,7 @@ title-block-banner: true
 format:
   html:
     toc: true
-    toc-title: TOC
+    toc-title: 目次
     toc_float: true
     toc-depth: 4
     number-sections: false
@@ -20,7 +20,7 @@ lang: ja
 そこで，本サイトでは，Rコマンダーによって生成されたコードと，それと同じ処理をRに習熟したユーザーが記述する場合のコードを並べて示し，理解を助ける構成としている。
 
 また，本書にはいくつか誤植があり，本書の指示通りに操作を進めると，Rコマンダーの利用において行き詰まる箇所がある。
-そのような部分については適宜修正しながら進めることを推奨する。
+そのような部分については適宜修正しながら読み進めることを推奨する。
 
 
 ## 第3章 サンプリング
@@ -389,7 +389,11 @@ text(Dataset$F1, Dataset$F2, labels = Dataset$製品名, pos = 4, cex = 1)
 
 なお，クリップボードからデータを読むコードはOSによって異なる。
 上に示したコードはWindowsの場合であり，macOSの場合，`Dataset <- read.csv(pipe("pbpaste"), header = TRUE, sep = "\t")` とする。
-また，タブを表す記号 `¥t` はWindowsの場合であり，macOSでは `\t` とする。
+タブを表す記号 `¥t` はWindowsの場合であり，macOSでは `\t` である。
+
+また，Rコマンダーでは因子分析の結果を `.FA` に代入している。
+`.` で始まる変数名はユーザーから隠す意図があり，この場面では意図通りに変数名を用いている（ただし，`local()` を使っているため，`.` で始まる必要はないのではあるが…）。
+ここでは，ユーザーから隠す必然性はないため，`.FA` の代わりに `FA` という変数名を一般的なRコードで用いた。
 
 さらに，本文の指示通りだと，図6.6の知覚マップには製品名ではなく，データフレーム `Dataset` の行番号が表示されることになる。
 知覚マップ上に製品名を表示するには，`rownames(Dataset) <- Dataset$製品名` を追加するか，あるいは，`read.csv()` の引数に `row.names = 1` を指定する必要がある，
@@ -730,6 +734,7 @@ Dataset$KMeans <- cluster$cluster
 table(Dataset$KMeans)
 round(prop.table(table(Dataset$KMeans)) * 100, 2)
 split_data <- split(Dataset[, c("F1", "F2", "F3", "F4")], Dataset$KMeans)
+
 result <- data.frame(セグメント = names(split_data),
                      t(sapply(split_data, colMeans)),
                      サンプルサイズ = sapply(split_data, nrow))
@@ -748,6 +753,7 @@ split_data <- split(Dataset, Dataset$KMeans)
 gender <- round(prop.table(sapply(split_data, function(df) table(df$性別)), margin = 2) * 100, 1)
 gender_table <- data.frame(セグメント = names(split_data), t(gender))
 names(gender_table)[-1] <- c("男性", "女性")
+
 gender_table
 
 data.frame(セグメント = names(split_data),
@@ -759,6 +765,7 @@ data.frame(セグメント = names(split_data),
 transaction <- round(prop.table(sapply(split_data, function(df) table(df$取引形態)), margin = 2) * 100, 1)
 transaction_table <- data.frame(セグメント = names(split_data), t(transaction))
 names(transaction_table)[-1] <- c("対面取引", "インターネット取引", "対面とインターネットの併用")
+
 transaction_table
 ```
 
@@ -767,14 +774,14 @@ transaction_table
 ```{r}
 gender_counts <- table(Dataset$性別)
 names(gender_counts) <- c("男性", "女性") 
+
 barplot(gender_counts)
 
 Dataset$年齢区分 <- cut(Dataset$年齢, 
                        breaks = seq(20, max(Dataset$年齢) + 5, by = 5), 
                        right = FALSE)
-barplot(table(Dataset$年齢区分), 
-        col = "skyblue",
-        las = 2)
+
+barplot(table(Dataset$年齢区分), col = "skyblue", las = 2)
 ```
 
 細かい調整が必要な場合は，自分でカスタマイズ可能である。
@@ -796,9 +803,9 @@ Dataset$性別f <- factor(Dataset$性別, levels = c(1, 2), labels = c("男性",
 
 ggplot(Dataset, aes(x = 性別f, fill = 性別f)) +
   geom_bar() +
-  geom_text(stat = "count", aes(label = after_stat(count)), vjust = -0.5, size = 3) +
+  geom_text(stat = "count", aes(label = after_stat(count)), vjust = 1.5, color = "white", size = 6) +
   labs(x = "性別", y = "人数") +
-  theme_bw() +
+  theme_gray(base_size = 16) +
   theme(legend.position = "none")
 ```
 ```{r}
@@ -811,9 +818,116 @@ Dataset$性別f <- factor(Dataset$性別, levels = c(1, 2), labels = c("男性",
 
 ggplot(Dataset, aes(x = 性別f, fill = 性別f)) +
   geom_bar() +
-  geom_text(stat = "count", aes(label = after_stat(count)), vjust = -0.5, size = 3) +
+  geom_text(stat = "count", aes(label = after_stat(count)), vjust = 1.5, color = "white", size = 6) +
   labs(x = "性別", y = "人数") +
-  theme_bw() +
-  theme(legend.position = "none") +
-  theme(text = element_text(family = "HiraKakuProN-W3"))
+  theme_gray(base_size = 16) +
+  theme(
+    legend.position = "none",
+    text = element_text(family = "HiraKakuProN-W3")
+  )
 ```
+
+
+## 第8章 製品開発
+
+### 4 コンジョイント分析
+
+#### 4.2 個人分析：Rコマンダーによる分析
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 173
+
+- （誤）日本語処理の関係で先頭に `X` が付いている
+- （正）デフォルトでは，数字で始まる列名の先頭に `X` が付く
+:::
+
+##### ▶ Rコマンダーによって生成されたコード（p. 172）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+RegModel.1 <- lm(全体効用~X2年+X4時間+X6時間+シルバー+赤, data=Dataset)
+summary(RegModel.1)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.table(file.choose(), header = TRUE, sep = "")
+
+RegModel_1 <- lm(全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 赤, data = Dataset)
+summary(RegModel_1)
+```
+```{r}
+#| echo: false
+#| message: false
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "")
+
+RegModel_1 <- lm(全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 赤, data = Dataset)
+summary(RegModel_1)
+```
+
+`conjoint1.txt` はタブ区切りテキストのように見えるが，Rコマンダーで「フィールドの区切り記号」を「タブ」にするとエラーが出て読み込めない。
+「空白」にすると読み込める。
+よく見ると，`conjoint1.txt` のヘッダーのみスペース区切りになっている。
+このようなデータは珍しい。
+
+なお，数字で始まる列名の先頭に `X` を付けたくない場合は，`read.table()` の引数に `check.names = FALSE` を指定すればよい。
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.table(file.choose(), header = TRUE, sep = "", check.names = FALSE)
+Dataset
+```
+```{r}
+#| echo: false
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "", check.names = FALSE)
+Dataset
+```
+
+ただし，`lm()` を実行するときには，列名をバッククオート ``` ` ``` で括る必要がある。
+
+```{r}
+RegModel_1 <- lm(全体効用 ~ `2年` + `4時間` + `6時間` + シルバー + 赤, data = Dataset)
+summary(RegModel_1)
+```
+
+実際に自分でデータを扱う際には，こうしたことを考慮しながら，列名をどうするかを決める必要がある。
+
+### 5 直交表利用によるコンジョイント分析
+
+#### 5.3 集計分析：Rコマンダーによる分析
+
+##### ▶ Rコマンダーによって生成されたコード（p. 179）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+RegModel.2 <- lm(全体効用~X2年+X4時間+X6時間+シルバー+赤, data=Dataset)
+summary(RegModel.2)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.table(file.choose(), header = TRUE, sep = "")
+
+RegModel_2 <- lm(全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 赤, data = Dataset)
+summary(RegModel_2)
+```
+```{r}
+#| echo: false
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint2.txt", header = TRUE, sep = "")
+
+RegModel_2 <- lm(全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 赤, data = Dataset)
+summary(RegModel_2)
+```
+
+`conjoint2.txt` も `conjoint1.txt` と同様に変わったルール（ヘッダーのみスペース区切りで，他はタブ区切り）でデータが記述されている。

@@ -1,0 +1,952 @@
+update.packages(ask = FALSE)
+read.csv(pipe("pbpaste"), sep = "\t", header = TRUE)
+?factanal
+Dataset <- read.csv(pipe("pbpaste"), sep = "\t", header = TRUE)
+Dataset
+Dataset <- read.csv(pipe("pbpaste"), sep = "\t", header = TRUE)
+Dataset
+FA <- factanal(~ キャンペーンイベント + パッケージデザイン + 広告宣伝 + 素材栄養素 + 味, factors = 2, rotation = "varimax", scores = "regression", data = Dataset)
+FA
+summary(FA)
+Dataset$F1 <- FA$scores[,1]#
+Dataset$F2 <- FA$scores[,2]
+Dataset
+library(car)
+scatterplot(F2 ~ F1, regLine = FALSE, smooth = FALSE, id = list(method = 'identify'), boxplots = FALSE, xlab = "マーケティング因子", ylab = "製品因子", data = Dataset)
+?scatterplot
+FA$scores
+scatterplot(#
+  F2 ~ F1,#
+  regLine = FALSE,#
+  smooth = FALSE,#
+  id = list(method = 'identify'),#
+  boxplots = FALSE,#
+  xlab = "マーケティング因子",#
+  ylab = "製品因子",#
+  data = Dataset#
+)
+Dataset
+text(Dataset$F1, Dataset$F2, labels = Dataset$製品名, pos = 4, cex = 0.8)
+Dataset <- read.csv("clipboard", header = TRUE, sep = "¥t", rownames = 1)
+Dataset <- read.csv("clipboard", header = TRUE, sep = "\t", rownames = 1)
+Dataset <- read.csv("clipboard", header = TRUE, sep = "\t", row.names = 1)
+Dataset
+Dataset <- read.csv("clipboard", header = TRUE, sep = "\t", row.names = 1)
+Dataset <- read.csv("clipboard", header = TRUE, sep = "\t")
+Dataset
+FA
+str(FA)
+?fa.parallel
+library(psych)
+?fa.parallel
+?library
+?fa.parallel
+?cor
+?fa.parallel
+?hclust
+library(dplyr)
+?parse_number
+library(readr)
+?parse_number
+?recode
+?case_when
+?geom_col
+library(ggplot2)
+?geom_col
+library(estatapi)#
+library(dplyr)#
+library(DT)#
+library(ggplot2)#
+library(scales)#
+library(gghighlight)#
+library(ggthemes)#
+library(ggsci)#
+library(viridis)#
+library(paletteer)#
+library(gt)#
+library(maps)#
+library(tidyplots)#
+#
+outdir <- "../data"#
+figdir <- "../fig"#
+dir.create(outdir, showWarnings = FALSE)#
+dir.create(figdir, showWarnings = FALSE)#
+#
+appId <- keyring::key_get("e-stat")
+get_stats_data <- function(statsDataId, cdCat01) {#
+  estat_getStatsData(#
+    appId = appId,#
+    statsDataId = statsDataId,#
+    cdCat01 = cdCat01#
+  )#
+}#
+#
+df_list <- list(#
+  get_stats_data("0003258346", "081090010"), # 1988-1990#
+  get_stats_data("0003258347", "081090010"), # 1991-1995#
+  get_stats_data("0003258348", "081050000"), # 1996-2000#
+  get_stats_data("0003228183", "081050000"), # 2001-2005#
+  get_stats_data("0003228184", "081050000"), # 2006-2010#
+  get_stats_data("0003228185", "081050000"), # 2011-2015#
+  get_stats_data("0003313966", "081050000"), # 2016-2020#
+  get_stats_data("0003425294", "081050000")  # 2021-2024#
+)#
+#
+df <- do.call(rbind, df_list)
+df
+all <- df
+country_map <- tibble::tibble(#
+  original = c("アメリカ合衆国", "ニュージーランド", "チリ", "大韓民国", #
+               "中華人民共和国", "イラン", "カナダ", "ジョージア"),#
+  english = c("United States", "New Zealand", "Chile", "South Korea", #
+              "China", "Iran", "Canada", "Georgia"),#
+  latitude = c(37.1, -40.9, -35.7, 37.5, 35.9, 32.4, 56.1, 42.3) # 代表的な緯度#
+)#
+#
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000,#
+    country = case_when(#
+      国 %in% country_map$original ~ country_map$english[match(国, country_map$original)],#
+      TRUE ~ 国#
+    ),#
+    hemisphere = factor(#
+      case_when(#
+        country %in% country_map$english ~ ifelse(country_map$latitude[match(country, country_map$english)] > 0, "Northern Hemisphere", "Southern Hemisphere"),#
+        TRUE ~ NA_character_ # 緯度データがない場合はNA#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  )#
+#
+country_order <- df_clean_quantity |>#
+  summarise(total_value = sum(value, na.rm = TRUE), .by = country) |>#
+  arrange(total_value) |>#
+  pull(country)#
+#
+df_clean_quantity <- df_clean_quantity |>#
+  mutate(#
+    country = factor(country, levels = country_order)#
+  )
+df_clean_quantity
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = hemisphere)) +#
+  geom_col(position = "stack") +  # geom_bar(stat = "identity") ではなく geom_col() を使用#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y") +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = hemisphere)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y") +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+head(df_clean_quantity)
+head(data.frame(df_clean_quantity))
+country_map
+df_clean_quantity
+str(df_clean_quantity)
+df_clean_quantity$hemisphere
+table(df_clean_quantity$hemisphere)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000,#
+    country = case_when(#
+      国 %in% country_map$original ~ country_map$english[match(国, country_map$original)],#
+      TRUE ~ 国#
+    ),#
+    hemisphere = factor(#
+      case_when(#
+        country %in% country_map$english ~ ifelse(country_map$latitude[match(country, country_map$english)] > 0, "Northern Hemisphere", "Southern Hemisphere"),#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  )
+table(df_clean_quantity$hemisphere)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>  # 国名を英語に変換し、緯度を取得#
+  mutate(#
+    country = coalesce(english, 国),  # 英語名がある場合は置換、なければ元の国名#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-original, -english, -latitude)
+country_map <- tibble::tibble(#
+  original = c("アメリカ合衆国", "ニュージーランド", "チリ", "大韓民国", #
+               "中華人民共和国", "イラン", "カナダ", "ジョージア"),#
+  english = c("United States", "New Zealand", "Chile", "South Korea", #
+              "China", "Iran", "Canada", "Georgia"),#
+  latitude = c(37.1, -40.9, -35.7, 37.5, 35.9, 32.4, 56.1, 42.3) # 代表的な緯度#
+)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>  # 国名を英語に変換し、緯度を取得#
+  mutate(#
+    country = coalesce(english, 国),  # 英語名がある場合は置換、なければ元の国名#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-original, -english, -latitude)  # 不要な列を削除#
+    country = case_when(#
+      国 %in% country_map$original ~ country_map$english[match(国, country_map$original)],#
+      TRUE ~ 国#
+    ),#
+    hemisphere = factor(#
+      case_when(#
+        country %in% country_map$english ~ ifelse(country_map$latitude[match(country, country_map$english)] > 0, "Northern Hemisphere", "Southern Hemisphere"),#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  )
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000,#
+    country = case_when(#
+      国 %in% country_map$original ~ country_map$english[match(国, country_map$original)],#
+      TRUE ~ 国#
+    ),#
+    hemisphere = factor(#
+      case_when(#
+        country %in% country_map$english ~ ifelse(country_map$latitude[match(country, country_map$english)] > 0, "Northern Hemisphere", "Southern Hemisphere"),#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  )
+str(df_clean_quantity)
+country_order <- df_clean_quantity |>#
+  summarise(total_value = sum(value, na.rm = TRUE), .by = country) |>#
+  arrange(total_value) |>#
+  pull(country)#
+#
+df_clean_quantity <- df_clean_quantity |>#
+  mutate(#
+    country = factor(country, levels = country_order)#
+  )#
+#
+p <- ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_bar(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+p
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = hemisphere)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y") +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+str(df_clean_quantity)
+table(df_clean_quantity$hemisphere)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+    left_join(country_map, by = c("国" = "original")) |>  # 国名を英語に変換し、緯度を取得#
+  mutate(#
+    country = coalesce(english, 国),  # 英語名がある場合は置換、なければ元の国名#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-original, -english, -latitude)  # 不要な列を削除
+country_map
+str(df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ))
+df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>
+select()
+df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original"))
+df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),  # 英語名がある場合は置換、なければ元の国名#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  )
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-original, -english, -latitude)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-english, -latitude)
+df_clean_quantity
+country_order <- df_clean_quantity |>#
+  summarise(total_value = sum(value, na.rm = TRUE), .by = country) |>#
+  arrange(total_value) |>#
+  pull(country)#
+#
+df_clean_quantity <- df_clean_quantity |>#
+  mutate(#
+    country = factor(country, levels = country_order)#
+  )#
+#
+p <- ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_bar(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+p
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = hemisphere)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y") +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+df_clean_quantity
+str(df_clean_quantity)
+table(df_clean_quantity$hemisphere)
+country_map <- tibble::tibble(#
+  original = c("アメリカ合衆国", "ニュージーランド", "チリ", "大韓民国", #
+               "中華人民共和国", "イラン", "カナダ", "ジョージア"),#
+  english = c("United States", "New Zealand", "Chile", "South Korea", #
+              "China", "Iran", "Canada", "Georgia"),#
+  latitude = c(37.1, -40.9, -35.7, 37.5, 35.9, 32.4, 56.1, 42.3) # 代表的な緯度#
+)#
+#
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-english, -latitude)
+country_order <- df_clean_quantity |>#
+  summarise(total_value = sum(value, na.rm = TRUE), .by = country) |>#
+  arrange(total_value) |>#
+  pull(country)
+df_clean_quantity <- df_clean_quantity |>#
+  mutate(#
+    country = factor(country, levels = country_order)#
+  )
+df_clean_quantity
+str(df_clean_quantity)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-english, -latitude)
+str(df_clean_quantity)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  )
+str(df_clean_quantity)
+df_clean_quantity <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_数量2") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000,#
+    国 = sub("^\\d+_", "", 国)#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-english, -latitude)
+str(df_clean_quantity)
+country_order <- df_clean_quantity |>#
+  summarise(total_value = sum(value, na.rm = TRUE), .by = country) |>#
+  arrange(total_value) |>#
+  pull(country)#
+#
+df_clean_quantity <- df_clean_quantity |>#
+  mutate(#
+    country = factor(country, levels = country_order)#
+  )#
+#
+p <- ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_bar(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+p
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = hemisphere)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y") +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = hemisphere, group = hemisphere)) +#
+  geom_line(linewidth = 1) +  # 折れ線グラフ#
+  geom_point(size = 2) +  # データポイントを強調#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    color = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_color_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +  # 色の指定#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+df_clean_quantity
+data.frame(df_clean_quantity)
+country_order
+table(df$国)
+ggplot(df_clean_quantity, aes(x = year, color = hemisphere, group = country))) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y") +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+ggplot(df_clean_quantity, aes(x = year, color = hemisphere, group = country)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = label_comma())
+ggplot(df_clean_quantity, aes(x = year, color = hemisphere, group = country)) +#
+  geom_line(linewidth = 1)
+ggplot(df_clean_quantity, aes(x = year, color = country, group = country)) +#
+  geom_line(linewidth = 1)
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line(linewidth = 1)
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = hemisphere, group = country)) +#
+  geom_line(linewidth = 1)
+gplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line(linewidth = 1) +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y")
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line(linewidth = 1) +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y")
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line(linewidth = 1) +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y") +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line(linewidth = 1) +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_bar(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_bar(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  facet_wrap(~ country, scales = "free_y") +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_bar(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_paletteer_d("MoMAColors::Warhol") +#
+  facet_wrap(~ country, scales = "free_y") +  # 各国ごとにスケール調整#
+  theme(strip.background = element_rect(fill = "gray90"),#
+        strip.text = element_text(face = "bold"))
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_bar(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  facet_wrap(~ country, scales = "free_y") +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_col(stat = "identity") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  facet_wrap(~ country, scales = "free_y") +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  facet_wrap(~ country, scales = "free_y") +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  #facet_wrap(~ country, scales = "free_y") +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+ggplot(df_clean_quantity, aes(x = year, y = value, color = country)) +#
+  geom_line() +#
+  geom_point() +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Value by Year and Country",#
+    x = "Year",#
+    y = "Import Value (thousand JPY)",#
+    color = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+#  scale_color_paletteer_d("MoMAColors::Warhol") +#
+  gghighlight()
+ggplot(df_clean_quantity, aes(x = year, y = ton, fill = country)) +#
+  geom_col(position = "stack") +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Country",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  facet_wrap(~ country, scales = "free_y") +#
+  scale_fill_paletteer_d("MoMAColors::Warhol")
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line(linewidth = 1) +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  theme(#
+    strip.background = element_rect(fill = "gray90"),#
+    strip.text = element_text(face = "bold")#
+  )
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line() +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+  scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  theme(#
+    strip.background = element_rect(fill = "gray90"),#
+    strip.text = element_text(face = "bold")#
+  )
+df_clean_value <- df |>#
+  filter(`統計品目表の数量・金額` == "合計_金額") |>#
+  mutate(#
+    year = as.numeric(gsub("年", "", `時間軸(年次)`)),#
+    ton = value / 1000,#
+    国 = sub("^\\d+_", "", 国)#
+  ) |>#
+  left_join(country_map, by = c("国" = "original")) |>#
+  mutate(#
+    country = coalesce(english, 国),#
+    hemisphere = factor(#
+      case_when(#
+        !is.na(latitude) & latitude > 0 ~ "Northern Hemisphere",#
+        !is.na(latitude) & latitude < 0 ~ "Southern Hemisphere",#
+        TRUE ~ NA_character_#
+      ),#
+      levels = c("Northern Hemisphere", "Southern Hemisphere")#
+    )#
+  ) |>#
+  select(-english, -latitude)#
+#
+p <- ggplot(df_clean_value, aes(x = year, y = value, color = country)) +#
+  geom_line() +#
+  geom_point() +#
+  scale_y_continuous(labels = scales::label_comma()) +#
+  labs(#
+    title = "Import Value by Year and Country",#
+    x = "Year",#
+    y = "Import Value (thousand JPY)",#
+    color = "Country",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+#  scale_color_paletteer_d("MoMAColors::Warhol") +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  gghighlight()
+p
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line() +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+# scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  gghighlight()
+p
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line() +#
+  geom_point() +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+# scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  gghighlight()
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line() +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+# scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  gghighlight()
+ggplot(df_clean_quantity, aes(x = year, y = ton, color = country, group = country)) +#
+  geom_line() +#
+  geom_point() +#
+  scale_y_continuous(labels = label_comma()) +#
+  labs(#
+    title = "Import Volumes by Year and Hemisphere",#
+    x = "Year",#
+    y = "Import Volume (t)",#
+    fill = "Hemisphere",#
+    caption = "Source: Ministry of Finance 'Customs Statistics'"#
+  ) +#
+  theme_bw() +#
+# scale_fill_manual(values = c("Northern Hemisphere" = "#377EB8", "Southern Hemisphere" = "#E41A1C")) +#
+  facet_wrap(~ hemisphere, scales = "free_y", ncol = 1) +#
+  gghighlight()
+?lapply
+setwd("~/Documents/GitHub/RMarketingNoRcmdr/Quarto/")
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE)
+Dataset
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "\t")
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "\t", roanames = FALSE)
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "\t", rownames = FALSE)
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "\t", row.names = FALSE)
+Dataset
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "\t", row.names = FALSE)
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "")
+Dataset
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "")
+Dataset
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "", check.names = FALSE)
+Dataset
+?read.table
+RegModel_1 <- lm(全体効用 ~ 2年 + 4時間 + 6時間 + シルバー + 赤, data=Dataset)
+RegModel_1 <- lm(全体効用 ~ `2年` + `4時間` + `6時間` + シルバー + 赤, data=Dataset)
+RegModel_1
+summary(RegModel_1)
+RegModel_1 <- lm(全体効用 ~ "2年" + "4時間" + "6時間" + シルバー + 赤, data=Dataset)
+RegModel_1 <- lm(全体効用 ~ ., data=Dataset)
+RegModel_1
+summary(RegModel_1)

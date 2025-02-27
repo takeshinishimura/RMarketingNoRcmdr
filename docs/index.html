@@ -92,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
   <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">TOC</h2>
+    <h2 id="toc-title">目次</h2>
    
   <ul>
   <li><a href="#第3章-サンプリング" id="toc-第3章-サンプリング" class="nav-link active" data-scroll-target="#第3章-サンプリング">第3章 サンプリング</a>
@@ -141,6 +141,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#セグメントのプロファイリング" id="toc-セグメントのプロファイリング" class="nav-link" data-scroll-target="#セグメントのプロファイリング">5.4 セグメントのプロファイリング</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#第8章-製品開発" id="toc-第8章-製品開発" class="nav-link" data-scroll-target="#第8章-製品開発">第8章 製品開発</a>
+  <ul>
+  <li><a href="#コンジョイント分析" id="toc-コンジョイント分析" class="nav-link" data-scroll-target="#コンジョイント分析">4 コンジョイント分析</a>
+  <ul class="collapse">
+  <li><a href="#個人分析rコマンダーによる分析" id="toc-個人分析rコマンダーによる分析" class="nav-link" data-scroll-target="#個人分析rコマンダーによる分析">4.2 個人分析：Rコマンダーによる分析</a></li>
+  </ul></li>
+  <li><a href="#直交表利用によるコンジョイント分析" id="toc-直交表利用によるコンジョイント分析" class="nav-link" data-scroll-target="#直交表利用によるコンジョイント分析">5 直交表利用によるコンジョイント分析</a>
+  <ul class="collapse">
+  <li><a href="#集計分析rコマンダーによる分析" id="toc-集計分析rコマンダーによる分析" class="nav-link" data-scroll-target="#集計分析rコマンダーによる分析">5.3 集計分析：Rコマンダーによる分析</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -152,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p><a href="https://www.yuhikaku.co.jp/books/detail/9784641166080" target="_blank">照井伸彦・佐藤忠彦（2022）『現代マーケティング・リサーチ—市場を読み解くデータ分析 新版』有斐閣</a> は，Rを用いたマーケティング・リサーチの入門書として位置づけられる。</p>
 <p>本書の想定読者は，Rを初めて使用する学生であり，プログラミングに戸惑うことが予想されるため，Rコマンダーを利用して解説している。 しかし，Rに慣れた読者にとっては，Rコマンダーの処理がブラックボックス化されており，かえって分かりにくい。 そこで，本サイトでは，Rコマンダーによって生成されたコードと，それと同じ処理をRに習熟したユーザーが記述する場合のコードを並べて示し，理解を助ける構成としている。</p>
-<p>また，本書にはいくつか誤植があり，本書の指示通りに操作を進めると，Rコマンダーの利用において行き詰まる箇所がある。 そのような部分については適宜修正しながら進めることを推奨する。</p>
+<p>また，本書にはいくつか誤植があり，本書の指示通りに操作を進めると，Rコマンダーの利用において行き詰まる箇所がある。 そのような部分については適宜修正しながら読み進めることを推奨する。</p>
 <section id="第3章-サンプリング" class="level2">
 <h2 class="anchored" data-anchor-id="第3章-サンプリング">第3章 サンプリング</h2>
 <section id="単純無作為サンプリング" class="level3">
@@ -639,7 +650,8 @@ The p-value is 0.0415 </code></pre>
 </div>
 </div>
 <p>1つの関数が長い場合は，引数のカンマの後で改行した方が見やすいため，コードを書く際に改行を入れるのが一般的である。 このとき，改行した行の先頭にはスペースを2つ入れる。</p>
-<p>なお，クリップボードからデータを読むコードはOSによって異なる。 上に示したコードはWindowsの場合であり，macOSの場合，<code>Dataset &lt;- read.csv(pipe("pbpaste"), header = TRUE, sep = "\t")</code> とする。 また，タブを表す記号 <code>¥t</code> はWindowsの場合であり，macOSでは <code>\t</code> とする。</p>
+<p>なお，クリップボードからデータを読むコードはOSによって異なる。 上に示したコードはWindowsの場合であり，macOSの場合，<code>Dataset &lt;- read.csv(pipe("pbpaste"), header = TRUE, sep = "\t")</code> とする。 タブを表す記号 <code>¥t</code> はWindowsの場合であり，macOSでは <code>\t</code> である。</p>
+<p>また，Rコマンダーでは因子分析の結果を <code>.FA</code> に代入している。 <code>.</code> で始まる変数名はユーザーから隠す意図があり，この場面では意図通りに変数名を用いている（ただし，<code>local()</code> を使っているため，<code>.</code> で始まる必要はないのではあるが…）。 ここでは，ユーザーから隠す必然性はないため，<code>.FA</code> の代わりに <code>FA</code> という変数名を一般的なRコードで用いた。</p>
 <p>さらに，本文の指示通りだと，図6.6の知覚マップには製品名ではなく，データフレーム <code>Dataset</code> の行番号が表示されることになる。 知覚マップ上に製品名を表示するには，<code>rownames(Dataset) &lt;- Dataset$製品名</code> を追加するか，あるいは，<code>read.csv()</code> の引数に <code>row.names = 1</code> を指定する必要がある，</p>
 </section>
 </section>
@@ -1159,10 +1171,11 @@ $`Between Cluster Sum of Squares`
 15.55 16.36 41.62 26.48 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>split_data <span class="ot">&lt;-</span> <span class="fu">split</span>(Dataset[, <span class="fu">c</span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>, <span class="st">"F3"</span>, <span class="st">"F4"</span>)], Dataset<span class="sc">$</span>KMeans)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(セグメント <span class="ot">=</span> <span class="fu">names</span>(split_data),</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">t</span>(<span class="fu">sapply</span>(split_data, colMeans)),</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>                     サンプルサイズ <span class="ot">=</span> <span class="fu">sapply</span>(split_data, nrow))</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(セグメント <span class="ot">=</span> <span class="fu">names</span>(split_data),</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">t</span>(<span class="fu">sapply</span>(split_data, colMeans)),</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>                     サンプルサイズ <span class="ot">=</span> <span class="fu">sapply</span>(split_data, nrow))</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  セグメント         F1          F2         F3         F4 サンプルサイズ
 1          1 -0.5953486  0.21550094  0.2528594  1.4000022            192
@@ -1183,7 +1196,8 @@ $`Between Cluster Sum of Squares`
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">sapply</span>(split_data, <span class="cf">function</span>(df) <span class="fu">table</span>(df<span class="sc">$</span>性別)), <span class="at">margin =</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
 <span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>gender_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(セグメント <span class="ot">=</span> <span class="fu">names</span>(split_data), <span class="fu">t</span>(gender))</span>
 <span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gender_table)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>)</span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>gender_table</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>gender_table</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  セグメント 男性 女性
 1          1 60.4 39.6
@@ -1212,7 +1226,8 @@ $`Between Cluster Sum of Squares`
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>transaction <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">sapply</span>(split_data, <span class="cf">function</span>(df) <span class="fu">table</span>(df<span class="sc">$</span>取引形態)), <span class="at">margin =</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>transaction_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(セグメント <span class="ot">=</span> <span class="fu">names</span>(split_data), <span class="fu">t</span>(transaction))</span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(transaction_table)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"対面取引"</span>, <span class="st">"インターネット取引"</span>, <span class="st">"対面とインターネットの併用"</span>)</span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>transaction_table</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>transaction_table</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  セグメント 対面取引 インターネット取引 対面とインターネットの併用
 1          1     20.3               64.1                       15.6
@@ -1225,7 +1240,8 @@ $`Between Cluster Sum of Squares`
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>gender_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(Dataset<span class="sc">$</span>性別)</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gender_counts) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"男性"</span>, <span class="st">"女性"</span>) </span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(gender_counts)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(gender_counts)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1236,9 +1252,8 @@ $`Between Cluster Sum of Squares`
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>年齢区分 <span class="ot">&lt;-</span> <span class="fu">cut</span>(Dataset<span class="sc">$</span>年齢, </span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="fu">max</span>(Dataset<span class="sc">$</span>年齢) <span class="sc">+</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="dv">5</span>), </span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">right =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(Dataset<span class="sc">$</span>年齢区分), </span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"skyblue"</span>,</span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">2</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(Dataset<span class="sc">$</span>年齢区分), <span class="at">col =</span> <span class="st">"skyblue"</span>, <span class="at">las =</span> <span class="dv">2</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1267,9 +1282,9 @@ $`Between Cluster Sum of Squares`
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Dataset, <span class="fu">aes</span>(<span class="at">x =</span> 性別f, <span class="at">fill =</span> 性別f)) <span class="sc">+</span></span>
 <span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"count"</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(count)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"count"</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(count)), <span class="at">vjust =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
 <span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"性別"</span>, <span class="at">y =</span> <span class="st">"人数"</span>) <span class="sc">+</span></span>
-<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
 <span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -1281,6 +1296,190 @@ $`Between Cluster Sum of Squares`
 </div>
 </div>
 </div>
+</section>
+</section>
+</section>
+<section id="第8章-製品開発" class="level2">
+<h2 class="anchored" data-anchor-id="第8章-製品開発">第8章 製品開発</h2>
+<section id="コンジョイント分析" class="level3">
+<h3 class="anchored" data-anchor-id="コンジョイント分析">4 コンジョイント分析</h3>
+<section id="個人分析rコマンダーによる分析" class="level4">
+<h4 class="anchored" data-anchor-id="個人分析rコマンダーによる分析">4.2 個人分析：Rコマンダーによる分析</h4>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+誤植
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>p.&nbsp;173</p>
+<ul>
+<li>（誤）日本語処理の関係で先頭に <code>X</code> が付いている</li>
+<li>（正）デフォルトでは，数字で始まる列名の先頭に <code>X</code> が付く</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="rコマンダーによって生成されたコードp.-172" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-172">▶ Rコマンダーによって生成されたコード（p.&nbsp;172）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">""</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>RegModel<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(全体効用<span class="sc">~</span>X2年<span class="sc">+</span>X4時間<span class="sc">+</span>X6時間<span class="sc">+</span>シルバー<span class="sc">+</span>赤, <span class="at">data=</span>Dataset)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel<span class="fl">.1</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-12" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-12">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>RegModel_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(全体効用 <span class="sc">~</span> X2年 <span class="sc">+</span> X4時間 <span class="sc">+</span> X6時間 <span class="sc">+</span> シルバー <span class="sc">+</span> 赤, <span class="at">data =</span> Dataset)</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = 全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 
+    赤, data = Dataset)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0556 -0.8889  0.4167  1.0278  2.4444 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -0.5556     1.0199  -0.545  0.59591    
+X2年          6.7778     0.8327   8.139 3.15e-06 ***
+X4時間        2.5000     1.0199   2.451  0.03052 *  
+X6時間        3.5000     1.0199   3.432  0.00497 ** 
+シルバー      6.3333     1.0199   6.210 4.52e-05 ***
+赤            7.6667     1.0199   7.517 7.07e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.766 on 12 degrees of freedom
+Multiple R-squared:  0.9227,    Adjusted R-squared:  0.8905 
+F-statistic: 28.65 on 5 and 12 DF,  p-value: 2.819e-06</code></pre>
+</div>
+</div>
+<p><code>conjoint1.txt</code> はタブ区切りテキストのように見えるが，Rコマンダーで「フィールドの区切り記号」を「タブ」にするとエラーが出て読み込めない。 「空白」にすると読み込める。 よく見ると，<code>conjoint1.txt</code> のヘッダーのみスペース区切りになっている。 このようなデータは珍しい。</p>
+<p>なお，数字で始まる列名の先頭に <code>X</code> を付けたくない場合は，<code>read.table()</code> の引数に <code>check.names = FALSE</code> を指定すればよい。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>Dataset</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   カードNo. 6時間 4時間 2年 赤 シルバー 選好順位 全体効用
+1          1     1     0   0  1        0        7       12
+2          2     1     0   0  0        1        9       10
+3          3     1     0   0  0        0       17        2
+4          4     1     0   1  1        0        1       18
+5          5     1     0   1  0        1        6       13
+6          6     1     0   1  0        0        8       11
+7          7     0     1   0  1        0       10        9
+8          8     0     1   0  0        1       12        7
+9          9     0     1   0  0        0       16        3
+10        10     0     1   1  1        0        2       17
+11        11     0     1   1  0        1        3       16
+12        12     0     1   1  0        0       11        8
+13        13     0     0   0  1        0       14        5
+14        14     0     0   0  0        1       13        6
+15        15     0     0   0  0        0       18        1
+16        16     0     0   1  1        0        5       14
+17        17     0     0   1  0        1        4       15
+18        18     0     0   1  0        0       15        4</code></pre>
+</div>
+</div>
+<p>ただし，<code>lm()</code> を実行するときには，列名をバッククオート <code>`</code> で括る必要がある。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>RegModel_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(全体効用 <span class="sc">~</span> <span class="st">`</span><span class="at">2年</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">4時間</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">6時間</span><span class="st">`</span> <span class="sc">+</span> シルバー <span class="sc">+</span> 赤, <span class="at">data =</span> Dataset)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = 全体効用 ~ `2年` + `4時間` + `6時間` + 
+    シルバー + 赤, data = Dataset)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0556 -0.8889  0.4167  1.0278  2.4444 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -0.5556     1.0199  -0.545  0.59591    
+`2年`         6.7778     0.8327   8.139 3.15e-06 ***
+`4時間`       2.5000     1.0199   2.451  0.03052 *  
+`6時間`       3.5000     1.0199   3.432  0.00497 ** 
+シルバー      6.3333     1.0199   6.210 4.52e-05 ***
+赤            7.6667     1.0199   7.517 7.07e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.766 on 12 degrees of freedom
+Multiple R-squared:  0.9227,    Adjusted R-squared:  0.8905 
+F-statistic: 28.65 on 5 and 12 DF,  p-value: 2.819e-06</code></pre>
+</div>
+</div>
+<p>実際に自分でデータを扱う際には，こうしたことを考慮しながら，列名をどうするかを決める必要がある。</p>
+</section>
+</section>
+</section>
+<section id="直交表利用によるコンジョイント分析" class="level3">
+<h3 class="anchored" data-anchor-id="直交表利用によるコンジョイント分析">5 直交表利用によるコンジョイント分析</h3>
+<section id="集計分析rコマンダーによる分析" class="level4">
+<h4 class="anchored" data-anchor-id="集計分析rコマンダーによる分析">5.3 集計分析：Rコマンダーによる分析</h4>
+<section id="rコマンダーによって生成されたコードp.-179" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-179">▶ Rコマンダーによって生成されたコード（p.&nbsp;179）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">""</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>RegModel<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(全体効用<span class="sc">~</span>X2年<span class="sc">+</span>X4時間<span class="sc">+</span>X6時間<span class="sc">+</span>シルバー<span class="sc">+</span>赤, <span class="at">data=</span>Dataset)</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel<span class="fl">.2</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-13" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-13">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>RegModel_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(全体効用 <span class="sc">~</span> X2年 <span class="sc">+</span> X4時間 <span class="sc">+</span> X6時間 <span class="sc">+</span> シルバー <span class="sc">+</span> 赤, <span class="at">data =</span> Dataset)</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_2)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = 全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 
+    赤, data = Dataset)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.7667 -0.6875 -0.1500  0.5833  2.7000 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   0.1667     0.3193   0.522 0.603020    
+X2年          2.2500     0.2560   8.790 1.57e-13 ***
+X4時間        1.1333     0.2956   3.834 0.000243 ***
+X6時間        0.3667     0.2956   1.240 0.218245    
+シルバー      3.9000     0.2956  13.194  &lt; 2e-16 ***
+赤            4.6000     0.2956  15.563  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.145 on 84 degrees of freedom
+Multiple R-squared:  0.8165,    Adjusted R-squared:  0.8056 
+F-statistic: 74.77 on 5 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><code>conjoint2.txt</code> も <code>conjoint1.txt</code> と同様に変わったルール（ヘッダーのみスペース区切りで，他はタブ区切り）でデータが記述されている。</p>
+</section>
 </section>
 </section>
 </section>
