@@ -121,7 +121,7 @@ names(Dataset)[1] <- "売上数量"
 
 図5.2の縦軸が「売上数量」となっていたため，列名を変更した。
 一般的に「売上」は売上高を指すため，価格と売上の相関関係を図示するのはやや不自然である（価格が上がれば，売上数量が一定の場合，売上高も上昇する）。
-この点を踏まえると，本書では図が修正されたものの，本文の修正が反映されないまま出版された可能性があると考えられる。
+この点を踏まえると，本書では図が修正されたものの，本文の修正が反映されないまま出版された可能性があるのではないだろうか。
 なお，p. 102の本文では「売上数量」と明確に同じ意味で使わる「売上」の記述が見られる。
 
 ```{r}
@@ -133,19 +133,6 @@ scatterplot(売上数量 ~ 価格, regLine = FALSE, smooth = FALSE, boxplots = F
 
 あるいは，次のように汎用的な作図関数 `plot()` を使ってもよい。
 ```{r}
-#| echo: true
-#| eval: false
-Dataset <- read.csv(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
-names(Dataset)[1] <- "売上数量"
-
-plot(売上数量 ~ 価格, las = 1, data = Dataset)
-```
-```{r}
-#| echo: false
-#| message: false
-Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
-names(Dataset)[1] <- "売上数量"
-
 plot(売上数量 ~ 価格, las = 1, data = Dataset)
 ```
 
@@ -672,7 +659,7 @@ print(FA, cutoff = 0, sort = TRUE)
 p. 153
 
 - （誤）入力としてF1〜F4（【変数（1つ以上選択）】）を指定し，クラスター数は4つとした。
-- （正）入力としてF1〜F4（【変数（1つ以上選択）】）を指定し，クラスター数は4つとした。さらに，【オプション】タブでは「データセットにクラスタを割り当てる」にチェックを入れる。最後に，OKをクリックする。
+- （正）入力としてF1〜F4（【変数（1つ以上選択）】）を指定し，クラスター数は4つとした。さらに，【オプション】タブでは「データセットにクラスタを割り当てる」にチェックを入れる。最後に，【OK】をクリックする。
 :::
 
 ##### ▶ Rコマンダーによって生成されたコード（p. 153）
@@ -789,42 +776,7 @@ barplot(table(Dataset$年齢区分), col = "skyblue", las = 2)
 
 ```{r}
 bar_positions <- barplot(gender_counts, ylim = c(0, max(gender_counts) * 1.2), col = adjustcolor(c("blue", "red"), alpha.f = .5))
-text(bar_positions, gender_counts, labels = gender_counts, pos = 3, cex = 1.2, col = "black")
-```
-
-`ggplot2` パッケージを使えば，複雑なグラフも簡単に作成できる。
-
-```{r}
-#| echo: true
-#| eval: false
-library(ggplot2)
-
-Dataset$性別f <- factor(Dataset$性別, levels = c(1, 2), labels = c("男性", "女性"))
-
-ggplot(Dataset, aes(x = 性別f, fill = 性別f)) +
-  geom_bar() +
-  geom_text(stat = "count", aes(label = after_stat(count)), vjust = 1.5, color = "white", size = 6) +
-  labs(x = "性別", y = "人数") +
-  theme_gray(base_size = 16) +
-  theme(legend.position = "none")
-```
-```{r}
-#| message: false
-#| echo: false
-#| eval: true
-library(ggplot2)
-
-Dataset$性別f <- factor(Dataset$性別, levels = c(1, 2), labels = c("男性", "女性"))
-
-ggplot(Dataset, aes(x = 性別f, fill = 性別f)) +
-  geom_bar() +
-  geom_text(stat = "count", aes(label = after_stat(count)), vjust = 1.5, color = "white", size = 6) +
-  labs(x = "性別", y = "人数") +
-  theme_gray(base_size = 16) +
-  theme(
-    legend.position = "none",
-    text = element_text(family = "HiraKakuProN-W3")
-  )
+text(bar_positions, gender_counts, labels = gender_counts, pos = 3, cex = 1, col = "black")
 ```
 
 
@@ -931,3 +883,156 @@ summary(RegModel_2)
 ```
 
 `conjoint2.txt` も `conjoint1.txt` と同様に変わったルール（ヘッダーのみスペース区切りで，他はタブ区切り）でデータが記述されている。
+
+
+## 第9章 新製品の普及
+
+### 6 Rコマンダーによる新製品普及構造の分析
+
+#### 6.1 回帰分析
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 202，表9.2
+
+- （誤）5000e+03
+- （正）5.000e+03
+
+p. 202，表9.2
+
+- （誤）予測値が追加される。本書の検証は
+- （正）予測値が追加される。その後，【グラフ】⇒【折れ線グラフ…】でコマンドボックスを立ち上げて，【x 変数（1つ選択）】から「時点」を選択し，【y 変数（2つ以上選択）】から「購買者数」と「予測」を選択し，【OK】をクリックする。本書の検証は
+:::
+
+##### ▶ Rコマンダーによって生成されたコード（p. 199）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, 
+  sep=",", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset2 <- subset(Dataset, subset=時点<11)
+RegModel.1 <- lm(購買者数~一期前累積購買者数+一期前累積購買者数の二乗, data=Dataset2)
+summary(RegModel.1)
+```
+
+##### ▶ 手入力するコード
+
+```{r}
+#| eval: true
+a <- 5.000e+03
+b <- 9.983e-02
+c <- -3.994e-06
+
+m <- (- b - sqrt(b^2 - 4 * a * c)) / (2 * c)
+p <- a / m
+q <- p + b
+m
+p
+q
+```
+
+本書の指示通りに計算すると，`p` と `q` は小数第4位で四捨五入すれば正しい値が計算できたことになる。
+ただし，`m` については四捨五入したとしても値が一致しない。
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.csv(file.choose(), header = TRUE)
+
+Dataset2 <- Dataset[Dataset$時点 < 11, ]
+
+RegModel_1 <- lm(購買者数 ~ 一期前累積購買者数 + 一期前累積購買者数 ^ 2, data = Dataset2)
+summary(RegModel_1)
+```
+```{r}
+#| echo: false
+#| message: false
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/9/Bass.txt", header = TRUE)
+
+Dataset2 <- Dataset[Dataset$時点 < 11, ]
+
+RegModel_1 <- lm(購買者数 ~ 一期前累積購買者数 + I(一期前累積購買者数 ^ 2), data = Dataset2)
+summary(RegModel_1)
+```
+
+このデータについて，「累積購買者数」，「一期前累積購買者数」，「一期前累積購買者数の二乗」の3つの列がどこで計算されたのかが気になる。
+通常は，次のデータが手元にあると考えるのが理に適っているだろう。
+
+```{r}
+Dataset <- Dataset[, 1:2]
+Dataset
+```
+
+このデータから，必要なデータを作成可能である。
+
+```{r}
+Dataset$累積購買者数 <- cumsum(Dataset$購買者数)
+Dataset$一期前累積購買者数 <- c(0, head(Dataset$累積購買者数, -1))
+Dataset$一期前累積購買者数の二乗 <- Dataset$一期前累積購買者数 ^ 2
+Dataset
+```
+
+続いて，`m`，`p`，`q` の計算は，`lm()` の結果を用いて計算することができる。
+
+```{r}
+x <- coef(RegModel_1)
+names(x) <- NULL
+a <- x[1]
+b <- x[2]
+c <- x[3]
+
+m <- (- b - sqrt(b^2 - 4 * a * c)) / (2 * c)
+p <- a / m
+q <- p + b
+m
+p
+q
+```
+
+今度は，本書と同じ値が計算された。
+続いて，図9.12を作成する。
+
+##### ▶ Rコマンダーによって生成されたコード（p. 203）
+
+```{r}
+#| eval: false
+Dataset$予測 <- with(Dataset, 5.000e+03+一期前累積購買者数*9.983e-02+一期前累積購買者数の二乗*(-3.994e-06))
+with(Dataset, lineplot(時点, 購買者数, 予測))
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: true
+Dataset$予測 <- as.matrix(cbind(1, Dataset[, c("一期前累積購買者数", "一期前累積購買者数の二乗")])) %*% coef(RegModel_1)
+```
+
+このとき， `predict()` 関数を使うと便利である。
+
+```{r}
+#| eval: false
+Dataset$予測 <- predict(RegModel_1, newdata = Dataset)
+```
+
+Rコマンダーでは，`RcmdrMisc` パッケージの関数 `lineplot()` で作図しているので，Rコマンダーを使わない場合はこの関数は使えない。
+代わりに，次のコードで図を作成できる。
+
+```{r}
+plot(Dataset$時点, Dataset$購買者数, type = "l", col = "black", lwd = 2,
+     ylim = range(c(Dataset$購買者数, Dataset$予測)),
+     xlab = "時点", ylab = "", main = "購買者数と予測値の推移")
+lines(Dataset$時点, Dataset$予測, col = "red", lwd = 2, lty = 2)
+text(Dataset$時点, Dataset$購買者数, labels = "1", pos = 3, offset = -.5, col = "black")
+text(Dataset$時点, Dataset$予測, labels = "2", pos = 3, offset = -.5, col = "red")
+legend("topright", legend = c("購買者数", "予測"), col = c("black", "red"), lty = c(1, 2), lwd = 2)
+```
+
+図9.13にあるような累積購入者数のグラフを作成するには，次のコードを実行する。
+
+```{r}
+plot(Dataset$時点, Dataset$累積購買者数, type = "l", col = "black", lwd = 2, las = 1, ylim = c(0, max(Dataset$累積購買者数)), xlab = "時点", ylab = "累積購買者数", main = "普及パターン")
+```
