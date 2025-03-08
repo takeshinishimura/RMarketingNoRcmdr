@@ -902,7 +902,7 @@ p. 202，表9.2
 p. 202，表9.2
 
 - （誤）予測値が追加される。本書の検証は
-- （正）予測値が追加される。その後，【グラフ】⇒【折れ線グラフ…】でコマンドボックスを立ち上げて，【x 変数（1つ選択）】から「時点」を選択し，【y 変数（2つ以上選択）】から「購買者数」と「予測」を選択し，【OK】をクリックする。本書の検証は
+- （正）予測値が追加される。その後，【グラフ】⇒【折れ線グラフ…】でコマンドボックスを立ち上げて，【x 変数（1つ選択）】から「時点」を選択し，【y 変数（2つ以上選択）】から「購買者数」と「予測」を選択した後で，【OK】をクリックする。本書の検証は
 :::
 
 ##### ▶ Rコマンダーによって生成されたコード（p. 199）
@@ -1036,3 +1036,176 @@ legend("topright", legend = c("購買者数", "予測"), col = c("black", "red")
 ```{r}
 plot(Dataset$時点, Dataset$累積購買者数, type = "l", col = "black", lwd = 2, las = 1, ylim = c(0, max(Dataset$累積購買者数)), xlab = "時点", ylab = "累積購買者数", main = "普及パターン")
 ```
+
+
+## 第10章 顧客の管理
+
+### 4 Rコマンダーによる顧客管理のための分析
+
+#### 4.1 RFM分析
+
+##### ▶ Rコマンダーによって生成されたコード（p. 220）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, 
+  sep=",", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- within(Dataset, {
+  M_Rank <- Recode(M, '0:49999="M_Rank1"; 50000:99999="M_Rank2"; 100000:299999="M_Rank3"; 300000:499999="M_Rank4"; else="M_Rank5"', 
+  as.factor=TRUE, to.value="=", interval=":", separator=";")
+})
+Dataset <- within(Dataset, {
+  F_Rank <- Recode(F, '1="F_Rank1"; 2="F_Rank2"; 3:9="F_Rank3"; 10:29="F_Rank4"; else="F_Rank5";', as.factor=TRUE, to.value="=", 
+  interval=":", separator=";")
+})
+Dataset <- within(Dataset, {
+  R_Rank <- Recode(R, '0:30="R_Rank5"; 31:60="R_Rank4"; 61:90="R_Rank3"; 91:180="R_Rank2"; else="R_Rank1"; ;', as.factor=TRUE, 
+  to.value="=", interval=":", separator=";")
+})
+Boxplot(M ~ R_Rank, data=Dataset, id=list(method="y"))
+Boxplot(F ~ R_Rank, data=Dataset, id=list(method="y"))
+library(mvtnorm, pos=16)
+library(survival, pos=16)
+library(MASS, pos=16)
+library(TH.data, pos=16)
+library(multcomp, pos=16)
+library(abind, pos=21)
+AnovaModel.2 <- aov(M ~ R_Rank, data=Dataset)
+summary(AnovaModel.2)
+with(Dataset, numSummary(M, groups=R_Rank, statistics=c("mean", "sd")))
+local({
+  .Pairs <- glht(AnovaModel.2, linfct = mcp(R_Rank = "Tukey"))
+  print(summary(.Pairs)) # pairwise tests
+  print(confint(.Pairs, level=0.95)) # confidence intervals
+  print(cld(.Pairs, level=0.05)) # compact letter display
+  old.oma <- par(oma=c(0, 5, 0, 0))
+  plot(confint(.Pairs))
+  par(old.oma)
+})
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.csv(file.choose(), header = TRUE)
+
+Dataset$M_Rank <- cut(
+  Dataset$M,
+  breaks = c(-Inf, 49999, 99999, 299999, 499999, Inf),
+  labels = c("M_Rank1", "M_Rank2", "M_Rank3", "M_Rank4", "M_Rank5"),
+  right = TRUE
+)
+Dataset$F_Rank <- cut(
+  Dataset$F,
+  breaks = c(-Inf, 1, 2, 9, 29, Inf),
+  labels = c("F_Rank1", "F_Rank2", "F_Rank3", "F_Rank4", "F_Rank5"),
+  right = TRUE
+)
+Dataset$R_Rank <- cut(
+  Dataset$R,
+  breaks = c(-Inf, 30, 60, 90, 180, Inf),
+  labels = c("R_Rank5", "R_Rank4", "R_Rank3", "R_Rank2", "R_Rank1"),
+  right = TRUE
+)
+Dataset$R_Rank <- factor(Dataset$R_Rank, levels = c("R_Rank1", "R_Rank2", "R_Rank3", "R_Rank4", "R_Rank5"))
+
+Boxplot(M ~ R_Rank, data=Dataset, id=list(method="y"))
+Boxplot(F ~ R_Rank, data=Dataset, id=list(method="y"))
+
+AnovaModel_2 <- aov(M ~ R_Rank, data=Dataset)
+summary(AnovaModel_2)
+```
+```{r}
+#| echo: false
+#| eval: true
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/10/RFM.txt", header = TRUE)
+
+Dataset$M_Rank <- cut(
+  Dataset$M,
+  breaks = c(-Inf, 49999, 99999, 299999, 499999, Inf),
+  labels = c("M_Rank1", "M_Rank2", "M_Rank3", "M_Rank4", "M_Rank5"),
+  right = TRUE
+)
+Dataset$F_Rank <- cut(
+  Dataset$F,
+  breaks = c(-Inf, 1, 2, 9, 29, Inf),
+  labels = c("F_Rank1", "F_Rank2", "F_Rank3", "F_Rank4", "F_Rank5"),
+  right = TRUE
+)
+Dataset$R_Rank <- cut(
+  Dataset$R,
+  breaks = c(-Inf, 30, 60, 90, 180, Inf),
+  labels = c("R_Rank5", "R_Rank4", "R_Rank3", "R_Rank2", "R_Rank1"),
+  right = TRUE
+)
+Dataset$R_Rank <- factor(Dataset$R_Rank, levels = c("R_Rank1", "R_Rank2", "R_Rank3", "R_Rank4", "R_Rank5"))
+
+Boxplot(M ~ R_Rank, data=Dataset, id=list(method="y"))
+Boxplot(F ~ R_Rank, data=Dataset, id=list(method="y"))
+
+AnovaModel_2 <- aov(M ~ R_Rank, data=Dataset)
+summary(AnovaModel_2)
+```
+
+Rコマンダーでは，`RcmdrMisc` パッケージの関数 `lineplot()` でTukeyのHSD検定を行っているので，Rコマンダーを使わない場合はこの関数は使えない。
+代わりに，次のコードで図を作成できる。
+
+```{r}
+#| echo: true
+#| eval: true
+mean_values <- tapply(Dataset$M, Dataset$R_Rank, mean)
+sd_values <- tapply(Dataset$M, Dataset$R_Rank, sd)
+data.frame(R_Rank = names(mean_values), mean = mean_values, sd = sd_values)
+
+Tukey_Result <- TukeyHSD(AnovaModel_2, "R_Rank")
+Tukey_Result
+plot(Tukey_Result)
+
+library(multcompView)
+
+tukey_pvalues <- Tukey_Result$R_Rank[, "p adj"]
+
+cld_results <- multcompLetters(tukey_pvalues)
+cld_results
+```
+
+#### 4.2 ロジスティック回帰分析
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 202，表9.2
+
+- （誤）一般化線形モデル
+- （正）一般化線型モデル
+
+これはRコマンダーの翻訳ミスであろう。
+:::
+
+##### ▶ Rコマンダーによって生成されたコード（p. 220）
+
+```{r}
+#| eval: false
+GLM.3 <- glm(DM ~ log(M)+log(F)+log(R), family=binomial(logit), data=Dataset)
+summary(GLM.3)
+exp(coef(GLM.3))  # Exponentiated coefficients ("odds ratios")
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: true
+Dataset$DM <- factor(Dataset$DM, levels = c("no", "yes"))
+# Dataset$DM01 <- ifelse(Dataset$DM == "yes", 1, 0)
+
+GLM.3 <- glm(DM ~ log(M) + log(F) + log(R), family = binomial(logit), data = Dataset)
+summary(GLM.3)
+exp(coef(GLM.3))
+```
+
+Rコマンダーは，どうやら内部で `DM` 列をファクターに変換しているようである。
+実際には，`factor()` を適用するか，`ifelse()` でダミー変数に変換すればよい。
+ダミー変数に変換した場合は，値も変わってしまうため，列名を変更することを推奨する。

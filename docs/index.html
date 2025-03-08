@@ -159,6 +159,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#回帰分析" id="toc-回帰分析" class="nav-link" data-scroll-target="#回帰分析">6.1 回帰分析</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#第10章-顧客の管理" id="toc-第10章-顧客の管理" class="nav-link" data-scroll-target="#第10章-顧客の管理">第10章 顧客の管理</a>
+  <ul>
+  <li><a href="#rコマンダーによる顧客管理のための分析" id="toc-rコマンダーによる顧客管理のための分析" class="nav-link" data-scroll-target="#rコマンダーによる顧客管理のための分析">4 Rコマンダーによる顧客管理のための分析</a>
+  <ul class="collapse">
+  <li><a href="#rfm分析" id="toc-rfm分析" class="nav-link" data-scroll-target="#rfm分析">4.1 RFM分析</a></li>
+  <li><a href="#ロジスティック回帰分析" id="toc-ロジスティック回帰分析" class="nav-link" data-scroll-target="#ロジスティック回帰分析">4.2 ロジスティック回帰分析</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -1489,7 +1497,7 @@ F-statistic: 74.77 on 5 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>p.&nbsp;202，表9.2</p>
 <ul>
 <li>（誤）予測値が追加される。本書の検証は</li>
-<li>（正）予測値が追加される。その後，【グラフ】⇒【折れ線グラフ…】でコマンドボックスを立ち上げて，【x 変数（1つ選択）】から「時点」を選択し，【y 変数（2つ以上選択）】から「購買者数」と「予測」を選択し，【OK】をクリックする。本書の検証は</li>
+<li>（正）予測値が追加される。その後，【グラフ】⇒【折れ線グラフ…】でコマンドボックスを立ち上げて，【x 変数（1つ選択）】から「時点」を選択し，【y 変数（2つ以上選択）】から「購買者数」と「予測」を選択した後で，【OK】をクリックする。本書の検証は</li>
 </ul>
 </div>
 </div>
@@ -1681,6 +1689,236 @@ F-statistic: 7.471e+05 on 2 and 7 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
+</section>
+</section>
+</section>
+</section>
+<section id="第10章-顧客の管理" class="level2">
+<h2 class="anchored" data-anchor-id="第10章-顧客の管理">第10章 顧客の管理</h2>
+<section id="rコマンダーによる顧客管理のための分析" class="level3">
+<h3 class="anchored" data-anchor-id="rコマンダーによる顧客管理のための分析">4 Rコマンダーによる顧客管理のための分析</h3>
+<section id="rfm分析" class="level4">
+<h4 class="anchored" data-anchor-id="rfm分析">4.1 RFM分析</h4>
+<section id="rコマンダーによって生成されたコードp.-220" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-220">▶ Rコマンダーによって生成されたコード（p.&nbsp;220）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, </span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep=</span><span class="st">","</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">within</span>(Dataset, {</span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>  M_Rank <span class="ot">&lt;-</span> <span class="fu">Recode</span>(M, <span class="st">'0:49999="M_Rank1"; 50000:99999="M_Rank2"; 100000:299999="M_Rank3"; 300000:499999="M_Rank4"; else="M_Rank5"'</span>, </span>
+<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">as.factor=</span><span class="cn">TRUE</span>, <span class="at">to.value=</span><span class="st">"="</span>, <span class="at">interval=</span><span class="st">":"</span>, <span class="at">separator=</span><span class="st">";"</span>)</span>
+<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">within</span>(Dataset, {</span>
+<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a>  F_Rank <span class="ot">&lt;-</span> <span class="fu">Recode</span>(F, <span class="st">'1="F_Rank1"; 2="F_Rank2"; 3:9="F_Rank3"; 10:29="F_Rank4"; else="F_Rank5";'</span>, <span class="at">as.factor=</span><span class="cn">TRUE</span>, <span class="at">to.value=</span><span class="st">"="</span>, </span>
+<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">interval=</span><span class="st">":"</span>, <span class="at">separator=</span><span class="st">";"</span>)</span>
+<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">within</span>(Dataset, {</span>
+<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a>  R_Rank <span class="ot">&lt;-</span> <span class="fu">Recode</span>(R, <span class="st">'0:30="R_Rank5"; 31:60="R_Rank4"; 61:90="R_Rank3"; 91:180="R_Rank2"; else="R_Rank1"; ;'</span>, <span class="at">as.factor=</span><span class="cn">TRUE</span>, </span>
+<span id="cb106-13"><a href="#cb106-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">to.value=</span><span class="st">"="</span>, <span class="at">interval=</span><span class="st">":"</span>, <span class="at">separator=</span><span class="st">";"</span>)</span>
+<span id="cb106-14"><a href="#cb106-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb106-15"><a href="#cb106-15" aria-hidden="true" tabindex="-1"></a><span class="fu">Boxplot</span>(M <span class="sc">~</span> R_Rank, <span class="at">data=</span>Dataset, <span class="at">id=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">"y"</span>))</span>
+<span id="cb106-16"><a href="#cb106-16" aria-hidden="true" tabindex="-1"></a><span class="fu">Boxplot</span>(F <span class="sc">~</span> R_Rank, <span class="at">data=</span>Dataset, <span class="at">id=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">"y"</span>))</span>
+<span id="cb106-17"><a href="#cb106-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm, <span class="at">pos=</span><span class="dv">16</span>)</span>
+<span id="cb106-18"><a href="#cb106-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival, <span class="at">pos=</span><span class="dv">16</span>)</span>
+<span id="cb106-19"><a href="#cb106-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS, <span class="at">pos=</span><span class="dv">16</span>)</span>
+<span id="cb106-20"><a href="#cb106-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TH.data, <span class="at">pos=</span><span class="dv">16</span>)</span>
+<span id="cb106-21"><a href="#cb106-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp, <span class="at">pos=</span><span class="dv">16</span>)</span>
+<span id="cb106-22"><a href="#cb106-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(abind, <span class="at">pos=</span><span class="dv">21</span>)</span>
+<span id="cb106-23"><a href="#cb106-23" aria-hidden="true" tabindex="-1"></a>AnovaModel<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(M <span class="sc">~</span> R_Rank, <span class="at">data=</span>Dataset)</span>
+<span id="cb106-24"><a href="#cb106-24" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaModel<span class="fl">.2</span>)</span>
+<span id="cb106-25"><a href="#cb106-25" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Dataset, <span class="fu">numSummary</span>(M, <span class="at">groups=</span>R_Rank, <span class="at">statistics=</span><span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>)))</span>
+<span id="cb106-26"><a href="#cb106-26" aria-hidden="true" tabindex="-1"></a><span class="fu">local</span>({</span>
+<span id="cb106-27"><a href="#cb106-27" aria-hidden="true" tabindex="-1"></a>  .Pairs <span class="ot">&lt;-</span> <span class="fu">glht</span>(AnovaModel<span class="fl">.2</span>, <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">R_Rank =</span> <span class="st">"Tukey"</span>))</span>
+<span id="cb106-28"><a href="#cb106-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">summary</span>(.Pairs)) <span class="co"># pairwise tests</span></span>
+<span id="cb106-29"><a href="#cb106-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">confint</span>(.Pairs, <span class="at">level=</span><span class="fl">0.95</span>)) <span class="co"># confidence intervals</span></span>
+<span id="cb106-30"><a href="#cb106-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">cld</span>(.Pairs, <span class="at">level=</span><span class="fl">0.05</span>)) <span class="co"># compact letter display</span></span>
+<span id="cb106-31"><a href="#cb106-31" aria-hidden="true" tabindex="-1"></a>  old.oma <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">oma=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb106-32"><a href="#cb106-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">confint</span>(.Pairs))</span>
+<span id="cb106-33"><a href="#cb106-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(old.oma)</span>
+<span id="cb106-34"><a href="#cb106-34" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-16" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-16">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>Dataset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>M_Rank <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  Dataset<span class="sc">$</span>M,</span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">49999</span>, <span class="dv">99999</span>, <span class="dv">299999</span>, <span class="dv">499999</span>, <span class="cn">Inf</span>),</span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"M_Rank1"</span>, <span class="st">"M_Rank2"</span>, <span class="st">"M_Rank3"</span>, <span class="st">"M_Rank4"</span>, <span class="st">"M_Rank5"</span>),</span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">right =</span> <span class="cn">TRUE</span></span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>F_Rank <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a>  Dataset<span class="sc">$</span>F,</span>
+<span id="cb107-11"><a href="#cb107-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">29</span>, <span class="cn">Inf</span>),</span>
+<span id="cb107-12"><a href="#cb107-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"F_Rank1"</span>, <span class="st">"F_Rank2"</span>, <span class="st">"F_Rank3"</span>, <span class="st">"F_Rank4"</span>, <span class="st">"F_Rank5"</span>),</span>
+<span id="cb107-13"><a href="#cb107-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">right =</span> <span class="cn">TRUE</span></span>
+<span id="cb107-14"><a href="#cb107-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb107-15"><a href="#cb107-15" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>R_Rank <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb107-16"><a href="#cb107-16" aria-hidden="true" tabindex="-1"></a>  Dataset<span class="sc">$</span>R,</span>
+<span id="cb107-17"><a href="#cb107-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">30</span>, <span class="dv">60</span>, <span class="dv">90</span>, <span class="dv">180</span>, <span class="cn">Inf</span>),</span>
+<span id="cb107-18"><a href="#cb107-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"R_Rank5"</span>, <span class="st">"R_Rank4"</span>, <span class="st">"R_Rank3"</span>, <span class="st">"R_Rank2"</span>, <span class="st">"R_Rank1"</span>),</span>
+<span id="cb107-19"><a href="#cb107-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">right =</span> <span class="cn">TRUE</span></span>
+<span id="cb107-20"><a href="#cb107-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb107-21"><a href="#cb107-21" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>R_Rank <span class="ot">&lt;-</span> <span class="fu">factor</span>(Dataset<span class="sc">$</span>R_Rank, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"R_Rank1"</span>, <span class="st">"R_Rank2"</span>, <span class="st">"R_Rank3"</span>, <span class="st">"R_Rank4"</span>, <span class="st">"R_Rank5"</span>))</span>
+<span id="cb107-22"><a href="#cb107-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-23"><a href="#cb107-23" aria-hidden="true" tabindex="-1"></a><span class="fu">Boxplot</span>(M <span class="sc">~</span> R_Rank, <span class="at">data=</span>Dataset, <span class="at">id=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">"y"</span>))</span>
+<span id="cb107-24"><a href="#cb107-24" aria-hidden="true" tabindex="-1"></a><span class="fu">Boxplot</span>(F <span class="sc">~</span> R_Rank, <span class="at">data=</span>Dataset, <span class="at">id=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">"y"</span>))</span>
+<span id="cb107-25"><a href="#cb107-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-26"><a href="#cb107-26" aria-hidden="true" tabindex="-1"></a>AnovaModel_2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(M <span class="sc">~</span> R_Rank, <span class="at">data=</span>Dataset)</span>
+<span id="cb107-27"><a href="#cb107-27" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaModel_2)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-71-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-71-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "111"  "233"  "387"  "635"  "654"  "1325" "1379" "1743" "538"  "1770"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Df    Sum Sq   Mean Sq F value Pr(&gt;F)    
+R_Rank         4 2.054e+12 5.134e+11   20.78 &lt;2e-16 ***
+Residuals   1995 4.929e+13 2.471e+10                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Rコマンダーでは，<code>RcmdrMisc</code> パッケージの関数 <code>lineplot()</code> でTukeyのHSD検定を行っているので，Rコマンダーを使わない場合はこの関数は使えない。 代わりに，次のコードで図を作成できる。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>mean_values <span class="ot">&lt;-</span> <span class="fu">tapply</span>(Dataset<span class="sc">$</span>M, Dataset<span class="sc">$</span>R_Rank, mean)</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>sd_values <span class="ot">&lt;-</span> <span class="fu">tapply</span>(Dataset<span class="sc">$</span>M, Dataset<span class="sc">$</span>R_Rank, sd)</span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">R_Rank =</span> <span class="fu">names</span>(mean_values), <span class="at">mean =</span> mean_values, <span class="at">sd =</span> sd_values)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         R_Rank     mean       sd
+R_Rank1 R_Rank1 209930.0 151138.6
+R_Rank2 R_Rank2 225057.9 152059.6
+R_Rank3 R_Rank3 247259.6 152568.9
+R_Rank4 R_Rank4 281963.5 156606.0
+R_Rank5 R_Rank5 306564.1 161327.1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>Tukey_Result <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(AnovaModel_2, <span class="st">"R_Rank"</span>)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>Tukey_Result</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = M ~ R_Rank, data = Dataset)
+
+$R_Rank
+                    diff        lwr       upr     p adj
+R_Rank2-R_Rank1 15127.90 -42195.595  72451.39 0.9518249
+R_Rank3-R_Rank1 37329.65 -25238.093  99897.40 0.4789160
+R_Rank4-R_Rank1 72033.53  17020.899 127046.17 0.0032962
+R_Rank5-R_Rank1 96634.17  41964.001 151304.34 0.0000148
+R_Rank3-R_Rank2 22201.75 -19061.973  63465.48 0.5828362
+R_Rank4-R_Rank2 56905.63  28368.600  85442.67 0.0000006
+R_Rank5-R_Rank2 81506.27  53635.143 109377.40 0.0000000
+R_Rank4-R_Rank3 34703.88  -3284.302  72692.06 0.0922935
+R_Rank5-R_Rank3 59304.52  21813.992  96795.04 0.0001599
+R_Rank5-R_Rank4 24600.64   1858.459  47342.81 0.0263635</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Tukey_Result)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-72-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>tukey_pvalues <span class="ot">&lt;-</span> Tukey_Result<span class="sc">$</span>R_Rank[, <span class="st">"p adj"</span>]</span>
+<span id="cb115-4"><a href="#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="#cb115-5" aria-hidden="true" tabindex="-1"></a>cld_results <span class="ot">&lt;-</span> <span class="fu">multcompLetters</span>(tukey_pvalues)</span>
+<span id="cb115-6"><a href="#cb115-6" aria-hidden="true" tabindex="-1"></a>cld_results</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R_Rank2 R_Rank3 R_Rank4 R_Rank5 R_Rank1 
+    "a"    "ab"     "b"     "c"     "a" </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="ロジスティック回帰分析" class="level4">
+<h4 class="anchored" data-anchor-id="ロジスティック回帰分析">4.2 ロジスティック回帰分析</h4>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+誤植
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>p.&nbsp;202，表9.2</p>
+<ul>
+<li>（誤）一般化線形モデル</li>
+<li>（正）一般化線型モデル</li>
+</ul>
+<p>これはRコマンダーの翻訳ミスであろう。</p>
+</div>
+</div>
+</div>
+<section id="rコマンダーによって生成されたコードp.-220-1" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-220-1">▶ Rコマンダーによって生成されたコード（p.&nbsp;220）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>GLM<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(DM <span class="sc">~</span> <span class="fu">log</span>(M)<span class="sc">+</span><span class="fu">log</span>(F)<span class="sc">+</span><span class="fu">log</span>(R), <span class="at">family=</span><span class="fu">binomial</span>(logit), <span class="at">data=</span>Dataset)</span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(GLM<span class="fl">.3</span>)</span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(GLM<span class="fl">.3</span>))  <span class="co"># Exponentiated coefficients ("odds ratios")</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-17" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-17">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>Dataset<span class="sc">$</span>DM <span class="ot">&lt;-</span> <span class="fu">factor</span>(Dataset<span class="sc">$</span>DM, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"no"</span>, <span class="st">"yes"</span>))</span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataset$DM01 &lt;- ifelse(Dataset$DM == "yes", 1, 0)</span></span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>GLM<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(DM <span class="sc">~</span> <span class="fu">log</span>(M) <span class="sc">+</span> <span class="fu">log</span>(F) <span class="sc">+</span> <span class="fu">log</span>(R), <span class="at">family =</span> <span class="fu">binomial</span>(logit), <span class="at">data =</span> Dataset)</span>
+<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(GLM<span class="fl">.3</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = DM ~ log(M) + log(F) + log(R), family = binomial(logit), 
+    data = Dataset)
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -11.94177    1.05258 -11.345  &lt; 2e-16 ***
+log(M)        0.79688    0.08450   9.431  &lt; 2e-16 ***
+log(F)        1.29098    0.09949  12.977  &lt; 2e-16 ***
+log(R)       -0.47586    0.06170  -7.712 1.24e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2614.8  on 1999  degrees of freedom
+Residual deviance: 1873.8  on 1996  degrees of freedom
+AIC: 1881.8
+
+Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(GLM<span class="fl">.3</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> (Intercept)       log(M)       log(F)       log(R) 
+6.512621e-06 2.218618e+00 3.636348e+00 6.213502e-01 </code></pre>
+</div>
+</div>
+<p>Rコマンダーは，どうやら内部で <code>DM</code> 列をファクターに変換しているようである。 実際には，<code>factor()</code> を適用するか，<code>ifelse()</code> でダミー変数に変換すればよい。 ダミー変数に変換した場合は，値も変わってしまうため，列名を変更することを推奨する。</p>
 </section>
 </section>
 </section>
