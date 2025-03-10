@@ -94,7 +94,8 @@ p. 86
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 scatterplot(売上~価格, regLine=FALSE, smooth=FALSE, boxplots=FALSE, data=Dataset)
 ```
 
@@ -234,7 +235,8 @@ p. 106
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 Dataset$LY1 <- with(Dataset, log(Y1))
 Dataset$LX1 <- with(Dataset, log(X1))
 Dataset$LX2 <- with(Dataset, log(X2))
@@ -297,7 +299,8 @@ summary(RegModel_3)
 
 ```{r}
 #| eval: false
-Dataset <- read.table("clipboard", header=TRUE, stringsAsFactors=TRUE, sep="¥t", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table("clipboard", header=TRUE, stringsAsFactors=TRUE, sep="¥t", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 local({
   .FA <- factanal(~キャンペーンイベント+パッケージデザイン+広告宣伝+素材栄養素+味, factors=2, rotation="varimax", scores="regression", data=Dataset)
   print(.FA)
@@ -578,8 +581,8 @@ p. 153
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, 
-  sep=",", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep=",", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 local({
   .FA <- factanal(~q1+q2+q3+q4+q5+q6+q7+q8+q9+q10+q11+q12+q13+q14+q15+q16+q17+q18+q19+q20+q21+q22+q23+q24+q25+q26+q27, factors=4, 
   rotation="varimax", scores="regression", data=Dataset)
@@ -789,7 +792,8 @@ p. 173
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 RegModel.1 <- lm(全体効用~X2年+X4時間+X6時間+シルバー+赤, data=Dataset)
 summary(RegModel.1)
 ```
@@ -847,7 +851,8 @@ summary(RegModel_1)
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 RegModel.2 <- lm(全体効用~X2年+X4時間+X6時間+シルバー+赤, data=Dataset)
 summary(RegModel.2)
 ```
@@ -897,8 +902,8 @@ p. 203
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, 
-  sep=",", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep=",", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 Dataset2 <- subset(Dataset, subset=時点<11)
 RegModel.1 <- lm(購買者数~一期前累積購買者数+一期前累積購買者数の二乗, data=Dataset2)
 summary(RegModel.1)
@@ -1030,8 +1035,8 @@ plot(累積購買者数 ~ 時点, data = Dataset, type = "l", col = "black", lwd
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, 
-  sep=",", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep=",", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 Dataset <- within(Dataset, {
   M_Rank <- Recode(M, '0:49999="M_Rank1"; 50000:99999="M_Rank2"; 100000:299999="M_Rank3"; 300000:499999="M_Rank4"; else="M_Rank5"', 
   as.factor=TRUE, to.value="=", interval=":", separator=";")
@@ -1198,8 +1203,8 @@ Rコマンダーは，どうやら内部で `DM` 列をファクターに変換�
 
 ```{r}
 #| eval: false
-Dataset <- read.table(file.choose(), header=TRUE, 
-  stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", 
+  dec=".", strip.white=TRUE)
 GLM.1 <- glm(B1 ~ P1-P2, family=binomial(logit), data=Dataset)
 summary(GLM.1)
 exp(coef(GLM.1))  # Exponentiated coefficients ("odds ratios")
@@ -1238,9 +1243,9 @@ summary(GLM_2)
 
 ```{r}
 #| eval: false
-GLM.2 <- glm(B1 ~ 0+P1 - P2, family=binomial(logit), data=Dataset)
-summary(GLM.2)
-exp(coef(GLM.2))  # Exponentiated coefficients ("odds ratios")
+GLM.3 <- glm(B1 ~ 0+P1 - P2, family=binomial(logit), data=Dataset)
+summary(GLM.3)
+exp(coef(GLM.3))  # Exponentiated coefficients ("odds ratios")
 ```
 
 ##### ▶ 一般的なRコード
@@ -1248,9 +1253,9 @@ exp(coef(GLM.2))  # Exponentiated coefficients ("odds ratios")
 ```{r}
 #| echo: true
 #| eval: true
-GLM_2 <- glm(B1 ~ 0 + P1 - P2, family = binomial(logit), data = Dataset)
-summary(GLM_2)
-exp(coef(GLM_2))
+GLM_3 <- glm(B1 ~ 0 + P1 - P2, family = binomial(logit), data = Dataset)
+summary(GLM_3)
+exp(coef(GLM_3))
 ```
 
 ### 4 多項離散選択モデル
@@ -1297,4 +1302,211 @@ Catdata <- mlogit.data(Catsup, choice = "choice", shape = "wide", varying = c(2:
 
 Cat1 <- mlogit(choice ~ disp + feat + price , data = Catdata)
 summary(Cat1)
+```
+
+
+## 第12章 ブランドと属性の同時マップ
+
+### 1 質的変数の関連性
+
+#### 1.2 Rコマンダーによる質的変数の独立性の検定
+
+##### ▶ Rコマンダーによって生成されたコード（p. 251）
+
+```{r}
+#| eval: false
+library(abind, pos=16)
+.Table <- matrix(c(75,80,145,125,90,85), 2, 3, byrow=TRUE)
+dimnames(.Table) <- list("地域"=c("1", "2"), "嗜好"=c("1", "2", "3"))
+.Table  # Counts
+.Test <- chisq.test(.Table, correct=FALSE)
+.Test
+.Test$expected # Expected Counts
+round(.Test$residuals^2, 2) # Chi-square Components
+remove(.Test)
+remove(.Table)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: true
+Table <- matrix(c(75, 80, 145, 125, 90, 85), nrow = 2, ncol = 3, byrow = TRUE)
+dimnames(Table) <- list("地域" = c("1", "2"), "嗜好" = c("1", "2", "3"))
+Table
+
+Test <- chisq.test(Table, correct = FALSE)
+Test
+
+Test$expected
+
+round(Test$residuals^2, 2)
+```
+
+### 3 Rコマンダーによるコレスポンデンス分析
+
+#### 3.1 実行手順
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 256
+
+- （誤）次にRコマンダーウィンドウのツールバー【ツール】⇒【Rcmdrプラグインのロード】へ進むと「RcmdrPlugin. FactoMineR」の選択画面が現れ，【OK】をクリックして選択する。
+- （正）インストール後，一度Rコマンダーを終了し，Rも終了する。その後，再び，RとRコマンダーを起動する。次にRコマンダーウィンドウのツールバー【ツール】⇒【Rcmdrプラグインのロード】へ進むと「RcmdrPlugin.FactoMineR」の選択画面が現れ，【OK】をクリックして選択する。
+
+p. 257
+
+- （誤）Perform clustering on
+- （正）Perform clustring on
+
+p. 257
+
+- （誤）“iterative”をを選択
+- （正）“interactive”を選択
+:::
+
+プラグイン `RcmdrPlugin.FactoMineR` をインストールしたことがなければ，最初に次のコードを実行する。
+```{r}
+#| eval: false
+install.packages("RcmdrPlugin.FactoMineR")
+```
+なお，Rコマンダーを使わない場合は，このプラグインのインストールは不要である。
+
+##### ▶ Rコマンダーによって生成されたコード（p. 256）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="", na.strings="NA", 
+  dec=".", strip.white=TRUE)
+Dataset.CA<-Dataset[c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10") ,c("デザイン", "使いやすさ", "パワー", "静音性", "サイズ", "手入れのしやすさ", "取り回し",
+   "満足度")]
+res<-CA(Dataset.CA, ncp=5, row.sup=NULL, col.sup=NULL, graph = FALSE)
+print(plot.CA(res, axes=c(1, 2), col.row="red", col.col="blue", label=c("col", "col.sup", "row", "row.sup")))
+summary(res, nb.dec = 3, nbelements=10, nbind = 10, ncp = 3, file="")
+remove(Dataset.CA)
+Dataset.CA<-Dataset[c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10") ,c("デザイン", "使いやすさ", "パワー", "静音性", "サイズ", "手入れのしやすさ", "取り回し",
+   "満足度")]
+res<-CA(Dataset.CA, ncp=5, row.sup=NULL, col.sup=NULL, graph = FALSE)
+print(plot.CA(res, axes=c(1, 2), col.row="red", col.col="blue", label=c("col", "col.sup", "row", "row.sup")))
+res.hcpc<-HCPC(res ,nb.clust=0,consol=FALSE,min=3,max=10,cluster.CA="rows",graph=TRUE)
+summary(res, nb.dec = 3, nbelements=10, nbind = 10, ncp = 3, file="")
+remove(Dataset.CA)
+```
+
+##### ▶ 一般的なRコード
+
+`FactoMineR` パッケージをインストールしたことがなければ，最初に次のコードを実行する。
+```{r}
+#| eval: false
+install.packages("FactoMineR")
+```
+
+その後，次のコードを実行する。
+```{r}
+#| echo: true
+#| eval: false
+library(FactoMineR)
+
+Dataset <- read.table(file.choose(), header = TRUE, sep = "")
+
+Dataset.CA <- Dataset[, -1]
+res <- CA(Dataset.CA, ncp = 5, graph = FALSE)
+
+plot.CA(res, axes = c(1, 2), col.row = "red", col.col = "blue")
+```
+```{r}
+#| echo: false
+#| eval: true
+library(FactoMineR)
+
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/12/Cleaner.txt", header = TRUE, sep = "")
+
+Dataset.CA <- Dataset[, -1]
+res <- CA(Dataset.CA, ncp = 5, graph = FALSE)
+
+plot.CA(res, axes = c(1, 2), col.row = "red", col.col = "blue")
+```
+
+この図のように文字化けする場合は，仕方ないと諦める。
+macOSのRでは，日本語部分が文字化けしやすいと認識しておいてほしい。
+
+```{r}
+#| echo: true
+#| eval: false
+res.hcpc <- HCPC(res, nb.clust = 0, consol = FALSE, cluster.CA = "rows", graph = TRUE)
+```
+```{r}
+#| echo: false
+#| eval: true
+res.hcpc <- HCPC(res, nb.clust = 4, consol = FALSE, cluster.CA = "rows", graph = FALSE)
+```
+```{r}
+#| echo: false
+#| eval: true
+plot(res.hcpc, choice = "tree")
+plot(res.hcpc, choice = "map")
+```
+```{r}
+summary(res)
+```
+
+#### 3.2 デジタルカメラの事例
+
+##### ▶ Rコマンダーによって生成されたコード（p. 260）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep="¥t", na.strings="NA", 
+  dec=".", strip.white=TRUE)
+Dataset.CA<-Dataset[c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10") ,c("デザイン", "画質", "操作性", "バッテリー", "携帯性", "機能性", "液晶", 
+  "ホールド感", "満足度")]
+res<-CA(Dataset.CA, ncp=5, row.sup=NULL, col.sup=NULL, graph = FALSE)
+print(plot.CA(res, axes=c(1, 2), col.row="red", col.col="blue", label=c("col", "col.sup", "row", "row.sup")))
+res.hcpc<-HCPC(res ,nb.clust=0,consol=FALSE,min=3,max=10,cluster.CA="rows",graph=TRUE)
+summary(res, nb.dec = 3, nbelements=10, nbind = 10, ncp = 3, file="")
+remove(Dataset.CA)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.table(file.choose(), header = TRUE, sep = "¥t")
+
+Dataset.CA <- Dataset[, -1]
+res <- CA(Dataset.CA, ncp = 5, graph = FALSE)
+
+plot.CA(res, axes = c(1, 2), col.row = "red", col.col = "blue")
+```
+```{r}
+#| echo: false
+#| eval: true
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/12/Camera.txt", header = TRUE, sep = "\t")
+
+Dataset.CA <- Dataset[, -1]
+res <- CA(Dataset.CA, ncp = 5, graph = FALSE)
+
+plot.CA(res, axes = c(1, 2), col.row = "red", col.col = "blue")
+```
+```{r}
+#| echo: true
+#| eval: false
+res.hcpc <- HCPC(res, nb.clust = 0, consol = FALSE, cluster.CA = "rows", graph = TRUE)
+```
+```{r}
+#| echo: false
+#| eval: true
+res.hcpc <- HCPC(res, nb.clust = 4, consol = FALSE, cluster.CA = "rows", graph = FALSE)
+```
+```{r}
+#| echo: false
+#| eval: true
+plot(res.hcpc, choice = "tree")
+plot(res.hcpc, choice = "map")
+```
+```{r}
+summary(res)
 ```
