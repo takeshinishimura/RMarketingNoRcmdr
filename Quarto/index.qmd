@@ -38,14 +38,13 @@ rownames(UniformSamples) <- "sample"
 colnames(UniformSamples) <- paste("obs", 1:100, sep="")
 ```
 
-##### ▶ 手入力するコード
+##### ▶ 手入力するコード（`ransu.R`）
 
 ```{r}
 #| eval: false
-x <- UniformSamples * 100
-rx <- round(x) + 1
+x <- UniformSamples*100
+rx <- round(x)+1
 ux <- unique(rx)
-ux[1:10]
 ```
 
 ##### ▶ 一般的なRコード
@@ -106,7 +105,7 @@ scatterplot(売上~価格, regLine=FALSE, smooth=FALSE, boxplots=FALSE, data=Dat
 #| eval: false
 library(car)
 
-Dataset <- read.csv(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
+Dataset <- read.table(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
 names(Dataset)[1] <- "売上数量"
 ```
 ```{r}
@@ -114,7 +113,7 @@ names(Dataset)[1] <- "売上数量"
 #| message: false
 library(car)
 
-Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
 
 names(Dataset)[1] <- "売上数量"
 ```
@@ -131,9 +130,10 @@ scatterplot(売上数量 ~ 価格, regLine = FALSE, smooth = FALSE, boxplots = F
 
 `scatterplot()` は `car` パッケージの関数であるため，最初に `car` パッケージをロードしている。
 
-あるいは，次のように汎用的な作図関数 `plot()` を使ってもよい。
+次のように汎用的な作図関数 `plot()` を使ってもよい。
+この場合，`car` パッケージを読み込む必要はない。
 ```{r}
-plot(売上数量 ~ 価格, las = 1, data = Dataset)
+plot(売上数量 ~ 価格, data = Dataset, las = 1)
 ```
 
 #### 3.3 売上と価格に相関はあるか：標本相関係数の検定
@@ -316,7 +316,7 @@ scatterplot(F2~F1, regLine=FALSE, smooth=FALSE, id=list(method='identify'), boxp
 #| eval: false
 library(car)
 
-Dataset <- read.csv("clipboard", header = TRUE, sep = "¥t")
+Dataset <- read.table("clipboard", header = TRUE, sep = "¥t")
 
 FA <- factanal(
   ~ キャンペーンイベント + パッケージデザイン + 広告宣伝 + 素材栄養素 + 味,
@@ -334,13 +334,13 @@ rownames(Dataset) <- Dataset$製品名
 
 scatterplot(
   F2 ~ F1,
+  data = Dataset,
   regLine = FALSE,
   smooth = FALSE,
   id = list(method = 'identify'),
   boxplots = FALSE,
   xlab = "マーケティング因子",
-  ylab = "製品因子",
-  data = Dataset
+  ylab = "製品因子"
 )
 ```
 ```{r}
@@ -348,7 +348,7 @@ scatterplot(
 #| message: false
 library(car)
 
-Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/6/senbei.txt", header = TRUE, sep = "\t")
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/6/senbei.txt", header = TRUE, sep = "\t")
 
 FA <- factanal(~ キャンペーンイベント + パッケージデザイン + 広告宣伝 + 素材栄養素 + 味, factors = 2, rotation = "varimax", scores = "regression", data = Dataset, rownames = 1)
 print(FA)
@@ -360,13 +360,13 @@ rownames(Dataset) <- Dataset$製品名
 
 scatterplot(
   F2 ~ F1,
+  data = Dataset,
   regLine = FALSE,
   smooth = FALSE,
-# id = list(method = 'identify'),
+  id = list(method = 'identify'),
   boxplots = FALSE,
   xlab = "マーケティング因子",
-  ylab = "製品因子",
-  data = Dataset
+  ylab = "製品因子"
 )
 text(Dataset$F1, Dataset$F2, labels = Dataset$製品名, pos = 4, cex = 1)
 ```
@@ -377,6 +377,8 @@ text(Dataset$F1, Dataset$F2, labels = Dataset$製品名, pos = 4, cex = 1)
 なお，クリップボードからデータを読むコードはOSによって異なる。
 上に示したコードはWindowsの場合であり，macOSの場合，`Dataset <- read.csv(pipe("pbpaste"), header = TRUE, sep = "\t")` とする。
 タブを表す記号 `¥t` はWindowsの場合であり，macOSでは `\t` である。
+ここで，`read.table()` の代わりに，`read.delim()` を使うこともできる。
+`read.delim()` を使う場合は，引数の `header` と `sep` を省略できる（デフォルト値のため）。
 
 また，Rコマンダーでは因子分析の結果を `.FA` に代入している。
 `.` で始まる変数名はユーザーから隠す意図があり，この場面では意図通りに変数名を用いている（ただし，`local()` を使っているため，`.` で始まる必要はないのではあるが…）。
@@ -417,7 +419,7 @@ result <- list(
   "Summary" = summary(PC)
 )
 
-print(result)
+result
 
 screeplot(PC)
 screeplot(PC, type = "lines")
@@ -427,7 +429,6 @@ screeplot(PC, type = "lines")
 
 また，主成分分析を使わずに相関行列の固有値を計算し，スクリープロットを描く方法もある。
 因子分析の際にはこの方法が使われることがある。
-
 ```{r}
 cor_matrix <- cor(Dataset[, c("キャンペーンイベント", "パッケージデザイン", "広告宣伝", "素材栄養素", "味")])
 ev <- eigen(cor_matrix)$values
@@ -437,7 +438,6 @@ abline(h = 1, col = "red", lty = 2)
 ```
 
 さらに，`psych` パッケージには簡単にスクリープロットを描く関数が用意されている。
-
 ```{r}
 #| eval: false
 library(psych)
@@ -448,9 +448,7 @@ fa.parallel(cor_matrix, n.obs = nrow(Dataset), fa = "fa")
 #| echo: false
 #| message: false
 library(psych)
-```
-```{r}
-#| echo: false
+
 fa.parallel(cor_matrix, n.obs = nrow(Dataset), fa = "fa")
 ```
 
@@ -487,7 +485,6 @@ plot(
 
 なお，知覚マップのところで `rownames(Dataset) <- Dataset$製品名` を追加した場合は，図6.9とは異なり，デンドログラムに製品名が表示される。
 製品名ではなく番号を使ってデンドログラムを描くには，次のコードを実行する。
-
 ```{r}
 #| echo: true
 #| eval: true
@@ -506,7 +503,6 @@ plot(
 
 以下は，図6.10の作図のためのコードである。
 なお，クラスター分析に `ward.D2` を使用しているため，クラスター間距離が本書の記述とは異なる。
-
 ```{r}
 #| warning: false
 Dataset$Cluster <- as.factor(cutree(HClust_1, h = 3))
@@ -559,7 +555,6 @@ for (k in unique(Dataset$Cluster)) {
 `dataEllipse()` はデータのばらつきをもとに楕円を描くため，2点しかないと警告が出て，直線が描かれる点に注意が必要である。
 
 図を横に並べて表示する設定を行ったため，次のコードを実行してデフォルトの設定に戻しておく。
-
 ```{r}
 par(mfrow = c(1, 1))
 ```
@@ -617,7 +612,7 @@ print(.FA,cutoff=0,sort=TRUE)
 ```{r}
 #| echo: true
 #| eval: false
-Dataset <- read.csv(file.choose(), header = TRUE)
+Dataset <- read.csv(file.choose())
 
 FA <- factanal(
   ~ q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21 + q22 + q23 + q24 + q25 + q26 + q27,
@@ -631,7 +626,7 @@ print(FA)
 ```{r}
 #| echo: false
 #| message: false
-Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/7/seg.txt", header = TRUE)
+Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/7/seg.txt")
 
 FA <- factanal(
   ~ q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21 + q22 + q23 + q24 + q25 + q26 + q27,
@@ -704,17 +699,15 @@ result <- list(
   "Between Cluster Sum of Squares" = cluster$betweenss
 )
 
-print(result)
+result
 ```
 
 主成分分析のバイプロットを描画し，データポイントを _K-means_ 法によるクラスター分析の結果に基づいてラベル付けする。
-
 ```{r}
 biplot(princomp(Dataset[, c("F1", "F2", "F3", "F4")]), xlabs = as.character(cluster$cluster))
 ```
 
 _K-means_ 法によるクラスター分析の結果を確認する。
-
 ```{r}
 Dataset$KMeans <- cluster$cluster
 
@@ -725,15 +718,14 @@ split_data <- split(Dataset[, c("F1", "F2", "F3", "F4")], Dataset$KMeans)
 result <- data.frame(セグメント = names(split_data),
                      t(sapply(split_data, colMeans)),
                      サンプルサイズ = sapply(split_data, nrow))
-print(result)
+result
 ```
 
-`print(result)` の出力結果の行の並び順が表7.9と異なっていても問題ない。
+`result` の出力結果において，行の並び順が表7.9と異なっていても問題ない。
 
 #### 5.4 セグメントのプロファイリング
 
 表7.10〜表7.13もRを使って作成できる。
-
 ```{r}
 split_data <- split(Dataset, Dataset$KMeans)
 
@@ -757,7 +749,6 @@ transaction_table
 ```
 
 さらに，図7.4もRを使って作成できる。
-
 ```{r}
 gender_counts <- table(Dataset$性別)
 names(gender_counts) <- c("男性", "女性") 
@@ -773,7 +764,6 @@ barplot(table(Dataset$年齢区分), col = "skyblue", las = 2)
 
 細かい調整が必要な場合は，自分でカスタマイズ可能である。
 例えば，棒グラフの上に数値を表示したい場合は，次のようにする。
-
 ```{r}
 bar_positions <- barplot(gender_counts, ylim = c(0, max(gender_counts) * 1.2), col = adjustcolor(c("blue", "red"), alpha.f = .5))
 text(bar_positions, gender_counts, labels = gender_counts, pos = 3, cex = 1, col = "black")
@@ -829,7 +819,6 @@ summary(RegModel_1)
 このようなデータは珍しい。
 
 なお，数字で始まる列名の先頭に `X` を付けたくない場合は，`read.table()` の引数に `check.names = FALSE` を指定すればよい。
-
 ```{r}
 #| echo: true
 #| eval: false
@@ -843,7 +832,6 @@ Dataset
 ```
 
 ただし，`lm()` を実行するときには，列名をバッククオート ``` ` ``` で括る必要がある。
-
 ```{r}
 RegModel_1 <- lm(全体効用 ~ `2年` + `4時間` + `6時間` + シルバー + 赤, data = Dataset)
 summary(RegModel_1)
@@ -899,7 +887,7 @@ p. 202，表9.2
 - （誤）5000e+03
 - （正）5.000e+03
 
-p. 202，表9.2
+p. 203
 
 - （誤）予測値が追加される。本書の検証は
 - （正）予測値が追加される。その後，【グラフ】⇒【折れ線グラフ…】でコマンドボックスを立ち上げて，【x 変数（1つ選択）】から「時点」を選択し，【y 変数（2つ以上選択）】から「購買者数」と「予測」を選択した後で，【OK】をクリックする。本書の検証は
@@ -960,14 +948,12 @@ summary(RegModel_1)
 
 このデータについて，「累積購買者数」，「一期前累積購買者数」，「一期前累積購買者数の二乗」の3つの列がどこで計算されたのかが気になる。
 通常は，次のデータが手元にあると考えるのが理に適っているだろう。
-
 ```{r}
 Dataset <- Dataset[, 1:2]
 Dataset
 ```
 
 このデータから，必要なデータを作成可能である。
-
 ```{r}
 Dataset$累積購買者数 <- cumsum(Dataset$購買者数)
 Dataset$一期前累積購買者数 <- c(0, head(Dataset$累積購買者数, -1))
@@ -976,7 +962,6 @@ Dataset
 ```
 
 続いて，`m`，`p`，`q` の計算は，`lm()` の結果を用いて計算することができる。
-
 ```{r}
 x <- coef(RegModel_1)
 names(x) <- NULL
@@ -1012,7 +997,6 @@ Dataset$予測 <- as.matrix(cbind(1, Dataset[, c("一期前累積購買者数", 
 ```
 
 このとき， `predict()` 関数を使うと便利である。
-
 ```{r}
 #| eval: false
 Dataset$予測 <- predict(RegModel_1, newdata = Dataset)
@@ -1020,7 +1004,6 @@ Dataset$予測 <- predict(RegModel_1, newdata = Dataset)
 
 Rコマンダーでは，`RcmdrMisc` パッケージの関数 `lineplot()` で作図しているので，Rコマンダーを使わない場合はこの関数は使えない。
 代わりに，次のコードで図を作成できる。
-
 ```{r}
 plot(Dataset$時点, Dataset$購買者数, type = "l", col = "black", lwd = 2,
      ylim = range(c(Dataset$購買者数, Dataset$予測)),
@@ -1032,9 +1015,8 @@ legend("topright", legend = c("購買者数", "予測"), col = c("black", "red")
 ```
 
 図9.13にあるような累積購入者数のグラフを作成するには，次のコードを実行する。
-
 ```{r}
-plot(Dataset$時点, Dataset$累積購買者数, type = "l", col = "black", lwd = 2, las = 1, ylim = c(0, max(Dataset$累積購買者数)), xlab = "時点", ylab = "累積購買者数", main = "普及パターン")
+plot(累積購買者数 ~ 時点, data = Dataset, type = "l", col = "black", lwd = 2, las = 1, ylim = c(0, max(Dataset$累積購買者数)), main = "普及パターン")
 ```
 
 
@@ -1094,28 +1076,22 @@ Dataset <- read.csv(file.choose(), header = TRUE)
 Dataset$M_Rank <- cut(
   Dataset$M,
   breaks = c(-Inf, 49999, 99999, 299999, 499999, Inf),
-  labels = c("M_Rank1", "M_Rank2", "M_Rank3", "M_Rank4", "M_Rank5"),
+  labels = paste0("M_Rank", 1:5),
   right = TRUE
 )
 Dataset$F_Rank <- cut(
   Dataset$F,
   breaks = c(-Inf, 1, 2, 9, 29, Inf),
-  labels = c("F_Rank1", "F_Rank2", "F_Rank3", "F_Rank4", "F_Rank5"),
+  labels = paste0("F_Rank", 1:5),
   right = TRUE
 )
 Dataset$R_Rank <- cut(
   Dataset$R,
   breaks = c(-Inf, 30, 60, 90, 180, Inf),
-  labels = c("R_Rank5", "R_Rank4", "R_Rank3", "R_Rank2", "R_Rank1"),
+  labels = paste0("R_Rank", 5:1),
   right = TRUE
 )
-Dataset$R_Rank <- factor(Dataset$R_Rank, levels = c("R_Rank1", "R_Rank2", "R_Rank3", "R_Rank4", "R_Rank5"))
-
-Boxplot(M ~ R_Rank, data=Dataset, id=list(method="y"))
-Boxplot(F ~ R_Rank, data=Dataset, id=list(method="y"))
-
-AnovaModel_2 <- aov(M ~ R_Rank, data=Dataset)
-summary(AnovaModel_2)
+Dataset$R_Rank <- factor(Dataset$R_Rank, levels = rev(levels(Dataset$R_Rank)))
 ```
 ```{r}
 #| echo: false
@@ -1125,33 +1101,36 @@ Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版
 Dataset$M_Rank <- cut(
   Dataset$M,
   breaks = c(-Inf, 49999, 99999, 299999, 499999, Inf),
-  labels = c("M_Rank1", "M_Rank2", "M_Rank3", "M_Rank4", "M_Rank5"),
+  labels = paste0("M_Rank", 1:5),
   right = TRUE
 )
 Dataset$F_Rank <- cut(
   Dataset$F,
   breaks = c(-Inf, 1, 2, 9, 29, Inf),
-  labels = c("F_Rank1", "F_Rank2", "F_Rank3", "F_Rank4", "F_Rank5"),
+  labels = paste0("F_Rank", 1:5),
   right = TRUE
 )
 Dataset$R_Rank <- cut(
   Dataset$R,
   breaks = c(-Inf, 30, 60, 90, 180, Inf),
-  labels = c("R_Rank5", "R_Rank4", "R_Rank3", "R_Rank2", "R_Rank1"),
+  labels = paste0("R_Rank", 5:1),
   right = TRUE
 )
-Dataset$R_Rank <- factor(Dataset$R_Rank, levels = c("R_Rank1", "R_Rank2", "R_Rank3", "R_Rank4", "R_Rank5"))
+Dataset$R_Rank <- factor(Dataset$R_Rank, levels = rev(levels(Dataset$R_Rank)))
+```
 
-Boxplot(M ~ R_Rank, data=Dataset, id=list(method="y"))
-Boxplot(F ~ R_Rank, data=Dataset, id=list(method="y"))
+`Boxplot()` は `car` パッケージの関数である。
+`car` パッケージを使わなくても，`boxplot()` で同じ図が作成できる。
+```{r}
+boxplot(M ~ R_Rank, data = Dataset, col = "gray")
+boxplot(F ~ R_Rank, data = Dataset, col = "gray")
 
 AnovaModel_2 <- aov(M ~ R_Rank, data=Dataset)
 summary(AnovaModel_2)
 ```
 
 Rコマンダーでは，`RcmdrMisc` パッケージの関数 `lineplot()` でTukeyのHSD検定を行っているので，Rコマンダーを使わない場合はこの関数は使えない。
-代わりに，次のコードで図を作成できる。
-
+代わりに，次のコードで同様の結果が得られる。
 ```{r}
 #| echo: true
 #| eval: true
@@ -1176,12 +1155,12 @@ cld_results
 ::: {.callout-warning collapse="false" icon="false"}
 ## 誤植
 
-p. 202，表9.2
+p. 226
 
 - （誤）一般化線形モデル
 - （正）一般化線型モデル
 
-これはRコマンダーの翻訳ミスであろう。
+これはRコマンダーの翻訳ミスであろう。同様の翻訳ミスはこの箇所以降にも見られる。
 :::
 
 ##### ▶ Rコマンダーによって生成されたコード（p. 220）
@@ -1209,3 +1188,113 @@ exp(coef(GLM.3))
 Rコマンダーは，どうやら内部で `DM` 列をファクターに変換しているようである。
 実際には，`factor()` を適用するか，`ifelse()` でダミー変数に変換すればよい。
 ダミー変数に変換した場合は，値も変わってしまうため，列名を変更することを推奨する。
+
+
+## 第11章 市場反応分析（II）
+
+### 3 Rコマンダーによる分析
+
+#### 3.1 ブランド価値を含むモデル
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, 
+  stringsAsFactors=TRUE, sep="", na.strings="NA", dec=".", strip.white=TRUE)
+GLM.1 <- glm(B1 ~ P1-P2, family=binomial(logit), data=Dataset)
+summary(GLM.1)
+exp(coef(GLM.1))  # Exponentiated coefficients ("odds ratios")
+GLM.2 <- glm(B1 ~ P1 - P2, family=binomial(probit), data=Dataset)
+summary(GLM.2)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.table(file.choose(), header = TRUE, sep = "", strip.white = TRUE)
+
+GLM_1 <- glm(B1 ~ P1 - P2, family = binomial(logit), data = Dataset)
+summary(GLM_1)
+```
+```{r}
+#| echo: false
+#| message: false
+Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/11/binomial-choice.txt", header = TRUE, sep = "", strip.white = TRUE)
+
+GLM_1 <- glm(B1 ~ P1 - P2, family = binomial(logit), data = Dataset)
+summary(GLM_1)
+```
+```{r}
+exp(coef(GLM_1))
+GLM_2 <- glm(B1 ~ P1 - P2, family = binomial(probit), data = Dataset)
+summary(GLM_2)
+```
+
+`binomial-choice.txt` もヘッダーのみスペース区切りで，データはタブ区切りになっている。
+タブ区切りのデータはヘッダーもタブ区切りであるのが普通であり，本書で扱うデータが特殊であることを認識しておく必要がある。
+
+##### ▶ Rコマンダーによって生成されたコード（p. 240）
+
+```{r}
+#| eval: false
+GLM.2 <- glm(B1 ~ 0+P1 - P2, family=binomial(logit), data=Dataset)
+summary(GLM.2)
+exp(coef(GLM.2))  # Exponentiated coefficients ("odds ratios")
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: true
+GLM_2 <- glm(B1 ~ 0 + P1 - P2, family = binomial(logit), data = Dataset)
+summary(GLM_2)
+exp(coef(GLM_2))
+```
+
+### 4 多項離散選択モデル
+
+#### 4.1 Rによる分析：多項ロジット・モデルの推定
+
+##### ▶ Rコマンダーによって生成されたコード（p. 241）
+
+```{r}
+#| eval: false
+library(mlogit, pos=16)
+data(Catsup, package="mlogit")
+```
+
+##### ▶ 手入力するコード（`mlogit.R`）
+
+```{r}
+#| eval: false
+library(mlogit)
+data(Catsup)
+Catdata <- mlogit.data(Catsup, choice = "choice", shape = "wide", varying = c(2:13), sep=".")
+Cat1<-mlogit(choice ~ disp+feat+price , data = Catdata)
+summary(Cat1)
+```
+
+##### ▶ 一般的なRコード
+
+`mlogit` パッケージをインストールしたことがなければ，最初に次のコードを実行する。
+```{r}
+#| eval: false
+install.packages("mlogit")
+```
+
+その後，次のコードを実行する。
+```{r}
+#| echo: true
+#| eval: true
+#| message: false
+library(mlogit)
+
+data(Catsup)
+
+Catdata <- mlogit.data(Catsup, choice = "choice", shape = "wide", varying = c(2:13), sep = ".")
+
+Cat1 <- mlogit(choice ~ disp + feat + price , data = Catdata)
+summary(Cat1)
+```
