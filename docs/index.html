@@ -190,6 +190,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#デジタルカメラの事例" id="toc-デジタルカメラの事例" class="nav-link" data-scroll-target="#デジタルカメラの事例">3.2 デジタルカメラの事例</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#第13章-マーケットバスケットとクロスセリング" id="toc-第13章-マーケットバスケットとクロスセリング" class="nav-link" data-scroll-target="#第13章-マーケットバスケットとクロスセリング">第13章 マーケットバスケットとクロスセリング</a>
+  <ul>
+  <li><a href="#rによるマーケットバスケット分析" id="toc-rによるマーケットバスケット分析" class="nav-link" data-scroll-target="#rによるマーケットバスケット分析">3 Rによるマーケットバスケット分析</a>
+  <ul class="collapse">
+  <li><a href="#rコマンダーによって生成されたコードp.-272" id="toc-rコマンダーによって生成されたコードp.-272" class="nav-link" data-scroll-target="#rコマンダーによって生成されたコードp.-272">▶ Rコマンダーによって生成されたコード（p.&nbsp;272）</a></li>
+  <li><a href="#手入力するコードarules.r" id="toc-手入力するコードarules.r" class="nav-link" data-scroll-target="#手入力するコードarules.r">▶ 手入力するコード（<code>arules.R</code>）</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -717,7 +725,7 @@ The p-value is 0.0415 </code></pre>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Component Loadings"</span> <span class="ot">=</span> <span class="fu">unclass</span>(<span class="fu">loadings</span>(PC)),</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Component Variances"</span> <span class="ot">=</span> PC<span class="sc">$</span>sd<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Component Variances"</span> <span class="ot">=</span> PC<span class="sc">$</span>sd <span class="sc">^</span> <span class="dv">2</span>,</span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Summary"</span> <span class="ot">=</span> <span class="fu">summary</span>(PC)</span>
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -1546,7 +1554,7 @@ F-statistic: 74.77 on 5 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">9.983e-02</span></span>
 <span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">3.994e-06</span></span>
 <span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> (<span class="sc">-</span> b <span class="sc">-</span> <span class="fu">sqrt</span>(b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> a <span class="sc">*</span> c)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> c)</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> (<span class="sc">-</span> b <span class="sc">-</span> <span class="fu">sqrt</span>(b <span class="sc">^</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> a <span class="sc">*</span> c)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> c)</span>
 <span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> a <span class="sc">/</span> m</span>
 <span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> p <span class="sc">+</span> b</span>
 <span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1571,7 +1579,7 @@ F-statistic: 74.77 on 5 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>Dataset2 <span class="ot">&lt;-</span> Dataset[Dataset<span class="sc">$</span>時点 <span class="sc">&lt;</span> <span class="dv">11</span>, ]</span>
 <span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>RegModel_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(購買者数 <span class="sc">~</span> 一期前累積購買者数 <span class="sc">+</span> 一期前累積購買者数 <span class="sc">^</span> <span class="dv">2</span>, <span class="at">data =</span> Dataset2)</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>RegModel_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(購買者数 <span class="sc">~</span> 一期前累積購買者数 <span class="sc">+</span> <span class="fu">I</span>(一期前累積購買者数 <span class="sc">^</span> <span class="dv">2</span>), <span class="at">data =</span> Dataset2)</span>
 <span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RegModel_1)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -1654,7 +1662,7 @@ F-statistic: 7.471e+05 on 2 and 7 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> x[<span class="dv">2</span>]</span>
 <span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> x[<span class="dv">3</span>]</span>
 <span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> (<span class="sc">-</span> b <span class="sc">-</span> <span class="fu">sqrt</span>(b<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> a <span class="sc">*</span> c)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> c)</span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> (<span class="sc">-</span> b <span class="sc">-</span> <span class="fu">sqrt</span>(b <span class="sc">^</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">4</span> <span class="sc">*</span> a <span class="sc">*</span> c)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> c)</span>
 <span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> a <span class="sc">/</span> m</span>
 <span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> p <span class="sc">+</span> b</span>
 <span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1808,7 +1816,7 @@ F-statistic: 7.471e+05 on 2 and 7 DF,  p-value: &lt; 2.2e-16</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>AnovaModel_2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(M <span class="sc">~</span> R_Rank, <span class="at">data=</span>Dataset)</span>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>AnovaModel_2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(M <span class="sc">~</span> R_Rank, <span class="at">data =</span> Dataset)</span>
 <span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(AnovaModel_2)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              Df    Sum Sq   Mean Sq F value Pr(&gt;F)    
@@ -1820,9 +1828,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Rコマンダーでは，<code>RcmdrMisc</code> パッケージの関数 <code>lineplot()</code> でTukeyのHSD検定を行っているので，Rコマンダーを使わない場合はこの関数は使えない。 代わりに，次のコードで同様の結果が得られる。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>mean_values <span class="ot">&lt;-</span> <span class="fu">tapply</span>(Dataset<span class="sc">$</span>M, Dataset<span class="sc">$</span>R_Rank, mean)</span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>sd_values <span class="ot">&lt;-</span> <span class="fu">tapply</span>(Dataset<span class="sc">$</span>M, Dataset<span class="sc">$</span>R_Rank, sd)</span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">R_Rank =</span> <span class="fu">names</span>(mean_values), <span class="at">mean =</span> mean_values, <span class="at">sd =</span> sd_values)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="fu">tapply</span>(Dataset<span class="sc">$</span>M, Dataset<span class="sc">$</span>R_Rank, mean)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">tapply</span>(Dataset<span class="sc">$</span>M, Dataset<span class="sc">$</span>R_Rank, sd)</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">R_Rank =</span> <span class="fu">names</span>(mean), <span class="at">mean =</span> mean, <span class="at">sd =</span> sd)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         R_Rank     mean       sd
 R_Rank1 R_Rank1 209930.0 151138.6
@@ -1863,9 +1871,8 @@ R_Rank5-R_Rank4 24600.64   1858.459  47342.81 0.0263635</code></pre>
 <div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcompView)</span>
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>tukey_pvalues <span class="ot">&lt;-</span> Tukey_Result<span class="sc">$</span>R_Rank[, <span class="st">"p adj"</span>]</span>
-<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a>cld_results <span class="ot">&lt;-</span> <span class="fu">multcompLetters</span>(tukey_pvalues)</span>
-<span id="cb117-6"><a href="#cb117-6" aria-hidden="true" tabindex="-1"></a>cld_results</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>cld_results <span class="ot">&lt;-</span> <span class="fu">multcompLetters</span>(tukey_pvalues)</span>
+<span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a>cld_results</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R_Rank2 R_Rank3 R_Rank4 R_Rank5 R_Rank1 
     "a"    "ab"     "b"     "c"     "a" </code></pre>
@@ -2182,7 +2189,7 @@ X-squared = 28.74, df = 2, p-value = 5.742e-07</code></pre>
    1 100 85 115
    2 100 85 115</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Test<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(Test<span class="sc">$</span>residuals <span class="sc">^</span> <span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    嗜好
 地域    1    2    3
@@ -2216,8 +2223,8 @@ X-squared = 28.74, df = 2, p-value = 5.742e-07</code></pre>
 </ul>
 <p>p.&nbsp;257</p>
 <ul>
-<li>（誤）Perform clustering on</li>
-<li>（正）Perform clustring on</li>
+<li>（誤）Perform clustring on</li>
+<li>（正）Perform clustering on</li>
 </ul>
 <p>p.&nbsp;257</p>
 <ul>
@@ -2280,20 +2287,22 @@ X-squared = 28.74, df = 2, p-value = 5.742e-07</code></pre>
 </div>
 <p>この図のように文字化けする場合は，仕方ないと諦める。 macOSのRでは，日本語部分が文字化けしやすいと認識しておいてほしい。</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>res.hcpc <span class="ot">&lt;-</span> <span class="fu">HCPC</span>(res, <span class="at">nb.clust =</span> <span class="dv">0</span>, <span class="at">consol =</span> <span class="cn">FALSE</span>, <span class="at">cluster.CA =</span> <span class="st">"rows"</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>res.hcpc <span class="ot">&lt;-</span> <span class="fu">HCPC</span>(res, <span class="at">nb.clust =</span> <span class="dv">0</span>, <span class="at">consol =</span> <span class="cn">FALSE</span>, <span class="at">cluster.CA =</span> <span class="st">"rows"</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb154-2"><a href="#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(res.hcpc, choice = "tree")</span></span>
+<span id="cb154-3"><a href="#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(res.hcpc, choice = "map")</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-94-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-93-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-94-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-93-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2390,26 +2399,28 @@ Columns
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-98-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-97-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>res.hcpc <span class="ot">&lt;-</span> <span class="fu">HCPC</span>(res, <span class="at">nb.clust =</span> <span class="dv">0</span>, <span class="at">consol =</span> <span class="cn">FALSE</span>, <span class="at">cluster.CA =</span> <span class="st">"rows"</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>res.hcpc <span class="ot">&lt;-</span> <span class="fu">HCPC</span>(res, <span class="at">nb.clust =</span> <span class="dv">0</span>, <span class="at">consol =</span> <span class="cn">FALSE</span>, <span class="at">cluster.CA =</span> <span class="st">"rows"</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(res.hcpc, choice = "tree")</span></span>
+<span id="cb159-3"><a href="#cb159-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(res.hcpc, choice = "map")</span></span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-101-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-99-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-101-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-99-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2478,6 +2489,406 @@ Columns
 液晶       33.573  0.657 |
 ホールド感  9.480  0.081 |
 満足度      3.251  0.067 |</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="第13章-マーケットバスケットとクロスセリング" class="level2">
+<h2 class="anchored" data-anchor-id="第13章-マーケットバスケットとクロスセリング">第13章 マーケットバスケットとクロスセリング</h2>
+<section id="rによるマーケットバスケット分析" class="level3">
+<h3 class="anchored" data-anchor-id="rによるマーケットバスケット分析">3 Rによるマーケットバスケット分析</h3>
+<section id="rコマンダーによって生成されたコードp.-272" class="level4">
+<h4 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-272">▶ Rコマンダーによって生成されたコード（p.&nbsp;272）</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, </span>
+<span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="手入力するコードarules.r" class="level4">
+<h4 class="anchored" data-anchor-id="手入力するコードarules.r">▶ 手入力するコード（<code>arules.R</code>）</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span>
+<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(y)</span>
+<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a>y.tran<span class="ot">&lt;-</span><span class="fu">as</span>(<span class="fu">as.matrix</span>(y),<span class="st">"transactions"</span>)</span>
+<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a>rules <span class="ot">&lt;-</span> <span class="fu">apriori</span>(y.tran, <span class="at">parameter=</span> <span class="fu">list</span>(<span class="at">supp=</span><span class="fl">0.4</span>, <span class="at">conf=</span><span class="fl">0.5</span>))</span>
+<span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rules)</span>
+<span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">head</span>(<span class="fu">sort</span>(rules, <span class="at">by =</span> <span class="st">"lift"</span>),<span class="at">n=</span><span class="dv">20</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="一般的なrコード-24" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-24">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span>
+<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb164-4"><a href="#cb164-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-5"><a href="#cb164-5" aria-hidden="true" tabindex="-1"></a>y_tran <span class="ot">&lt;-</span> <span class="fu">as</span>(<span class="fu">as.matrix</span>(y), <span class="st">"transactions"</span>)</span>
+<span id="cb164-6"><a href="#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(y); <span class="fu">class</span>(y_tran)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "transactions"
+attr(,"package")
+[1] "arules"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>rules <span class="ot">&lt;-</span> <span class="fu">apriori</span>(y_tran, <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.4</span>, <span class="at">conf =</span> <span class="fl">0.5</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Apriori
+
+Parameter specification:
+ confidence minval smax arem  aval originalSupport maxtime support minlen
+        0.5    0.1    1 none FALSE            TRUE       5     0.4      1
+ maxlen target  ext
+     10  rules TRUE
+
+Algorithmic control:
+ filter tree heap memopt load sort verbose
+    0.1 TRUE TRUE  FALSE TRUE    2    TRUE
+
+Absolute minimum support count: 400 
+
+set item appearances ...[0 item(s)] done [0.00s].
+set transactions ...[20 item(s), 1000 transaction(s)] done [0.00s].
+sorting and recoding items ... [17 item(s)] done [0.00s].
+creating transaction tree ... done [0.00s].
+checking subsets of size 1 2 3 done [0.00s].
+writing ... [118 rule(s)] done [0.00s].
+creating S4 object  ... done [0.00s].</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rules)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>set of 118 rules
+
+rule length distribution (lhs + rhs):sizes
+ 1  2  3 
+14 92 12 
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   2.000   2.000   1.983   2.000   3.000 
+
+summary of quality measures:
+    support         confidence        coverage          lift       
+ Min.   :0.4010   Min.   :0.5000   Min.   :0.484   Min.   :0.9652  
+ 1st Qu.:0.4208   1st Qu.:0.6402   1st Qu.:0.634   1st Qu.:0.9958  
+ Median :0.4430   Median :0.6694   Median :0.646   Median :1.0013  
+ Mean   :0.4790   Mean   :0.6935   Mean   :0.700   Mean   :1.0302  
+ 3rd Qu.:0.5068   3rd Qu.:0.7792   3rd Qu.:0.780   3rd Qu.:1.0189  
+ Max.   :0.7940   Max.   :0.9855   Max.   :1.000   Max.   :1.5399  
+     count      
+ Min.   :401.0  
+ 1st Qu.:420.8  
+ Median :443.0  
+ Mean   :479.0  
+ 3rd Qu.:506.8  
+ Max.   :794.0  
+
+mining info:
+   data ntransactions support confidence
+ y_tran          1000     0.4        0.5
+                                                             call
+ apriori(data = y_tran, parameter = list(supp = 0.4, conf = 0.5))</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">head</span>(<span class="fu">sort</span>(rules, <span class="at">by =</span> <span class="st">"lift"</span>), <span class="at">n =</span> <span class="dv">20</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     lhs                     rhs            support confidence coverage
+[1]  {炭酸飲料}           =&gt; {スナック菓子} 0.477   0.9855372  0.484   
+[2]  {スナック菓子}       =&gt; {炭酸飲料}     0.477   0.7453125  0.640   
+[3]  {根菜}               =&gt; {豚肉}         0.423   0.6558140  0.645   
+[4]  {豚肉}               =&gt; {根菜}         0.423   0.8528226  0.496   
+[5]  {牛乳, アイス}       =&gt; {スナック菓子} 0.418   0.8376754  0.499   
+[6]  {スナック菓子}       =&gt; {アイス}       0.519   0.8109375  0.640   
+[7]  {アイス}             =&gt; {スナック菓子} 0.519   0.8251192  0.629   
+[8]  {牛乳, スナック菓子} =&gt; {アイス}       0.418   0.8069498  0.518   
+[9]  {シャンプー}         =&gt; {リンス}       0.504   0.7949527  0.634   
+[10] {リンス}             =&gt; {シャンプー}   0.504   0.7801858  0.646   
+[11] {牛乳}               =&gt; {洗濯洗剤}     0.411   0.5176322  0.794   
+[12] {洗濯洗剤}           =&gt; {牛乳}         0.411   0.8170974  0.503   
+[13] {アイス}             =&gt; {チョコレート} 0.432   0.6868045  0.629   
+[14] {チョコレート}       =&gt; {アイス}       0.432   0.6447761  0.670   
+[15] {シャンプー}         =&gt; {チョコレート} 0.435   0.6861199  0.634   
+[16] {チョコレート}       =&gt; {シャンプー}   0.435   0.6492537  0.670   
+[17] {青菜}               =&gt; {チョコレート} 0.535   0.6858974  0.780   
+[18] {チョコレート}       =&gt; {青菜}         0.535   0.7985075  0.670   
+[19] {リンス}             =&gt; {根菜}         0.426   0.6594427  0.646   
+[20] {根菜}               =&gt; {リンス}       0.426   0.6604651  0.645   
+     lift     count
+[1]  1.539902 477  
+[2]  1.539902 477  
+[3]  1.322206 423  
+[4]  1.322206 423  
+[5]  1.308868 418  
+[6]  1.289249 519  
+[7]  1.289249 519  
+[8]  1.282909 418  
+[9]  1.230577 504  
+[10] 1.230577 504  
+[11] 1.029090 411  
+[12] 1.029090 411  
+[13] 1.025081 432  
+[14] 1.025081 432  
+[15] 1.024060 435  
+[16] 1.024060 435  
+[17] 1.023728 535  
+[18] 1.023728 535  
+[19] 1.022392 426  
+[20] 1.022392 426  </code></pre>
+</div>
+</div>
+<p><code>rules</code> をデータフレームとして扱いたい場合は，次のようにするとよい。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a>rules2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb173-2"><a href="#cb173-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">lhs =</span> <span class="fu">labels</span>(<span class="fu">lhs</span>(rules)),</span>
+<span id="cb173-3"><a href="#cb173-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">arrow =</span> <span class="st">"=&gt;"</span>,</span>
+<span id="cb173-4"><a href="#cb173-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rhs =</span> <span class="fu">labels</span>(<span class="fu">rhs</span>(rules)),</span>
+<span id="cb173-5"><a href="#cb173-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quality</span>(rules)</span>
+<span id="cb173-6"><a href="#cb173-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb173-7"><a href="#cb173-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-8"><a href="#cb173-8" aria-hidden="true" tabindex="-1"></a>rules2[<span class="fu">order</span>(rules2<span class="sc">$</span>lift, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      lhs arrow            rhs support confidence coverage
+15             {炭酸飲料}    =&gt; {スナック菓子}   0.477  0.9855372    0.484
+16         {スナック菓子}    =&gt;     {炭酸飲料}   0.477  0.7453125    0.640
+20                 {根菜}    =&gt;         {豚肉}   0.423  0.6558140    0.645
+19                 {豚肉}    =&gt;         {根菜}   0.423  0.8528226    0.496
+108         {牛乳,アイス}    =&gt; {スナック菓子}   0.418  0.8376754    0.499
+56         {スナック菓子}    =&gt;       {アイス}   0.519  0.8109375    0.640
+55               {アイス}    =&gt; {スナック菓子}   0.519  0.8251192    0.629
+109   {牛乳,スナック菓子}    =&gt;       {アイス}   0.418  0.8069498    0.518
+43           {シャンプー}    =&gt;       {リンス}   0.504  0.7949527    0.634
+44               {リンス}    =&gt;   {シャンプー}   0.504  0.7801858    0.646
+18                 {牛乳}    =&gt;     {洗濯洗剤}   0.411  0.5176322    0.794
+17             {洗濯洗剤}    =&gt;         {牛乳}   0.411  0.8170974    0.503
+57               {アイス}    =&gt; {チョコレート}   0.432  0.6868045    0.629
+58         {チョコレート}    =&gt;       {アイス}   0.432  0.6447761    0.670
+45           {シャンプー}    =&gt; {チョコレート}   0.435  0.6861199    0.634
+46         {チョコレート}    =&gt;   {シャンプー}   0.435  0.6492537    0.670
+98                 {青菜}    =&gt; {チョコレート}   0.535  0.6858974    0.780
+97         {チョコレート}    =&gt;         {青菜}   0.535  0.7985075    0.670
+65               {リンス}    =&gt;         {根菜}   0.426  0.6594427    0.646
+66                 {根菜}    =&gt;       {リンス}   0.426  0.6604651    0.645
+81                 {根菜}    =&gt;         {お茶}   0.452  0.7007752    0.645
+82                 {お茶}    =&gt;         {根菜}   0.452  0.6579330    0.687
+31                 {米菓}    =&gt;         {根菜}   0.419  0.6577708    0.637
+32                 {根菜}    =&gt;         {米菓}   0.419  0.6496124    0.645
+93         {スナック菓子}    =&gt;         {牛乳}   0.518  0.8093750    0.640
+94                 {牛乳}    =&gt; {スナック菓子}   0.518  0.6523929    0.794
+112           {青菜,牛乳}    =&gt;         {根菜}   0.401  0.6573770    0.610
+26                 {青菜}    =&gt;     {台所洗剤}   0.434  0.5564103    0.780
+25             {台所洗剤}    =&gt;         {青菜}   0.434  0.7948718    0.546
+53               {アイス}    =&gt;       {リンス}   0.414  0.6581876    0.629
+54               {リンス}    =&gt;       {アイス}   0.414  0.6408669    0.646
+77                 {根菜}    =&gt; {スナック菓子}   0.420  0.6511628    0.645
+78         {スナック菓子}    =&gt;         {根菜}   0.420  0.6562500    0.640
+41           {シャンプー}    =&gt;       {アイス}   0.405  0.6388013    0.634
+42               {アイス}    =&gt;   {シャンプー}   0.405  0.6438792    0.629
+107 {スナック菓子,アイス}    =&gt;         {牛乳}   0.418  0.8053950    0.519
+35                 {米菓}    =&gt;         {お茶}   0.443  0.6954474    0.637
+36                 {お茶}    =&gt;         {米菓}   0.443  0.6448326    0.687
+80         {チョコレート}    =&gt;         {根菜}   0.437  0.6522388    0.670
+79                 {根菜}    =&gt; {チョコレート}   0.437  0.6775194    0.645
+103                {お茶}    =&gt;         {牛乳}   0.550  0.8005822    0.687
+104                {牛乳}    =&gt;         {お茶}   0.550  0.6926952    0.794
+27             {台所洗剤}    =&gt;         {牛乳}   0.437  0.8003663    0.546
+28                 {牛乳}    =&gt;     {台所洗剤}   0.437  0.5503778    0.794
+83                 {根菜}    =&gt;         {青菜}   0.507  0.7860465    0.645
+84                 {青菜}    =&gt;         {根菜}   0.507  0.6500000    0.780
+85                 {根菜}    =&gt;         {牛乳}   0.516  0.8000000    0.645
+86                 {牛乳}    =&gt;         {根菜}   0.516  0.6498741    0.794
+114   {牛乳,チョコレート}    =&gt;         {青菜}   0.410  0.7854406    0.522
+59               {アイス}    =&gt;         {お茶}   0.435  0.6915739    0.629
+60                 {お茶}    =&gt;       {アイス}   0.435  0.6331878    0.687
+87         {スナック菓子}    =&gt; {チョコレート}   0.431  0.6734375    0.640
+88         {チョコレート}    =&gt; {スナック菓子}   0.431  0.6432836    0.670
+95         {チョコレート}    =&gt;         {お茶}   0.462  0.6895522    0.670
+96                 {お茶}    =&gt; {チョコレート}   0.462  0.6724891    0.687
+115           {青菜,牛乳}    =&gt; {チョコレート}   0.410  0.6721311    0.610
+49           {シャンプー}    =&gt;         {青菜}   0.496  0.7823344    0.634
+50                 {青菜}    =&gt;   {シャンプー}   0.496  0.6358974    0.780
+118           {青菜,牛乳}    =&gt;         {お茶}   0.420  0.6885246    0.610
+37                 {米菓}    =&gt;         {青菜}   0.497  0.7802198    0.637
+38                 {青菜}    =&gt;         {米菓}   0.497  0.6371795    0.780
+1                      {}    =&gt;         {鶏肉}   0.500  0.5000000    1.000
+2                      {}    =&gt;     {洗濯洗剤}   0.503  0.5030000    1.000
+3                      {}    =&gt;         {牛肉}   0.528  0.5280000    1.000
+4                      {}    =&gt;     {台所洗剤}   0.546  0.5460000    1.000
+5                      {}    =&gt;         {米菓}   0.637  0.6370000    1.000
+6                      {}    =&gt;   {シャンプー}   0.634  0.6340000    1.000
+7                      {}    =&gt;       {アイス}   0.629  0.6290000    1.000
+8                      {}    =&gt;       {リンス}   0.646  0.6460000    1.000
+9                      {}    =&gt;         {根菜}   0.645  0.6450000    1.000
+10                     {}    =&gt; {スナック菓子}   0.640  0.6400000    1.000
+11                     {}    =&gt; {チョコレート}   0.670  0.6700000    1.000
+12                     {}    =&gt;         {お茶}   0.687  0.6870000    1.000
+13                     {}    =&gt;         {青菜}   0.780  0.7800000    1.000
+14                     {}    =&gt;         {牛乳}   0.794  0.7940000    1.000
+23                 {牛肉}    =&gt;         {牛乳}   0.419  0.7935606    0.528
+24                 {牛乳}    =&gt;         {牛肉}   0.419  0.5277078    0.794
+63               {アイス}    =&gt;         {牛乳}   0.499  0.7933227    0.629
+64                 {牛乳}    =&gt;       {アイス}   0.499  0.6284635    0.794
+39                 {米菓}    =&gt;         {牛乳}   0.505  0.7927786    0.637
+40                 {牛乳}    =&gt;         {米菓}   0.505  0.6360202    0.794
+101                {お茶}    =&gt;         {青菜}   0.534  0.7772926    0.687
+102                {青菜}    =&gt;         {お茶}   0.534  0.6846154    0.780
+111           {根菜,牛乳}    =&gt;         {青菜}   0.401  0.7771318    0.516
+110           {青菜,根菜}    =&gt;         {牛乳}   0.401  0.7909270    0.507
+33                 {米菓}    =&gt; {チョコレート}   0.425  0.6671900    0.637
+34         {チョコレート}    =&gt;         {米菓}   0.425  0.6343284    0.670
+69               {リンス}    =&gt; {チョコレート}   0.431  0.6671827    0.646
+70         {チョコレート}    =&gt;       {リンス}   0.431  0.6432836    0.670
+74                 {青菜}    =&gt;       {リンス}   0.501  0.6423077    0.780
+73               {リンス}    =&gt;         {青菜}   0.501  0.7755418    0.646
+67               {リンス}    =&gt; {スナック菓子}   0.411  0.6362229    0.646
+68         {スナック菓子}    =&gt;       {リンス}   0.411  0.6421875    0.640
+116           {青菜,お茶}    =&gt;         {牛乳}   0.420  0.7865169    0.534
+71               {リンス}    =&gt;         {お茶}   0.439  0.6795666    0.646
+72                 {お茶}    =&gt;       {リンス}   0.439  0.6390102    0.687
+75               {リンス}    =&gt;         {牛乳}   0.506  0.7832817    0.646
+76                 {牛乳}    =&gt;       {リンス}   0.506  0.6372796    0.794
+91         {スナック菓子}    =&gt;         {青菜}   0.492  0.7687500    0.640
+92                 {青菜}    =&gt; {スナック菓子}   0.492  0.6307692    0.780
+105                {青菜}    =&gt;         {牛乳}   0.610  0.7820513    0.780
+106                {牛乳}    =&gt;         {青菜}   0.610  0.7682620    0.794
+29                 {米菓}    =&gt;       {リンス}   0.405  0.6357928    0.637
+30               {リンス}    =&gt;         {米菓}   0.405  0.6269350    0.646
+21                 {牛肉}    =&gt;         {青菜}   0.405  0.7670455    0.528
+22                 {青菜}    =&gt;         {牛肉}   0.405  0.5192308    0.780
+62                 {青菜}    =&gt;       {アイス}   0.482  0.6179487    0.780
+61               {アイス}    =&gt;         {青菜}   0.482  0.7662957    0.629
+52                 {牛乳}    =&gt;   {シャンプー}   0.494  0.6221662    0.794
+51           {シャンプー}    =&gt;         {牛乳}   0.494  0.7791798    0.634
+100                {牛乳}    =&gt; {チョコレート}   0.522  0.6574307    0.794
+99         {チョコレート}    =&gt;         {牛乳}   0.522  0.7791045    0.670
+89         {スナック菓子}    =&gt;         {お茶}   0.431  0.6734375    0.640
+90                 {お茶}    =&gt; {スナック菓子}   0.431  0.6273654    0.687
+117           {牛乳,お茶}    =&gt;         {青菜}   0.420  0.7636364    0.550
+48                 {お茶}    =&gt;   {シャンプー}   0.424  0.6171761    0.687
+47           {シャンプー}    =&gt;         {お茶}   0.424  0.6687697    0.634
+113   {青菜,チョコレート}    =&gt;         {牛乳}   0.410  0.7663551    0.535
+         lift count
+15  1.5399019   477
+16  1.5399019   477
+20  1.3222056   423
+19  1.3222056   423
+108 1.3088677   418
+56  1.2892488   519
+55  1.2892488   519
+109 1.2829091   418
+43  1.2305769   504
+44  1.2305769   504
+18  1.0290899   411
+17  1.0290899   411
+57  1.0250813   432
+58  1.0250813   432
+45  1.0240595   435
+46  1.0240595   435
+98  1.0237275   535
+97  1.0237275   535
+65  1.0223918   426
+66  1.0223918   426
+81  1.0200512   452
+82  1.0200512   452
+31  1.0197997   419
+32  1.0197997   419
+93  1.0193640   518
+94  1.0193640   518
+112 1.0191892   401
+26  1.0190664   434
+25  1.0190664   434
+53  1.0188663   414
+54  1.0188663   414
+77  1.0174419   420
+78  1.0174419   420
+41  1.0155823   405
+42  1.0155823   405
+107 1.0143514   418
+35  1.0122961   443
+36  1.0122961   443
+80  1.0112230   437
+79  1.0112230   437
+103 1.0082900   550
+104 1.0082900   550
+27  1.0080180   437
+28  1.0080180   437
+83  1.0077519   507
+84  1.0077519   507
+85  1.0075567   516
+86  1.0075567   516
+114 1.0069751   410
+59  1.0066578   435
+60  1.0066578   435
+87  1.0051306   431
+88  1.0051306   431
+95  1.0037150   462
+96  1.0037150   462
+115 1.0031808   410
+49  1.0029928   496
+50  1.0029928   496
+118 1.0022192   420
+37  1.0002818   497
+38  1.0002818   497
+1   1.0000000   500
+2   1.0000000   503
+3   1.0000000   528
+4   1.0000000   546
+5   1.0000000   637
+6   1.0000000   634
+7   1.0000000   629
+8   1.0000000   646
+9   1.0000000   645
+10  1.0000000   640
+11  1.0000000   670
+12  1.0000000   687
+13  1.0000000   780
+14  1.0000000   794
+23  0.9994466   419
+24  0.9994466   419
+63  0.9991470   499
+64  0.9991470   499
+39  0.9984618   505
+40  0.9984618   505
+101 0.9965289   534
+102 0.9965289   534
+111 0.9963228   401
+110 0.9961298   401
+33  0.9958059   425
+34  0.9958059   425
+69  0.9957950   431
+70  0.9957950   431
+74  0.9942844   501
+73  0.9942844   501
+67  0.9940983   411
+68  0.9940983   411
+116 0.9905754   420
+71  0.9891799   439
+72  0.9891799   439
+75  0.9865009   506
+76  0.9865009   506
+91  0.9855769   492
+92  0.9855769   492
+105 0.9849512   610
+106 0.9849512   610
+29  0.9841993   405
+30  0.9841993   405
+21  0.9833916   405
+22  0.9833916   405
+62  0.9824304   482
+61  0.9824304   482
+52  0.9813348   494
+51  0.9813348   494
+100 0.9812399   522
+99  0.9812399   522
+89  0.9802584   431
+90  0.9802584   431
+117 0.9790210   420
+48  0.9734639   424
+47  0.9734639   424
+113 0.9651828   410</code></pre>
 </div>
 </div>
 </section>

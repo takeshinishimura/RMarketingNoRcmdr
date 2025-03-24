@@ -114,7 +114,7 @@ names(Dataset)[1] <- "売上数量"
 #| message: false
 library(car)
 
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/sales-price-promo.txt", header = TRUE, sep = "", strip.white = TRUE)
 
 names(Dataset)[1] <- "売上数量"
 ```
@@ -260,7 +260,7 @@ summary(RegModel_3)
 ```
 ```{r}
 #| echo: false
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/yogurt.txt", header = TRUE, sep = "", strip.white = TRUE)
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/5/yogurt.txt", header = TRUE, sep = "", strip.white = TRUE)
 
 Dataset$LY1 <- log(Dataset$Y1)
 Dataset$LX1 <- log(Dataset$X1)
@@ -351,7 +351,7 @@ scatterplot(
 #| message: false
 library(car)
 
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/6/senbei.txt", header = TRUE, sep = "\t")
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/6/senbei.txt", header = TRUE, sep = "\t")
 
 FA <- factanal(~ キャンペーンイベント + パッケージデザイン + 広告宣伝 + 素材栄養素 + 味, factors = 2, rotation = "varimax", scores = "regression", data = Dataset, rownames = 1)
 print(FA)
@@ -418,7 +418,7 @@ PC <- princomp( ~ キャンペーンイベント + パッケージデザイン +
 
 result <- list(
   "Component Loadings" = unclass(loadings(PC)),
-  "Component Variances" = PC$sd^2,
+  "Component Variances" = PC$sd ^ 2,
   "Summary" = summary(PC)
 )
 
@@ -629,7 +629,7 @@ print(FA)
 ```{r}
 #| echo: false
 #| message: false
-Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/7/seg.txt")
+Dataset <- read.csv("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/7/seg.txt")
 
 FA <- factanal(
   ~ q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21 + q22 + q23 + q24 + q25 + q26 + q27,
@@ -811,7 +811,7 @@ summary(RegModel_1)
 ```{r}
 #| echo: false
 #| message: false
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "")
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "")
 
 RegModel_1 <- lm(全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 赤, data = Dataset)
 summary(RegModel_1)
@@ -831,7 +831,7 @@ Dataset
 ```
 ```{r}
 #| echo: false
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "", check.names = FALSE)
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint1.txt", header = TRUE, sep = "", check.names = FALSE)
 Dataset
 ```
 
@@ -869,7 +869,7 @@ summary(RegModel_2)
 ```
 ```{r}
 #| echo: false
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint2.txt", header = TRUE, sep = "")
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/8/conjoint2.txt", header = TRUE, sep = "")
 
 RegModel_2 <- lm(全体効用 ~ X2年 + X4時間 + X6時間 + シルバー + 赤, data = Dataset)
 summary(RegModel_2)
@@ -917,7 +917,7 @@ a <- 5.000e+03
 b <- 9.983e-02
 c <- -3.994e-06
 
-m <- (- b - sqrt(b^2 - 4 * a * c)) / (2 * c)
+m <- (- b - sqrt(b ^ 2 - 4 * a * c)) / (2 * c)
 p <- a / m
 q <- p + b
 m
@@ -937,13 +937,13 @@ Dataset <- read.csv(file.choose(), header = TRUE)
 
 Dataset2 <- Dataset[Dataset$時点 < 11, ]
 
-RegModel_1 <- lm(購買者数 ~ 一期前累積購買者数 + 一期前累積購買者数 ^ 2, data = Dataset2)
+RegModel_1 <- lm(購買者数 ~ 一期前累積購買者数 + I(一期前累積購買者数 ^ 2), data = Dataset2)
 summary(RegModel_1)
 ```
 ```{r}
 #| echo: false
 #| message: false
-Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/9/Bass.txt", header = TRUE)
+Dataset <- read.csv("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/9/Bass.txt", header = TRUE)
 
 Dataset2 <- Dataset[Dataset$時点 < 11, ]
 
@@ -974,7 +974,7 @@ a <- x[1]
 b <- x[2]
 c <- x[3]
 
-m <- (- b - sqrt(b^2 - 4 * a * c)) / (2 * c)
+m <- (- b - sqrt(b ^ 2 - 4 * a * c)) / (2 * c)
 p <- a / m
 q <- p + b
 m
@@ -1101,7 +1101,7 @@ Dataset$R_Rank <- factor(Dataset$R_Rank, levels = rev(levels(Dataset$R_Rank)))
 ```{r}
 #| echo: false
 #| eval: true
-Dataset <- read.csv("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/10/RFM.txt", header = TRUE)
+Dataset <- read.csv("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/10/RFM.txt", header = TRUE)
 
 Dataset$M_Rank <- cut(
   Dataset$M,
@@ -1130,7 +1130,7 @@ Dataset$R_Rank <- factor(Dataset$R_Rank, levels = rev(levels(Dataset$R_Rank)))
 boxplot(M ~ R_Rank, data = Dataset, col = "gray")
 boxplot(F ~ R_Rank, data = Dataset, col = "gray")
 
-AnovaModel_2 <- aov(M ~ R_Rank, data=Dataset)
+AnovaModel_2 <- aov(M ~ R_Rank, data = Dataset)
 summary(AnovaModel_2)
 ```
 
@@ -1139,9 +1139,9 @@ Rコマンダーでは，`RcmdrMisc` パッケージの関数 `lineplot()` でTu
 ```{r}
 #| echo: true
 #| eval: true
-mean_values <- tapply(Dataset$M, Dataset$R_Rank, mean)
-sd_values <- tapply(Dataset$M, Dataset$R_Rank, sd)
-data.frame(R_Rank = names(mean_values), mean = mean_values, sd = sd_values)
+mean <- tapply(Dataset$M, Dataset$R_Rank, mean)
+sd <- tapply(Dataset$M, Dataset$R_Rank, sd)
+data.frame(R_Rank = names(mean), mean = mean, sd = sd)
 
 Tukey_Result <- TukeyHSD(AnovaModel_2, "R_Rank")
 Tukey_Result
@@ -1150,7 +1150,6 @@ plot(Tukey_Result)
 library(multcompView)
 
 tukey_pvalues <- Tukey_Result$R_Rank[, "p adj"]
-
 cld_results <- multcompLetters(tukey_pvalues)
 cld_results
 ```
@@ -1225,7 +1224,7 @@ summary(GLM_1)
 ```{r}
 #| echo: false
 #| message: false
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/11/binomial-choice.txt", header = TRUE, sep = "", strip.white = TRUE)
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/11/binomial-choice.txt", header = TRUE, sep = "", strip.white = TRUE)
 
 GLM_1 <- glm(B1 ~ P1 - P2, family = binomial(logit), data = Dataset)
 summary(GLM_1)
@@ -1341,7 +1340,7 @@ Test
 
 Test$expected
 
-round(Test$residuals^2, 2)
+round(Test$residuals ^ 2, 2)
 ```
 
 ### 3 Rコマンダーによるコレスポンデンス分析
@@ -1358,8 +1357,8 @@ p. 256
 
 p. 257
 
-- （誤）Perform clustering on
-- （正）Perform clustring on
+- （誤）Perform clustring on
+- （正）Perform clustering on
 
 p. 257
 
@@ -1421,7 +1420,7 @@ plot.CA(res, axes = c(1, 2), col.row = "red", col.col = "blue")
 #| eval: true
 library(FactoMineR)
 
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/12/Cleaner.txt", header = TRUE, sep = "")
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/12/Cleaner.txt", header = TRUE, sep = "")
 
 Dataset.CA <- Dataset[, -1]
 res <- CA(Dataset.CA, ncp = 5, graph = FALSE)
@@ -1436,15 +1435,13 @@ macOSのRでは，日本語部分が文字化けしやすいと認識してお�
 #| echo: true
 #| eval: false
 res.hcpc <- HCPC(res, nb.clust = 0, consol = FALSE, cluster.CA = "rows", graph = TRUE)
+# plot(res.hcpc, choice = "tree")
+# plot(res.hcpc, choice = "map")
 ```
 ```{r}
 #| echo: false
 #| eval: true
 res.hcpc <- HCPC(res, nb.clust = 4, consol = FALSE, cluster.CA = "rows", graph = FALSE)
-```
-```{r}
-#| echo: false
-#| eval: true
 plot(res.hcpc, choice = "tree")
 plot(res.hcpc, choice = "map")
 ```
@@ -1484,7 +1481,7 @@ plot.CA(res, axes = c(1, 2), col.row = "red", col.col = "blue")
 ```{r}
 #| echo: false
 #| eval: true
-Dataset <- read.table("../data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/12/Camera.txt", header = TRUE, sep = "\t")
+Dataset <- read.table("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/12/Camera.txt", header = TRUE, sep = "\t")
 
 Dataset.CA <- Dataset[, -1]
 res <- CA(Dataset.CA, ncp = 5, graph = FALSE)
@@ -1495,18 +1492,84 @@ plot.CA(res, axes = c(1, 2), col.row = "red", col.col = "blue")
 #| echo: true
 #| eval: false
 res.hcpc <- HCPC(res, nb.clust = 0, consol = FALSE, cluster.CA = "rows", graph = TRUE)
+# plot(res.hcpc, choice = "tree")
+# plot(res.hcpc, choice = "map")
 ```
 ```{r}
 #| echo: false
 #| eval: true
 res.hcpc <- HCPC(res, nb.clust = 4, consol = FALSE, cluster.CA = "rows", graph = FALSE)
-```
-```{r}
-#| echo: false
-#| eval: true
 plot(res.hcpc, choice = "tree")
 plot(res.hcpc, choice = "map")
 ```
 ```{r}
 summary(res)
 ```
+
+
+## 第13章 マーケットバスケットとクロスセリング
+
+### 3 Rによるマーケットバスケット分析
+
+#### ▶ Rコマンダーによって生成されたコード（p. 272）
+
+```{r}
+#| eval: false
+y <- read.table(file.choose(), header=TRUE, stringsAsFactors=TRUE, sep=",", na.strings="NA", 
+  dec=".", strip.white=TRUE)
+```
+
+#### ▶ 手入力するコード（`arules.R`）
+
+```{r}
+#| eval: false
+library(arules)
+class(y)
+y.tran<-as(as.matrix(y),"transactions")
+rules <- apriori(y.tran, parameter= list(supp=0.4, conf=0.5))
+summary(rules)
+inspect(head(sort(rules, by = "lift"),n=20))
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+library(arules)
+
+y <- read.csv(file.choose(), header = TRUE)
+
+y_tran <- as(as.matrix(y), "transactions")
+class(y); class(y_tran)
+```
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+library(arules)
+
+y <- read.csv("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/13/apriori.txt", header = TRUE)
+
+y_tran <- as(as.matrix(y), "transactions")
+class(y); class(y_tran)
+```
+```{r}
+rules <- apriori(y_tran, parameter = list(supp = 0.4, conf = 0.5))
+summary(rules)
+
+inspect(head(sort(rules, by = "lift"), n = 20))
+```
+
+`rules` をデータフレームとして扱いたい場合は，次のようにするとよい。
+```{r}
+rules2 <- data.frame(
+  lhs = labels(lhs(rules)),
+  arrow = "=>",
+  rhs = labels(rhs(rules)),
+  quality(rules)
+)
+
+rules2[order(rules2$lift, decreasing = TRUE), ]
+```
+
