@@ -67,6 +67,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="index_files/libs/bootstrap/bootstrap-e789b2bbe5e3b72425b62d406c7e8d6a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="index_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="index_files/libs/viz-1.8.2/viz.js"></script>
+<link href="index_files/libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="index_files/libs/grViz-binding-1.0.11/grViz.js"></script>
 
 
 </head>
@@ -192,10 +197,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#第13章-マーケットバスケットとクロスセリング" id="toc-第13章-マーケットバスケットとクロスセリング" class="nav-link" data-scroll-target="#第13章-マーケットバスケットとクロスセリング">第13章 マーケットバスケットとクロスセリング</a>
   <ul>
-  <li><a href="#rによるマーケットバスケット分析" id="toc-rによるマーケットバスケット分析" class="nav-link" data-scroll-target="#rによるマーケットバスケット分析">3 Rによるマーケットバスケット分析</a>
+  <li><a href="#rによるマーケットバスケット分析" id="toc-rによるマーケットバスケット分析" class="nav-link" data-scroll-target="#rによるマーケットバスケット分析">3 Rによるマーケットバスケット分析</a></li>
+  </ul></li>
+  <li><a href="#第14章-定性調査データの分析" id="toc-第14章-定性調査データの分析" class="nav-link" data-scroll-target="#第14章-定性調査データの分析">第14章 定性調査データの分析</a>
+  <ul>
+  <li><a href="#顧客満足度指数csi" id="toc-顧客満足度指数csi" class="nav-link" data-scroll-target="#顧客満足度指数csi">5 顧客満足度指数：CSI</a>
   <ul class="collapse">
-  <li><a href="#rコマンダーによって生成されたコードp.-272" id="toc-rコマンダーによって生成されたコードp.-272" class="nav-link" data-scroll-target="#rコマンダーによって生成されたコードp.-272">▶ Rコマンダーによって生成されたコード（p.&nbsp;272）</a></li>
-  <li><a href="#手入力するコードarules.r" id="toc-手入力するコードarules.r" class="nav-link" data-scroll-target="#手入力するコードarules.r">▶ 手入力するコード（<code>arules.R</code>）</a></li>
+  <li><a href="#rによる顧客満足度の分析" id="toc-rによる顧客満足度の分析" class="nav-link" data-scroll-target="#rによる顧客満足度の分析">5.6 Rによる顧客満足度の分析</a></li>
+  </ul></li>
+  <li><a href="#高次因子分析" id="toc-高次因子分析" class="nav-link" data-scroll-target="#高次因子分析">6 高次因子分析</a>
+  <ul class="collapse">
+  <li><a href="#rによるサービス品質の分析" id="toc-rによるサービス品質の分析" class="nav-link" data-scroll-target="#rによるサービス品質の分析">6.2 Rによるサービス品質の分析</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -2499,15 +2511,15 @@ Columns
 <h2 class="anchored" data-anchor-id="第13章-マーケットバスケットとクロスセリング">第13章 マーケットバスケットとクロスセリング</h2>
 <section id="rによるマーケットバスケット分析" class="level3">
 <h3 class="anchored" data-anchor-id="rによるマーケットバスケット分析">3 Rによるマーケットバスケット分析</h3>
-<section id="rコマンダーによって生成されたコードp.-272" class="level4">
-<h4 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-272">▶ Rコマンダーによって生成されたコード（p.&nbsp;272）</h4>
+<section id="rコマンダーによって生成されたコードp.-272" class="level5">
+<h5 class="anchored" data-anchor-id="rコマンダーによって生成されたコードp.-272">▶ Rコマンダーによって生成されたコード（p.&nbsp;272）</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">stringsAsFactors=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">","</span>, <span class="at">na.strings=</span><span class="st">"NA"</span>, </span>
 <span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">dec=</span><span class="st">"."</span>, <span class="at">strip.white=</span><span class="cn">TRUE</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="手入力するコードarules.r" class="level4">
-<h4 class="anchored" data-anchor-id="手入力するコードarules.r">▶ 手入力するコード（<code>arules.R</code>）</h4>
+<section id="手入力するコードarules.r" class="level5">
+<h5 class="anchored" data-anchor-id="手入力するコードarules.r">▶ 手入力するコード（<code>arules.R</code>）</h5>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span>
 <span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(y)</span>
@@ -2516,6 +2528,7 @@ Columns
 <span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rules)</span>
 <span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(<span class="fu">head</span>(<span class="fu">sort</span>(rules, <span class="at">by =</span> <span class="st">"lift"</span>),<span class="at">n=</span><span class="dv">20</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="一般的なrコード-24" class="level5">
 <h5 class="anchored" data-anchor-id="一般的なrコード-24">▶ 一般的なRコード</h5>
 <div class="cell">
@@ -2889,6 +2902,482 @@ mining info:
 48  0.9734639   424
 47  0.9734639   424
 113 0.9651828   410</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="第14章-定性調査データの分析" class="level2">
+<h2 class="anchored" data-anchor-id="第14章-定性調査データの分析">第14章 定性調査データの分析</h2>
+<section id="顧客満足度指数csi" class="level3">
+<h3 class="anchored" data-anchor-id="顧客満足度指数csi">5 顧客満足度指数：CSI</h3>
+<section id="rによる顧客満足度の分析" class="level4">
+<h4 class="anchored" data-anchor-id="rによる顧客満足度の分析">5.6 Rによる顧客満足度の分析</h4>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+誤植
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>p.&nbsp;296</p>
+<ul>
+<li>（誤）(5) パス図作成のパッケージ“pathdiagram”および“DiagrammeR”をインストールする必要がある。Rのコードでは冒頭に install コマンドを記載している。</li>
+<li>（正）(5) パス図作成のパッケージ“DiagrammeR”をインストールする必要がある。</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="手入力するコードsem-csi-cor.r" class="level5">
+<h5 class="anchored" data-anchor-id="手入力するコードsem-csi-cor.r">▶ 手入力するコード（<code>SEM-CSI-Cor.R</code>）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sem) <span class="co">#ライブラリの読み込み</span></span>
+<span id="cb175-2"><a href="#cb175-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-3"><a href="#cb175-3" aria-hidden="true" tabindex="-1"></a><span class="co">#データの読み込み#</span></span>
+<span id="cb175-4"><a href="#cb175-4" aria-hidden="true" tabindex="-1"></a>co <span class="ot">&lt;-</span> <span class="fu">readMoments</span>(</span>
+<span id="cb175-5"><a href="#cb175-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag=</span><span class="cn">TRUE</span>, </span>
+<span id="cb175-6"><a href="#cb175-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">names=</span><span class="fu">c</span>(</span>
+<span id="cb175-7"><a href="#cb175-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"y01"</span>, <span class="st">"y02"</span>, <span class="st">"y03"</span>, <span class="st">"y04"</span>, <span class="st">"y05"</span>, <span class="st">"y06"</span>, </span>
+<span id="cb175-8"><a href="#cb175-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"y07"</span>, <span class="st">"y08"</span>, <span class="st">"y09"</span>, <span class="st">"y10"</span></span>
+<span id="cb175-9"><a href="#cb175-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb175-10"><a href="#cb175-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb175-11"><a href="#cb175-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb175-12"><a href="#cb175-12" aria-hidden="true" tabindex="-1"></a><span class="fl">0.836</span> <span class="dv">1</span></span>
+<span id="cb175-13"><a href="#cb175-13" aria-hidden="true" tabindex="-1"></a><span class="fl">0.788</span> <span class="fl">0.841</span> <span class="dv">1</span></span>
+<span id="cb175-14"><a href="#cb175-14" aria-hidden="true" tabindex="-1"></a><span class="fl">0.532</span> <span class="fl">0.569</span> <span class="fl">0.646</span> <span class="dv">1</span></span>
+<span id="cb175-15"><a href="#cb175-15" aria-hidden="true" tabindex="-1"></a><span class="fl">0.459</span> <span class="fl">0.420</span> <span class="fl">0.378</span> <span class="fl">0.318</span> <span class="dv">1</span></span>
+<span id="cb175-16"><a href="#cb175-16" aria-hidden="true" tabindex="-1"></a><span class="fl">0.597</span> <span class="fl">0.625</span> <span class="fl">0.714</span> <span class="fl">0.597</span> <span class="fl">0.482</span> <span class="dv">1</span></span>
+<span id="cb175-17"><a href="#cb175-17" aria-hidden="true" tabindex="-1"></a><span class="fl">0.608</span> <span class="fl">0.639</span> <span class="fl">0.681</span> <span class="fl">0.604</span> <span class="fl">0.454</span> <span class="fl">0.708</span> <span class="dv">1</span></span>
+<span id="cb175-18"><a href="#cb175-18" aria-hidden="true" tabindex="-1"></a><span class="fl">0.762</span> <span class="fl">0.790</span> <span class="fl">0.821</span> <span class="fl">0.645</span> <span class="fl">0.343</span> <span class="fl">0.662</span> <span class="fl">0.647</span> <span class="dv">1</span></span>
+<span id="cb175-19"><a href="#cb175-19" aria-hidden="true" tabindex="-1"></a><span class="fl">0.629</span> <span class="fl">0.597</span> <span class="fl">0.666</span> <span class="fl">0.570</span> <span class="fl">0.271</span> <span class="fl">0.563</span> <span class="fl">0.588</span> <span class="fl">0.741</span> <span class="dv">1</span></span>
+<span id="cb175-20"><a href="#cb175-20" aria-hidden="true" tabindex="-1"></a><span class="fl">0.660</span> <span class="fl">0.581</span> <span class="fl">0.663</span> <span class="fl">0.472</span> <span class="fl">0.436</span> <span class="fl">0.626</span> <span class="fl">0.612</span> <span class="fl">0.694</span> <span class="fl">0.736</span> <span class="dv">1</span></span>
+<span id="cb175-21"><a href="#cb175-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-22"><a href="#cb175-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-23"><a href="#cb175-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-24"><a href="#cb175-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-25"><a href="#cb175-25" aria-hidden="true" tabindex="-1"></a><span class="co">#モデルの作成#</span></span>
+<span id="cb175-26"><a href="#cb175-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-27"><a href="#cb175-27" aria-hidden="true" tabindex="-1"></a><span class="co">#測定方程式</span></span>
+<span id="cb175-28"><a href="#cb175-28" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">specifyModel</span>()</span>
+<span id="cb175-29"><a href="#cb175-29" aria-hidden="true" tabindex="-1"></a>  知覚品質 <span class="ot">-&gt;</span> y01, <span class="cn">NA</span>,  <span class="dv">1</span>　      <span class="co">#測定方程式, 識別性制約のため係数を１に固定</span></span>
+<span id="cb175-30"><a href="#cb175-30" aria-hidden="true" tabindex="-1"></a>  知覚品質 <span class="ot">-&gt;</span> y02, b12, <span class="cn">NA</span></span>
+<span id="cb175-31"><a href="#cb175-31" aria-hidden="true" tabindex="-1"></a>  知覚品質 <span class="ot">-&gt;</span> y03, b13, <span class="cn">NA</span></span>
+<span id="cb175-32"><a href="#cb175-32" aria-hidden="true" tabindex="-1"></a>  知覚品質 <span class="ot">-&gt;</span> y04, b14, <span class="cn">NA</span></span>
+<span id="cb175-33"><a href="#cb175-33" aria-hidden="true" tabindex="-1"></a>  顧客期待 <span class="ot">-&gt;</span> y05, <span class="cn">NA</span>,  <span class="dv">1</span></span>
+<span id="cb175-34"><a href="#cb175-34" aria-hidden="true" tabindex="-1"></a>  顧客期待 <span class="ot">-&gt;</span> y06, b22, <span class="cn">NA</span></span>
+<span id="cb175-35"><a href="#cb175-35" aria-hidden="true" tabindex="-1"></a>  顧客期待 <span class="ot">-&gt;</span> y07, b23, <span class="cn">NA</span></span>
+<span id="cb175-36"><a href="#cb175-36" aria-hidden="true" tabindex="-1"></a>  顧客満足 <span class="ot">-&gt;</span> y08, <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb175-37"><a href="#cb175-37" aria-hidden="true" tabindex="-1"></a>  顧客満足 <span class="ot">-&gt;</span> y09, b32, <span class="cn">NA</span></span>
+<span id="cb175-38"><a href="#cb175-38" aria-hidden="true" tabindex="-1"></a>  顧客満足 <span class="ot">-&gt;</span> y10, b33, <span class="cn">NA</span></span>
+<span id="cb175-39"><a href="#cb175-39" aria-hidden="true" tabindex="-1"></a>  y01 <span class="ot">&lt;-</span><span class="er">&gt;</span> y01, e01, NA　　　      <span class="co">#測定方程式の分散設定</span></span>
+<span id="cb175-40"><a href="#cb175-40" aria-hidden="true" tabindex="-1"></a>  y02 <span class="ot">&lt;-</span><span class="er">&gt;</span> y02, e02, <span class="cn">NA</span></span>
+<span id="cb175-41"><a href="#cb175-41" aria-hidden="true" tabindex="-1"></a>  y03 <span class="ot">&lt;-</span><span class="er">&gt;</span> y03, e03, <span class="cn">NA</span></span>
+<span id="cb175-42"><a href="#cb175-42" aria-hidden="true" tabindex="-1"></a>  y04 <span class="ot">&lt;-</span><span class="er">&gt;</span> y04, e04, <span class="cn">NA</span></span>
+<span id="cb175-43"><a href="#cb175-43" aria-hidden="true" tabindex="-1"></a>  y05 <span class="ot">&lt;-</span><span class="er">&gt;</span> y05, e05, <span class="cn">NA</span></span>
+<span id="cb175-44"><a href="#cb175-44" aria-hidden="true" tabindex="-1"></a>  y06 <span class="ot">&lt;-</span><span class="er">&gt;</span> y06, e06, <span class="cn">NA</span></span>
+<span id="cb175-45"><a href="#cb175-45" aria-hidden="true" tabindex="-1"></a>  y07 <span class="ot">&lt;-</span><span class="er">&gt;</span> y07, e07, <span class="cn">NA</span></span>
+<span id="cb175-46"><a href="#cb175-46" aria-hidden="true" tabindex="-1"></a>  y08 <span class="ot">&lt;-</span><span class="er">&gt;</span> y08, e08, <span class="cn">NA</span></span>
+<span id="cb175-47"><a href="#cb175-47" aria-hidden="true" tabindex="-1"></a>  y09 <span class="ot">&lt;-</span><span class="er">&gt;</span> y09, e09, <span class="cn">NA</span></span>
+<span id="cb175-48"><a href="#cb175-48" aria-hidden="true" tabindex="-1"></a>  y10 <span class="ot">&lt;-</span><span class="er">&gt;</span> y10, e10, <span class="cn">NA</span></span>
+<span id="cb175-49"><a href="#cb175-49" aria-hidden="true" tabindex="-1"></a>  知覚品質     <span class="ot">-&gt;</span> 顧客満足,  b1,<span class="cn">NA</span>    　　　<span class="co">#構造方程式</span></span>
+<span id="cb175-50"><a href="#cb175-50" aria-hidden="true" tabindex="-1"></a>  顧客期待     <span class="ot">-&gt;</span> 顧客満足,  b2,<span class="cn">NA</span></span>
+<span id="cb175-51"><a href="#cb175-51" aria-hidden="true" tabindex="-1"></a>  顧客期待     <span class="ot">-&gt;</span> 知覚品質,  b4,<span class="cn">NA</span></span>
+<span id="cb175-52"><a href="#cb175-52" aria-hidden="true" tabindex="-1"></a>  知覚品質    <span class="ot">&lt;-</span><span class="er">&gt;</span> 知覚品質 , <span class="cn">NA</span>, <span class="dv">1</span>            <span class="co">#構造方程式の分散設定</span></span>
+<span id="cb175-53"><a href="#cb175-53" aria-hidden="true" tabindex="-1"></a>  顧客期待    <span class="ot">&lt;-</span><span class="er">&gt;</span> 顧客期待 , <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb175-54"><a href="#cb175-54" aria-hidden="true" tabindex="-1"></a>  顧客満足    <span class="ot">&lt;-</span><span class="er">&gt;</span> 顧客満足 , <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb175-55"><a href="#cb175-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-56"><a href="#cb175-56" aria-hidden="true" tabindex="-1"></a><span class="co">#分析と出力#</span></span>
+<span id="cb175-57"><a href="#cb175-57" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sem</span>(model,co,<span class="at">N=</span><span class="dv">100</span>) <span class="co">#モデル,相関係数, サンプル数の並び</span></span>
+<span id="cb175-58"><a href="#cb175-58" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(result,</span>
+<span id="cb175-59"><a href="#cb175-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">fit.indices =</span> <span class="fu">c</span>(<span class="st">"GFI"</span>, <span class="st">"AGFI"</span>, <span class="st">"RMSEA"</span>,<span class="st">"NFI"</span>, <span class="st">"NNFI"</span>,</span>
+<span id="cb175-60"><a href="#cb175-60" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"CFI"</span>, <span class="st">"RNI"</span>, <span class="st">"IFI"</span>, <span class="st">"SRMR"</span>, <span class="st">"AIC"</span>,</span>
+<span id="cb175-61"><a href="#cb175-61" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"AICc"</span>, <span class="st">"BIC"</span>, <span class="st">"CAIC"</span>))</span>
+<span id="cb175-62"><a href="#cb175-62" aria-hidden="true" tabindex="-1"></a><span class="fu">stdCoef</span>(result)　　 <span class="co">#標準解の表示</span></span>
+<span id="cb175-63"><a href="#cb175-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-64"><a href="#cb175-64" aria-hidden="true" tabindex="-1"></a><span class="co">#パス図の作成#</span></span>
+<span id="cb175-65"><a href="#cb175-65" aria-hidden="true" tabindex="-1"></a><span class="fu">pathDiagram</span>(result, <span class="at">out.file=</span><span class="st">"csi100-10.txt"</span>, <span class="at">ignore.double=</span><span class="cn">FALSE</span>, </span>
+<span id="cb175-66"><a href="#cb175-66" aria-hidden="true" tabindex="-1"></a><span class="at">edge.labels=</span><span class="st">"values"</span>, <span class="at">digits=</span><span class="dv">3</span>,</span>
+<span id="cb175-67"><a href="#cb175-67" aria-hidden="true" tabindex="-1"></a><span class="at">node.font=</span><span class="fu">c</span>(<span class="st">"C:/WINDOWS/Fonts/msgothic.ttc"</span>,<span class="dv">10</span>)) </span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-25" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-25">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sem)</span>
+<span id="cb176-2"><a href="#cb176-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-3"><a href="#cb176-3" aria-hidden="true" tabindex="-1"></a>co <span class="ot">&lt;-</span> <span class="fu">readMoments</span>(</span>
+<span id="cb176-4"><a href="#cb176-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb176-5"><a href="#cb176-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names =</span> <span class="fu">paste0</span>(<span class="st">"y"</span>, <span class="fu">sprintf</span>(<span class="st">"%02d"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)),</span>
+<span id="cb176-6"><a href="#cb176-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"</span></span>
+<span id="cb176-7"><a href="#cb176-7" aria-hidden="true" tabindex="-1"></a><span class="st">1</span></span>
+<span id="cb176-8"><a href="#cb176-8" aria-hidden="true" tabindex="-1"></a><span class="st">0.836 1</span></span>
+<span id="cb176-9"><a href="#cb176-9" aria-hidden="true" tabindex="-1"></a><span class="st">0.788 0.841 1</span></span>
+<span id="cb176-10"><a href="#cb176-10" aria-hidden="true" tabindex="-1"></a><span class="st">0.532 0.569 0.646 1</span></span>
+<span id="cb176-11"><a href="#cb176-11" aria-hidden="true" tabindex="-1"></a><span class="st">0.459 0.420 0.378 0.318 1</span></span>
+<span id="cb176-12"><a href="#cb176-12" aria-hidden="true" tabindex="-1"></a><span class="st">0.597 0.625 0.714 0.597 0.482 1</span></span>
+<span id="cb176-13"><a href="#cb176-13" aria-hidden="true" tabindex="-1"></a><span class="st">0.608 0.639 0.681 0.604 0.454 0.708 1</span></span>
+<span id="cb176-14"><a href="#cb176-14" aria-hidden="true" tabindex="-1"></a><span class="st">0.762 0.790 0.821 0.645 0.343 0.662 0.647 1</span></span>
+<span id="cb176-15"><a href="#cb176-15" aria-hidden="true" tabindex="-1"></a><span class="st">0.629 0.597 0.666 0.570 0.271 0.563 0.588 0.741 1</span></span>
+<span id="cb176-16"><a href="#cb176-16" aria-hidden="true" tabindex="-1"></a><span class="st">0.660 0.581 0.663 0.472 0.436 0.626 0.612 0.694 0.736 1</span></span>
+<span id="cb176-17"><a href="#cb176-17" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
+<span id="cb176-18"><a href="#cb176-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-19"><a href="#cb176-19" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">specifyModel</span>(<span class="at">text =</span> <span class="st">"</span></span>
+<span id="cb176-20"><a href="#cb176-20" aria-hidden="true" tabindex="-1"></a><span class="st">  知覚品質 -&gt; y01, NA,  1</span></span>
+<span id="cb176-21"><a href="#cb176-21" aria-hidden="true" tabindex="-1"></a><span class="st">  知覚品質 -&gt; y02, b12, NA</span></span>
+<span id="cb176-22"><a href="#cb176-22" aria-hidden="true" tabindex="-1"></a><span class="st">  知覚品質 -&gt; y03, b13, NA</span></span>
+<span id="cb176-23"><a href="#cb176-23" aria-hidden="true" tabindex="-1"></a><span class="st">  知覚品質 -&gt; y04, b14, NA</span></span>
+<span id="cb176-24"><a href="#cb176-24" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客期待 -&gt; y05, NA,  1</span></span>
+<span id="cb176-25"><a href="#cb176-25" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客期待 -&gt; y06, b22, NA</span></span>
+<span id="cb176-26"><a href="#cb176-26" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客期待 -&gt; y07, b23, NA</span></span>
+<span id="cb176-27"><a href="#cb176-27" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客満足 -&gt; y08, NA,  1</span></span>
+<span id="cb176-28"><a href="#cb176-28" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客満足 -&gt; y09, b32, NA</span></span>
+<span id="cb176-29"><a href="#cb176-29" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客満足 -&gt; y10, b33, NA</span></span>
+<span id="cb176-30"><a href="#cb176-30" aria-hidden="true" tabindex="-1"></a><span class="st">  y01 &lt;-&gt; y01, e01, NA</span></span>
+<span id="cb176-31"><a href="#cb176-31" aria-hidden="true" tabindex="-1"></a><span class="st">  y02 &lt;-&gt; y02, e02, NA</span></span>
+<span id="cb176-32"><a href="#cb176-32" aria-hidden="true" tabindex="-1"></a><span class="st">  y03 &lt;-&gt; y03, e03, NA</span></span>
+<span id="cb176-33"><a href="#cb176-33" aria-hidden="true" tabindex="-1"></a><span class="st">  y04 &lt;-&gt; y04, e04, NA</span></span>
+<span id="cb176-34"><a href="#cb176-34" aria-hidden="true" tabindex="-1"></a><span class="st">  y05 &lt;-&gt; y05, e05, NA</span></span>
+<span id="cb176-35"><a href="#cb176-35" aria-hidden="true" tabindex="-1"></a><span class="st">  y06 &lt;-&gt; y06, e06, NA</span></span>
+<span id="cb176-36"><a href="#cb176-36" aria-hidden="true" tabindex="-1"></a><span class="st">  y07 &lt;-&gt; y07, e07, NA</span></span>
+<span id="cb176-37"><a href="#cb176-37" aria-hidden="true" tabindex="-1"></a><span class="st">  y08 &lt;-&gt; y08, e08, NA</span></span>
+<span id="cb176-38"><a href="#cb176-38" aria-hidden="true" tabindex="-1"></a><span class="st">  y09 &lt;-&gt; y09, e09, NA</span></span>
+<span id="cb176-39"><a href="#cb176-39" aria-hidden="true" tabindex="-1"></a><span class="st">  y10 &lt;-&gt; y10, e10, NA</span></span>
+<span id="cb176-40"><a href="#cb176-40" aria-hidden="true" tabindex="-1"></a><span class="st">  知覚品質   -&gt; 顧客満足, b1, NA</span></span>
+<span id="cb176-41"><a href="#cb176-41" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客期待   -&gt; 顧客満足, b2, NA</span></span>
+<span id="cb176-42"><a href="#cb176-42" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客期待   -&gt; 知覚品質, b4, NA</span></span>
+<span id="cb176-43"><a href="#cb176-43" aria-hidden="true" tabindex="-1"></a><span class="st">  知覚品質  &lt;-&gt; 知覚品質, NA, 1</span></span>
+<span id="cb176-44"><a href="#cb176-44" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客期待  &lt;-&gt; 顧客期待, NA, 1</span></span>
+<span id="cb176-45"><a href="#cb176-45" aria-hidden="true" tabindex="-1"></a><span class="st">  顧客満足  &lt;-&gt; 顧客満足, NA, 1</span></span>
+<span id="cb176-46"><a href="#cb176-46" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
+<span id="cb176-47"><a href="#cb176-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-48"><a href="#cb176-48" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">S =</span> co, <span class="at">N =</span> <span class="dv">100</span>)</span>
+<span id="cb176-49"><a href="#cb176-49" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(result,</span>
+<span id="cb176-50"><a href="#cb176-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">fit.indices =</span> <span class="fu">c</span>(<span class="st">"GFI"</span>, <span class="st">"AGFI"</span>, <span class="st">"RMSEA"</span>,<span class="st">"NFI"</span>, <span class="st">"NNFI"</span>,</span>
+<span id="cb176-51"><a href="#cb176-51" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"CFI"</span>, <span class="st">"RNI"</span>, <span class="st">"IFI"</span>, <span class="st">"SRMR"</span>, <span class="st">"AIC"</span>,</span>
+<span id="cb176-52"><a href="#cb176-52" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"AICc"</span>, <span class="st">"BIC"</span>, <span class="st">"CAIC"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Model Chisquare =  195.8478   Df =  35 Pr(&gt;Chisq) = 2.939613e-24
+ Goodness-of-fit index =  0.7482947
+ Adjusted goodness-of-fit index =  0.6044631
+ RMSEA index =  0.2154547   90% CI: (NA, NA)
+ Bentler-Bonett NFI =  0.7671175
+ Tucker-Lewis NNFI =  0.7401866
+ Bentler CFI =  0.7979229
+ Bentler RNI =  0.7979229
+ Bollen IFI =  0.8004302
+ SRMR =  0.5259796
+ AIC =  235.8478
+ AICc =  206.4807
+ BIC =  34.66685
+ CAIC =  -0.3331539
+
+ Normalized Residuals
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-4.0905 -2.6988 -2.0752 -1.9621 -1.2453  0.2498 
+
+ R-square for Endogenous Variables
+知覚品質      y01      y02      y03      y04      y05      y06      y07 
+  0.4417   0.8874   0.9121   0.8988   0.5650   0.5819   0.8039   0.7593 
+顧客満足      y08      y09      y10 
+  0.5381   0.9063   0.8433   0.8012 
+
+ Parameter Estimates
+    Estimate  Std Error  z value   Pr(&gt;|z|)                            
+b12 0.9164505 0.04302891 21.298481 1.172618e-100 y02 &lt;--- 知覚品質     
+b13 0.9054107 0.04399643 20.579183  4.217254e-94 y03 &lt;--- 知覚品質     
+b14 0.6459162 0.06191799 10.431802  1.774906e-25 y04 &lt;--- 知覚品質     
+b22 1.0264636 0.08317768 12.340613  5.473752e-35 y06 &lt;--- 顧客期待     
+b23 0.9890844 0.08412697 11.757043  6.496995e-32 y07 &lt;--- 顧客期待     
+b32 0.8248899 0.04688206 17.595000  2.690544e-69 y09 &lt;--- 顧客満足     
+b33 0.7894439 0.04889102 16.147013  1.191949e-58 y10 &lt;--- 顧客満足     
+e01 0.2272440 0.04490721  5.060301  4.185949e-07 y01 &lt;--&gt; y01          
+e02 0.1449226 0.03288996  4.406287  1.051575e-05 y02 &lt;--&gt; y02          
+e03 0.1653994 0.03459551  4.780951  1.744679e-06 y03 &lt;--&gt; y03          
+e04 0.5752444 0.08552435  6.726089  1.742839e-11 y04 &lt;--&gt; y04          
+e05 0.7185013 0.11947856  6.013642  1.814006e-09 y05 &lt;--&gt; y05          
+e06 0.2570127 0.06991582  3.676031  2.368910e-04 y06 &lt;--&gt; y06          
+e07 0.3101407 0.07147017  4.339443  1.428441e-05 y07 &lt;--&gt; y07          
+e08 0.2239144 0.06535497  3.426126  6.122556e-04 y08 &lt;--&gt; y08          
+e09 0.2736352 0.05622301  4.866961  1.133271e-06 y09 &lt;--&gt; y09          
+e10 0.3347183 0.06105611  5.482142  4.202065e-08 y10 &lt;--&gt; y10          
+b1  0.6494165 0.11842640  5.483714  4.164877e-08 顧客満足 &lt;--- 知覚品質
+b2  0.2844710 0.16095658  1.767377  7.716507e-02 顧客満足 &lt;--- 顧客期待
+b4  0.8894711 0.12391592  7.178021  7.072774e-13 知覚品質 &lt;--- 顧客期待
+
+ Iterations =  32 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stdCoef</span>(result)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Std. Estimate                       
+1         0.94202651      y01 &lt;--- 知覚品質
+2  b12    0.95505495      y02 &lt;--- 知覚品質
+3  b13    0.94802950      y03 &lt;--- 知覚品質
+4  b14    0.75169300      y04 &lt;--- 知覚品質
+5         0.76282525      y05 &lt;--- 顧客期待
+6  b22    0.89660634      y06 &lt;--- 顧客期待
+7  b23    0.87137111      y07 &lt;--- 顧客期待
+8         0.95198126      y08 &lt;--- 顧客満足
+9  b32    0.91834004      y09 &lt;--- 顧客満足
+10 b33    0.89511639      y10 &lt;--- 顧客満足
+11 e01    0.11258606           y01 &lt;--&gt; y01
+12 e02    0.08787004           y02 &lt;--&gt; y02
+13 e03    0.10124007           y03 &lt;--&gt; y03
+14 e04    0.43495763           y04 &lt;--&gt; y04
+15 e05    0.41809763           y05 &lt;--&gt; y05
+16 e06    0.19609707           y06 &lt;--&gt; y06
+17 e07    0.24071239           y07 &lt;--&gt; y07
+18 e08    0.09373169           y08 &lt;--&gt; y08
+19 e09    0.15665158           y09 &lt;--&gt; y09
+20 e10    0.19876665           y10 &lt;--&gt; y10
+21  b1    0.59069621 顧客満足 &lt;--- 知覚品質
+22  b2    0.19333560 顧客満足 &lt;--- 顧客期待
+23  b4    0.66460680 知覚品質 &lt;--- 顧客期待
+24        0.55829780 知覚品質 &lt;--&gt; 知覚品質
+25        1.00000000 顧客期待 &lt;--&gt; 顧客期待
+26        0.46189967 顧客満足 &lt;--&gt; 顧客満足</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pathDiagram</span>(result, <span class="at">file =</span> <span class="st">"csi100-10"</span>, <span class="at">output.type =</span> <span class="st">"graphics"</span>, <span class="at">graphics.fmt =</span> <span class="st">"pdf"</span>, <span class="at">ignore.double =</span> <span class="cn">FALSE</span>, <span class="at">edge.labels =</span> <span class="st">"values"</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running  dot -Tpdf -o csi100-10.pdf -Gcharset=latin1  csi100-10.dot </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item" id="htmlwidget-2989fdbfbaf84ef4cc59" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2989fdbfbaf84ef4cc59">{"x":{"diagram":"digraph \"result\" {\n  rankdir=LR;\n  size=\"8,8\";\n  node [fontname=\"Helvetica\" fontsize=14 fillcolor=\"transparent\" shape=box style=filled];\n  edge [fontname=\"Helvetica\" fontsize=10];\n  center=1;\n  \"顧客満足\" [shape=ellipse]\n  \"知覚品質\" [shape=ellipse]\n  \"顧客期待\" [shape=ellipse]\n  \"知覚品質\" [fillcolor=\"transparent\"]\n  \"y01\" [fillcolor=\"transparent\"]\n  \"y02\" [fillcolor=\"transparent\"]\n  \"y03\" [fillcolor=\"transparent\"]\n  \"y04\" [fillcolor=\"transparent\"]\n  \"y05\" [fillcolor=\"transparent\"]\n  \"y06\" [fillcolor=\"transparent\"]\n  \"y07\" [fillcolor=\"transparent\"]\n  \"顧客満足\" [fillcolor=\"transparent\"]\n  \"y08\" [fillcolor=\"transparent\"]\n  \"y09\" [fillcolor=\"transparent\"]\n  \"y10\" [fillcolor=\"transparent\"]\n  \"知覚品質\" -> \"y01\" [label=\"1\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"y02\" [label=\"0.916\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"y03\" [label=\"0.905\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"y04\" [label=\"0.646\" color=black penwidth=1.001];\n  \"顧客期待\" -> \"y05\" [label=\"1\" color=black penwidth=1.001];\n  \"顧客期待\" -> \"y06\" [label=\"1.026\" color=black penwidth=1.001];\n  \"顧客期待\" -> \"y07\" [label=\"0.989\" color=black penwidth=1.001];\n  \"顧客満足\" -> \"y08\" [label=\"1\" color=black penwidth=1.001];\n  \"顧客満足\" -> \"y09\" [label=\"0.825\" color=black penwidth=1.001];\n  \"顧客満足\" -> \"y10\" [label=\"0.789\" color=black penwidth=1.001];\n  \"y01\" -> \"y01\" [label=\"0.227\" dir=both color=black penwidth=1.001];\n  \"y02\" -> \"y02\" [label=\"0.145\" dir=both color=black penwidth=1.001];\n  \"y03\" -> \"y03\" [label=\"0.165\" dir=both color=black penwidth=1.001];\n  \"y04\" -> \"y04\" [label=\"0.575\" dir=both color=black penwidth=1.001];\n  \"y05\" -> \"y05\" [label=\"0.719\" dir=both color=black penwidth=1.001];\n  \"y06\" -> \"y06\" [label=\"0.257\" dir=both color=black penwidth=1.001];\n  \"y07\" -> \"y07\" [label=\"0.31\" dir=both color=black penwidth=1.001];\n  \"y08\" -> \"y08\" [label=\"0.224\" dir=both color=black penwidth=1.001];\n  \"y09\" -> \"y09\" [label=\"0.274\" dir=both color=black penwidth=1.001];\n  \"y10\" -> \"y10\" [label=\"0.335\" dir=both color=black penwidth=1.001];\n  \"知覚品質\" -> \"顧客満足\" [label=\"0.649\" color=black penwidth=1.001];\n  \"顧客期待\" -> \"顧客満足\" [label=\"0.284\" color=black penwidth=1.001];\n  \"顧客期待\" -> \"知覚品質\" [label=\"0.889\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"知覚品質\" [label=\"1\" dir=both color=black penwidth=1.001];\n  \"顧客期待\" -> \"顧客期待\" [label=\"1\" dir=both color=black penwidth=1.001];\n  \"顧客満足\" -> \"顧客満足\" [label=\"1\" dir=both color=black penwidth=1.001];\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>コード <code>SEM-CSI-Cor.R</code> に記載されている <code>pathDiagram()</code> の引数 <code>out.file</code> は，関数のヘルプには見当たらない。 このような違いが生じるのは，本書で使用されている関数のバージョンが古く，現在のバージョンではその引数が廃止されたためであると考えられる。</p>
+<p>上の <code>pathDiagram()</code> を実行すると，作業ディレクトリに <code>csi100-10.dot</code> という名前の DOT 言語によるファイルと，PDF形式のファイルが作成される。 ただし，PDFファイルでは日本語が文字化けする場合があるため注意が必要である。 DOT 言語はグラフ構造を記述するための言語であり，<a href="https://www.graphviz.org/">Graphviz</a> という作図ソフトウェアを用いて図として描画できる。 DOT ファイルの中身はテキスト形式で記述されており，このファイルの中の日本語が文字化けする可能性は低い。</p>
+<p>また，<code>pathDiagram()</code> によって作成される図は，図14.11とは異なるレイアウトで表示される。 この問題に対応するためには，例えば，<code>pathDiagram()</code> の引数 <code>dot.options</code> を次のように指定するとよい。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pathDiagram</span>(result, <span class="at">file =</span> <span class="st">"csi100-10_circo"</span>, <span class="at">output.type =</span> <span class="st">"graphics"</span>, <span class="at">graphics.fmt =</span> <span class="st">"png"</span>, <span class="at">dot.options =</span> <span class="st">"-Gcharset=UTF-8 -Kcirco"</span>, <span class="at">ignore.double =</span> <span class="cn">FALSE</span>, <span class="at">edge.labels =</span> <span class="st">"values"</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Running  dot -Tpng -o csi100-10_circo.png -Gcharset=latin1 -Gcharset=UTF-8 -Kcirco csi100-10_circo.dot </code></pre>
+</div>
+</div>
+<p><img src="csi100-10_circo.png" class="img-fluid"></p>
+<p>なお，作図自体は必ずしもR上で行う必要はない。 例えば，DOT 言語のファイルに対して，コマンドプロンプト（macOS の場合は <code>ターミナル.app</code>）で以下のコマンドを実行する。</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="ex">circo</span> <span class="at">-Tpdf</span> csi100-10.dot <span class="at">-o</span> csi100-10.pdf</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>または</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="ex">circo</span> <span class="at">-Tpng</span> csi100-10.dot <span class="at">-o</span> csi100-10.png</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>これらのコマンドにより，次の図のファイルが得られる。 <img src="csi100-10.png" class="img-fluid"></p>
+<p>また，次のように，<code>semPlot</code> パッケージを用いる方法もある。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb186"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb186-1"><a href="#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semPlot)</span>
+<span id="cb186-2"><a href="#cb186-2" aria-hidden="true" tabindex="-1"></a><span class="fu">semPaths</span>(result, <span class="at">layout =</span> <span class="st">"circle"</span>, <span class="at">whatLabels =</span> <span class="st">"std"</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-111-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="高次因子分析" class="level3">
+<h3 class="anchored" data-anchor-id="高次因子分析">6 高次因子分析</h3>
+<section id="rによるサービス品質の分析" class="level4">
+<h4 class="anchored" data-anchor-id="rによるサービス品質の分析">6.2 Rによるサービス品質の分析</h4>
+<section id="手入力するコードservqual.r" class="level5">
+<h5 class="anchored" data-anchor-id="手入力するコードservqual.r">▶ 手入力するコード（<code>SERVQUAL.R</code>）</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb187"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sem)</span>
+<span id="cb187-2"><a href="#cb187-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb187-3"><a href="#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="co">#データの読み込み#</span></span>
+<span id="cb187-4"><a href="#cb187-4" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">readMoments</span>(<span class="at">names =</span> <span class="fu">c</span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>, <span class="st">"y3"</span>, <span class="st">"y4"</span>,<span class="st">"y5"</span>, <span class="st">"y6"</span>,<span class="st">"y7"</span>, <span class="st">"y8"</span>, <span class="st">"y9"</span>, <span class="st">"y10"</span></span>
+<span id="cb187-5"><a href="#cb187-5" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb187-6"><a href="#cb187-6" aria-hidden="true" tabindex="-1"></a><span class="fl">1.00</span></span>
+<span id="cb187-7"><a href="#cb187-7" aria-hidden="true" tabindex="-1"></a><span class="fl">0.76</span> <span class="fl">1.00</span></span>
+<span id="cb187-8"><a href="#cb187-8" aria-hidden="true" tabindex="-1"></a><span class="fl">0.39</span> <span class="fl">0.32</span> <span class="fl">1.00</span></span>
+<span id="cb187-9"><a href="#cb187-9" aria-hidden="true" tabindex="-1"></a><span class="fl">0.48</span> <span class="fl">0.39</span> <span class="fl">0.68</span> <span class="fl">1.00</span></span>
+<span id="cb187-10"><a href="#cb187-10" aria-hidden="true" tabindex="-1"></a><span class="fl">0.46</span> <span class="fl">0.28</span> <span class="fl">0.33</span> <span class="fl">0.45</span> <span class="fl">1.00</span></span>
+<span id="cb187-11"><a href="#cb187-11" aria-hidden="true" tabindex="-1"></a><span class="fl">0.40</span> <span class="fl">0.45</span> <span class="fl">0.37</span> <span class="fl">0.40</span> <span class="fl">0.72</span> <span class="fl">1.00</span></span>
+<span id="cb187-12"><a href="#cb187-12" aria-hidden="true" tabindex="-1"></a><span class="fl">0.23</span> <span class="fl">0.37</span> <span class="fl">0.42</span> <span class="fl">0.31</span> <span class="fl">0.37</span> <span class="fl">0.47</span> <span class="fl">1.00</span></span>
+<span id="cb187-13"><a href="#cb187-13" aria-hidden="true" tabindex="-1"></a><span class="fl">0.31</span> <span class="fl">0.39</span> <span class="fl">0.34</span> <span class="fl">0.34</span> <span class="fl">0.42</span> <span class="fl">0.47</span> <span class="fl">0.81</span> <span class="fl">1.00</span></span>
+<span id="cb187-14"><a href="#cb187-14" aria-hidden="true" tabindex="-1"></a><span class="fl">0.48</span> <span class="fl">0.23</span> <span class="fl">0.30</span> <span class="fl">0.31</span> <span class="fl">0.33</span> <span class="fl">0.40</span> <span class="fl">0.44</span> <span class="fl">0.48</span> <span class="fl">1.00</span></span>
+<span id="cb187-15"><a href="#cb187-15" aria-hidden="true" tabindex="-1"></a><span class="fl">0.38</span> <span class="fl">0.23</span> <span class="fl">0.40</span> <span class="fl">0.31</span> <span class="fl">0.33</span> <span class="fl">0.30</span> <span class="fl">0.44</span> <span class="fl">0.48</span> <span class="fl">0.80</span> <span class="fl">1.00</span></span>
+<span id="cb187-16"><a href="#cb187-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb187-17"><a href="#cb187-17" aria-hidden="true" tabindex="-1"></a><span class="co">#モデルの作成#</span></span>
+<span id="cb187-18"><a href="#cb187-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb187-19"><a href="#cb187-19" aria-hidden="true" tabindex="-1"></a><span class="co">#測定方程式</span></span>
+<span id="cb187-20"><a href="#cb187-20" aria-hidden="true" tabindex="-1"></a>　　<span class="co">#ラベル</span></span>
+<span id="cb187-21"><a href="#cb187-21" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">specifyModel</span>()</span>
+<span id="cb187-22"><a href="#cb187-22" aria-hidden="true" tabindex="-1"></a>知覚品質 <span class="ot">-&gt;</span> 信頼性, a1, <span class="cn">NA</span> <span class="co">#2次因子</span></span>
+<span id="cb187-23"><a href="#cb187-23" aria-hidden="true" tabindex="-1"></a>知覚品質 <span class="ot">-&gt;</span> 有形性, a2, <span class="cn">NA</span></span>
+<span id="cb187-24"><a href="#cb187-24" aria-hidden="true" tabindex="-1"></a>知覚品質 <span class="ot">-&gt;</span> 応答性, a3, <span class="cn">NA</span></span>
+<span id="cb187-25"><a href="#cb187-25" aria-hidden="true" tabindex="-1"></a>知覚品質 <span class="ot">-&gt;</span> 保証性, a4, <span class="cn">NA</span></span>
+<span id="cb187-26"><a href="#cb187-26" aria-hidden="true" tabindex="-1"></a>知覚品質 <span class="ot">-&gt;</span> 共感性, a5, <span class="cn">NA</span></span>
+<span id="cb187-27"><a href="#cb187-27" aria-hidden="true" tabindex="-1"></a>信頼性 <span class="ot">-&gt;</span> y1, <span class="cn">NA</span>, <span class="dv">1</span>     <span class="co">#1次因子</span></span>
+<span id="cb187-28"><a href="#cb187-28" aria-hidden="true" tabindex="-1"></a>信頼性 <span class="ot">-&gt;</span> y2, b1, <span class="cn">NA</span></span>
+<span id="cb187-29"><a href="#cb187-29" aria-hidden="true" tabindex="-1"></a>有形性 <span class="ot">-&gt;</span> y3, <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb187-30"><a href="#cb187-30" aria-hidden="true" tabindex="-1"></a>有形性 <span class="ot">-&gt;</span> y4, b2, <span class="cn">NA</span></span>
+<span id="cb187-31"><a href="#cb187-31" aria-hidden="true" tabindex="-1"></a>応答性 <span class="ot">-&gt;</span> y5, <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb187-32"><a href="#cb187-32" aria-hidden="true" tabindex="-1"></a>応答性 <span class="ot">-&gt;</span> y6, b3, <span class="cn">NA</span></span>
+<span id="cb187-33"><a href="#cb187-33" aria-hidden="true" tabindex="-1"></a>保証性 <span class="ot">-&gt;</span> y7, <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb187-34"><a href="#cb187-34" aria-hidden="true" tabindex="-1"></a>保証性 <span class="ot">-&gt;</span> y8, b4, <span class="cn">NA</span></span>
+<span id="cb187-35"><a href="#cb187-35" aria-hidden="true" tabindex="-1"></a>共感性 <span class="ot">-&gt;</span> y9, <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb187-36"><a href="#cb187-36" aria-hidden="true" tabindex="-1"></a>共感性 <span class="ot">-&gt;</span> y10, b5, <span class="cn">NA</span></span>
+<span id="cb187-37"><a href="#cb187-37" aria-hidden="true" tabindex="-1"></a>知覚品質 <span class="ot">&lt;-</span><span class="er">&gt;</span> 知覚品質, <span class="cn">NA</span>, <span class="dv">1</span></span>
+<span id="cb187-38"><a href="#cb187-38" aria-hidden="true" tabindex="-1"></a>信頼性   <span class="ot">&lt;-</span><span class="er">&gt;</span> 信頼性, d2, <span class="cn">NA</span></span>
+<span id="cb187-39"><a href="#cb187-39" aria-hidden="true" tabindex="-1"></a>有形性   <span class="ot">&lt;-</span><span class="er">&gt;</span> 有形性, d3, <span class="cn">NA</span></span>
+<span id="cb187-40"><a href="#cb187-40" aria-hidden="true" tabindex="-1"></a>応答性   <span class="ot">&lt;-</span><span class="er">&gt;</span> 応答性, d4, <span class="cn">NA</span></span>
+<span id="cb187-41"><a href="#cb187-41" aria-hidden="true" tabindex="-1"></a>保証性   <span class="ot">&lt;-</span><span class="er">&gt;</span> 保証性, d5, <span class="cn">NA</span></span>
+<span id="cb187-42"><a href="#cb187-42" aria-hidden="true" tabindex="-1"></a>共感性   <span class="ot">&lt;-</span><span class="er">&gt;</span> 共感性, d6, <span class="cn">NA</span></span>
+<span id="cb187-43"><a href="#cb187-43" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span><span class="er">&gt;</span> y1, e1, <span class="cn">NA</span></span>
+<span id="cb187-44"><a href="#cb187-44" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span><span class="er">&gt;</span> y2, e2, <span class="cn">NA</span></span>
+<span id="cb187-45"><a href="#cb187-45" aria-hidden="true" tabindex="-1"></a>y3 <span class="ot">&lt;-</span><span class="er">&gt;</span> y3, e3, <span class="cn">NA</span></span>
+<span id="cb187-46"><a href="#cb187-46" aria-hidden="true" tabindex="-1"></a>y4 <span class="ot">&lt;-</span><span class="er">&gt;</span> y4, e4, <span class="cn">NA</span></span>
+<span id="cb187-47"><a href="#cb187-47" aria-hidden="true" tabindex="-1"></a>y5 <span class="ot">&lt;-</span><span class="er">&gt;</span> y5, e5, <span class="cn">NA</span></span>
+<span id="cb187-48"><a href="#cb187-48" aria-hidden="true" tabindex="-1"></a>y6 <span class="ot">&lt;-</span><span class="er">&gt;</span> y6, e6, <span class="cn">NA</span></span>
+<span id="cb187-49"><a href="#cb187-49" aria-hidden="true" tabindex="-1"></a>y7 <span class="ot">&lt;-</span><span class="er">&gt;</span> y7, e7, <span class="cn">NA</span></span>
+<span id="cb187-50"><a href="#cb187-50" aria-hidden="true" tabindex="-1"></a>y8 <span class="ot">&lt;-</span><span class="er">&gt;</span> y8, e8, <span class="cn">NA</span></span>
+<span id="cb187-51"><a href="#cb187-51" aria-hidden="true" tabindex="-1"></a>y9 <span class="ot">&lt;-</span><span class="er">&gt;</span> y9, e9, <span class="cn">NA</span></span>
+<span id="cb187-52"><a href="#cb187-52" aria-hidden="true" tabindex="-1"></a>y10 <span class="ot">&lt;-</span><span class="er">&gt;</span> y10, e10, <span class="cn">NA</span></span>
+<span id="cb187-53"><a href="#cb187-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb187-54"><a href="#cb187-54" aria-hidden="true" tabindex="-1"></a><span class="co">#分析と出力#</span></span>
+<span id="cb187-55"><a href="#cb187-55" aria-hidden="true" tabindex="-1"></a>y.sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, cor, <span class="at">N =</span> <span class="dv">100</span>)</span>
+<span id="cb187-56"><a href="#cb187-56" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y.sem,</span>
+<span id="cb187-57"><a href="#cb187-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">fit.indices =</span> <span class="fu">c</span>(<span class="st">"GFI"</span>, <span class="st">"AGFI"</span>, <span class="st">"RMSEA"</span>,<span class="st">"NFI"</span>, <span class="st">"NNFI"</span>,</span>
+<span id="cb187-58"><a href="#cb187-58" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"CFI"</span>, <span class="st">"RNI"</span>, <span class="st">"IFI"</span>, <span class="st">"SRMR"</span>, <span class="st">"AIC"</span>,</span>
+<span id="cb187-59"><a href="#cb187-59" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"AICc"</span>, <span class="st">"BIC"</span>, <span class="st">"CAIC"</span>))</span>
+<span id="cb187-60"><a href="#cb187-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb187-61"><a href="#cb187-61" aria-hidden="true" tabindex="-1"></a><span class="co">#パス図の作成#</span></span>
+<span id="cb187-62"><a href="#cb187-62" aria-hidden="true" tabindex="-1"></a><span class="fu">pathDiagram</span>(y.sem, <span class="at">out.file=</span><span class="st">"servqual.txt"</span>, <span class="at">ignore.double=</span><span class="cn">FALSE</span>, </span>
+<span id="cb187-63"><a href="#cb187-63" aria-hidden="true" tabindex="-1"></a><span class="at">edge.labels=</span><span class="st">"values"</span>, <span class="at">digits=</span><span class="dv">3</span>,</span>
+<span id="cb187-64"><a href="#cb187-64" aria-hidden="true" tabindex="-1"></a><span class="at">node.font=</span><span class="fu">c</span>(<span class="st">"C:/WINDOWS/Fonts/msgothic.ttc"</span>,<span class="dv">10</span>)) </span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="一般的なrコード-26" class="level5">
+<h5 class="anchored" data-anchor-id="一般的なrコード-26">▶ 一般的なRコード</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sem)</span>
+<span id="cb188-2"><a href="#cb188-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-3"><a href="#cb188-3" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">readMoments</span>(</span>
+<span id="cb188-4"><a href="#cb188-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">names =</span> <span class="fu">paste0</span>(<span class="st">"y"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb188-5"><a href="#cb188-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="st">"</span></span>
+<span id="cb188-6"><a href="#cb188-6" aria-hidden="true" tabindex="-1"></a><span class="st">1.00</span></span>
+<span id="cb188-7"><a href="#cb188-7" aria-hidden="true" tabindex="-1"></a><span class="st">0.76 1.00</span></span>
+<span id="cb188-8"><a href="#cb188-8" aria-hidden="true" tabindex="-1"></a><span class="st">0.39 0.32 1.00</span></span>
+<span id="cb188-9"><a href="#cb188-9" aria-hidden="true" tabindex="-1"></a><span class="st">0.48 0.39 0.68 1.00</span></span>
+<span id="cb188-10"><a href="#cb188-10" aria-hidden="true" tabindex="-1"></a><span class="st">0.46 0.28 0.33 0.45 1.00</span></span>
+<span id="cb188-11"><a href="#cb188-11" aria-hidden="true" tabindex="-1"></a><span class="st">0.40 0.45 0.37 0.40 0.72 1.00</span></span>
+<span id="cb188-12"><a href="#cb188-12" aria-hidden="true" tabindex="-1"></a><span class="st">0.23 0.37 0.42 0.31 0.37 0.47 1.00</span></span>
+<span id="cb188-13"><a href="#cb188-13" aria-hidden="true" tabindex="-1"></a><span class="st">0.31 0.39 0.34 0.34 0.42 0.47 0.81 1.00</span></span>
+<span id="cb188-14"><a href="#cb188-14" aria-hidden="true" tabindex="-1"></a><span class="st">0.48 0.23 0.30 0.31 0.33 0.40 0.44 0.48 1.00</span></span>
+<span id="cb188-15"><a href="#cb188-15" aria-hidden="true" tabindex="-1"></a><span class="st">0.38 0.23 0.40 0.31 0.33 0.30 0.44 0.48 0.80 1.00</span></span>
+<span id="cb188-16"><a href="#cb188-16" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
+<span id="cb188-17"><a href="#cb188-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-18"><a href="#cb188-18" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">specifyModel</span>(<span class="at">text =</span> <span class="st">"</span></span>
+<span id="cb188-19"><a href="#cb188-19" aria-hidden="true" tabindex="-1"></a><span class="st">知覚品質 -&gt; 信頼性, a1, NA</span></span>
+<span id="cb188-20"><a href="#cb188-20" aria-hidden="true" tabindex="-1"></a><span class="st">知覚品質 -&gt; 有形性, a2, NA</span></span>
+<span id="cb188-21"><a href="#cb188-21" aria-hidden="true" tabindex="-1"></a><span class="st">知覚品質 -&gt; 応答性, a3, NA</span></span>
+<span id="cb188-22"><a href="#cb188-22" aria-hidden="true" tabindex="-1"></a><span class="st">知覚品質 -&gt; 保証性, a4, NA</span></span>
+<span id="cb188-23"><a href="#cb188-23" aria-hidden="true" tabindex="-1"></a><span class="st">知覚品質 -&gt; 共感性, a5, NA</span></span>
+<span id="cb188-24"><a href="#cb188-24" aria-hidden="true" tabindex="-1"></a><span class="st">信頼性 -&gt; y1, NA, 1</span></span>
+<span id="cb188-25"><a href="#cb188-25" aria-hidden="true" tabindex="-1"></a><span class="st">信頼性 -&gt; y2, b1, NA</span></span>
+<span id="cb188-26"><a href="#cb188-26" aria-hidden="true" tabindex="-1"></a><span class="st">有形性 -&gt; y3, NA, 1</span></span>
+<span id="cb188-27"><a href="#cb188-27" aria-hidden="true" tabindex="-1"></a><span class="st">有形性 -&gt; y4, b2, NA</span></span>
+<span id="cb188-28"><a href="#cb188-28" aria-hidden="true" tabindex="-1"></a><span class="st">応答性 -&gt; y5, NA, 1</span></span>
+<span id="cb188-29"><a href="#cb188-29" aria-hidden="true" tabindex="-1"></a><span class="st">応答性 -&gt; y6, b3, NA</span></span>
+<span id="cb188-30"><a href="#cb188-30" aria-hidden="true" tabindex="-1"></a><span class="st">保証性 -&gt; y7, NA, 1</span></span>
+<span id="cb188-31"><a href="#cb188-31" aria-hidden="true" tabindex="-1"></a><span class="st">保証性 -&gt; y8, b4, NA</span></span>
+<span id="cb188-32"><a href="#cb188-32" aria-hidden="true" tabindex="-1"></a><span class="st">共感性 -&gt; y9, NA, 1</span></span>
+<span id="cb188-33"><a href="#cb188-33" aria-hidden="true" tabindex="-1"></a><span class="st">共感性 -&gt; y10, b5, NA</span></span>
+<span id="cb188-34"><a href="#cb188-34" aria-hidden="true" tabindex="-1"></a><span class="st">知覚品質 &lt;-&gt; 知覚品質, NA, 1</span></span>
+<span id="cb188-35"><a href="#cb188-35" aria-hidden="true" tabindex="-1"></a><span class="st">信頼性   &lt;-&gt; 信頼性, d2, NA</span></span>
+<span id="cb188-36"><a href="#cb188-36" aria-hidden="true" tabindex="-1"></a><span class="st">有形性   &lt;-&gt; 有形性, d3, NA</span></span>
+<span id="cb188-37"><a href="#cb188-37" aria-hidden="true" tabindex="-1"></a><span class="st">応答性   &lt;-&gt; 応答性, d4, NA</span></span>
+<span id="cb188-38"><a href="#cb188-38" aria-hidden="true" tabindex="-1"></a><span class="st">保証性   &lt;-&gt; 保証性, d5, NA</span></span>
+<span id="cb188-39"><a href="#cb188-39" aria-hidden="true" tabindex="-1"></a><span class="st">共感性   &lt;-&gt; 共感性, d6, NA</span></span>
+<span id="cb188-40"><a href="#cb188-40" aria-hidden="true" tabindex="-1"></a><span class="st">y1 &lt;-&gt; y1, e1, NA</span></span>
+<span id="cb188-41"><a href="#cb188-41" aria-hidden="true" tabindex="-1"></a><span class="st">y2 &lt;-&gt; y2, e2, NA</span></span>
+<span id="cb188-42"><a href="#cb188-42" aria-hidden="true" tabindex="-1"></a><span class="st">y3 &lt;-&gt; y3, e3, NA</span></span>
+<span id="cb188-43"><a href="#cb188-43" aria-hidden="true" tabindex="-1"></a><span class="st">y4 &lt;-&gt; y4, e4, NA</span></span>
+<span id="cb188-44"><a href="#cb188-44" aria-hidden="true" tabindex="-1"></a><span class="st">y5 &lt;-&gt; y5, e5, NA</span></span>
+<span id="cb188-45"><a href="#cb188-45" aria-hidden="true" tabindex="-1"></a><span class="st">y6 &lt;-&gt; y6, e6, NA</span></span>
+<span id="cb188-46"><a href="#cb188-46" aria-hidden="true" tabindex="-1"></a><span class="st">y7 &lt;-&gt; y7, e7, NA</span></span>
+<span id="cb188-47"><a href="#cb188-47" aria-hidden="true" tabindex="-1"></a><span class="st">y8 &lt;-&gt; y8, e8, NA</span></span>
+<span id="cb188-48"><a href="#cb188-48" aria-hidden="true" tabindex="-1"></a><span class="st">y9 &lt;-&gt; y9, e9, NA</span></span>
+<span id="cb188-49"><a href="#cb188-49" aria-hidden="true" tabindex="-1"></a><span class="st">y10 &lt;-&gt; y10, e10, NA</span></span>
+<span id="cb188-50"><a href="#cb188-50" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span>
+<span id="cb188-51"><a href="#cb188-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-52"><a href="#cb188-52" aria-hidden="true" tabindex="-1"></a>y.sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">S =</span> cor, <span class="at">N =</span> <span class="dv">100</span>)</span>
+<span id="cb188-53"><a href="#cb188-53" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y.sem,</span>
+<span id="cb188-54"><a href="#cb188-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">fit.indices =</span> <span class="fu">c</span>(<span class="st">"GFI"</span>, <span class="st">"AGFI"</span>, <span class="st">"RMSEA"</span>,<span class="st">"NFI"</span>, <span class="st">"NNFI"</span>,</span>
+<span id="cb188-55"><a href="#cb188-55" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"CFI"</span>, <span class="st">"RNI"</span>, <span class="st">"IFI"</span>, <span class="st">"SRMR"</span>, <span class="st">"AIC"</span>,</span>
+<span id="cb188-56"><a href="#cb188-56" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"AICc"</span>, <span class="st">"BIC"</span>, <span class="st">"CAIC"</span>))</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Model Chisquare =  113.6219   Df =  30 Pr(&gt;Chisq) = 1.171446e-11
+ Goodness-of-fit index =  0.8580703
+ Adjusted goodness-of-fit index =  0.7397955
+ RMSEA index =  0.167796   90% CI: (NA, NA)
+ Bentler-Bonett NFI =  0.8293413
+ Tucker-Lewis NNFI =  0.7979446
+ Bentler CFI =  0.8652964
+ Bentler RNI =  0.8652964
+ Bollen IFI =  0.8684744
+ SRMR =  0.0562804
+ AIC =  163.6219
+ AICc =  131.1894
+ BIC =  -24.53325
+ CAIC =  -54.53325
+
+ Normalized Residuals
+      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+-1.4474824 -0.3826473 -0.0000037  0.0021644  0.4919080  0.9482972 
+
+ R-square for Endogenous Variables
+信頼性 有形性 応答性 保証性 共感性     y1     y2     y3     y4     y5     y6 
+0.4622 0.5052 0.5879 0.4810 0.4569 0.8883 0.6503 0.6345 0.7288 0.6851 0.7566 
+    y7     y8     y9    y10 
+0.7544 0.8697 0.8556 0.7480 
+
+ Parameter Estimates
+    Estimate  Std Error  z value  Pr(&gt;|z|)                         
+a1  0.6407215 0.10099877 6.343855 2.240860e-10 信頼性 &lt;--- 知覚品質
+a2  0.5661703 0.10422998 5.431934 5.574669e-08 有形性 &lt;--- 知覚品質
+a3  0.6346445 0.10234995 6.200731 5.620145e-10 応答性 &lt;--- 知覚品質
+a4  0.6023456 0.10297806 5.849262 4.937602e-09 保証性 &lt;--- 知覚品質
+a5  0.6252549 0.10163074 6.152222 7.640465e-10 共感性 &lt;--- 知覚品質
+b1  0.8555984 0.11827829 7.233774 4.697538e-13 y2 &lt;--- 信頼性      
+b2  1.0717482 0.16924715 6.332445 2.413070e-10 y4 &lt;--- 有形性      
+b3  1.0508971 0.14123076 7.440994 9.993081e-14 y6 &lt;--- 応答性      
+b4  1.0737505 0.12339661 8.701621 3.271762e-18 y8 &lt;--- 保証性      
+b5  0.9349937 0.11336085 8.247942 1.611459e-16 y10 &lt;--- 共感性     
+d2  0.4777427 0.13128000 3.639112 2.735795e-04 信頼性 &lt;--&gt; 信頼性  
+d3  0.3139296 0.09562747 3.282839 1.027673e-03 有形性 &lt;--&gt; 有形性  
+d4  0.2823553 0.08918525 3.165941 1.545819e-03 応答性 &lt;--&gt; 応答性  
+d5  0.3915460 0.09557047 4.096935 4.186561e-05 保証性 &lt;--&gt; 保証性  
+d6  0.4646776 0.11694605 3.973436 7.084331e-05 共感性 &lt;--&gt; 共感性  
+e1  0.1117331 0.10286252 1.086237 2.773739e-01 y1 &lt;--&gt; y1          
+e2  0.3497449 0.08947697 3.908770 9.276724e-05 y2 &lt;--&gt; y2          
+e3  0.3655219 0.09876276 3.701009 2.147439e-04 y3 &lt;--&gt; y3          
+e4  0.2712120 0.10389506 2.610441 9.042550e-03 y4 &lt;--&gt; y4          
+e5  0.3148702 0.08647260 3.641272 2.712945e-04 y5 &lt;--&gt; y5          
+e6  0.2433546 0.08873328 2.742540 6.096602e-03 y6 &lt;--&gt; y6          
+e7  0.2456351 0.07926060 3.099082 1.941213e-03 y7 &lt;--&gt; y7          
+e8  0.1302618 0.08410302 1.548836 1.214211e-01 y8 &lt;--&gt; y8          
+e9  0.1443791 0.08867811 1.628125 1.034983e-01 y9 &lt;--&gt; y9          
+e10 0.2520053 0.08349268 3.018292 2.542039e-03 y10 &lt;--&gt; y10        
+
+ Iterations =  54 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb190-1"><a href="#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pathDiagram</span>(y.sem, <span class="at">ignore.double =</span> <span class="cn">FALSE</span>, <span class="at">edge.labels =</span> <span class="st">"values"</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="コピー" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="grViz html-widget html-fill-item" id="htmlwidget-b538e2fb1a884faf88dc" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-b538e2fb1a884faf88dc">{"x":{"diagram":"digraph \"y.sem\" {\n  rankdir=LR;\n  size=\"8,8\";\n  node [fontname=\"Helvetica\" fontsize=14 fillcolor=\"transparent\" shape=box style=filled];\n  edge [fontname=\"Helvetica\" fontsize=10];\n  center=1;\n  \"信頼性\" [shape=ellipse]\n  \"有形性\" [shape=ellipse]\n  \"応答性\" [shape=ellipse]\n  \"保証性\" [shape=ellipse]\n  \"共感性\" [shape=ellipse]\n  \"知覚品質\" [shape=ellipse]\n  \"信頼性\" [fillcolor=\"transparent\"]\n  \"有形性\" [fillcolor=\"transparent\"]\n  \"応答性\" [fillcolor=\"transparent\"]\n  \"保証性\" [fillcolor=\"transparent\"]\n  \"共感性\" [fillcolor=\"transparent\"]\n  \"y1\" [fillcolor=\"transparent\"]\n  \"y2\" [fillcolor=\"transparent\"]\n  \"y3\" [fillcolor=\"transparent\"]\n  \"y4\" [fillcolor=\"transparent\"]\n  \"y5\" [fillcolor=\"transparent\"]\n  \"y6\" [fillcolor=\"transparent\"]\n  \"y7\" [fillcolor=\"transparent\"]\n  \"y8\" [fillcolor=\"transparent\"]\n  \"y9\" [fillcolor=\"transparent\"]\n  \"y10\" [fillcolor=\"transparent\"]\n  \"知覚品質\" -> \"信頼性\" [label=\"0.641\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"有形性\" [label=\"0.566\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"応答性\" [label=\"0.635\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"保証性\" [label=\"0.602\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"共感性\" [label=\"0.625\" color=black penwidth=1.001];\n  \"信頼性\" -> \"y1\" [label=\"1\" color=black penwidth=1.001];\n  \"信頼性\" -> \"y2\" [label=\"0.856\" color=black penwidth=1.001];\n  \"有形性\" -> \"y3\" [label=\"1\" color=black penwidth=1.001];\n  \"有形性\" -> \"y4\" [label=\"1.072\" color=black penwidth=1.001];\n  \"応答性\" -> \"y5\" [label=\"1\" color=black penwidth=1.001];\n  \"応答性\" -> \"y6\" [label=\"1.051\" color=black penwidth=1.001];\n  \"保証性\" -> \"y7\" [label=\"1\" color=black penwidth=1.001];\n  \"保証性\" -> \"y8\" [label=\"1.074\" color=black penwidth=1.001];\n  \"共感性\" -> \"y9\" [label=\"1\" color=black penwidth=1.001];\n  \"共感性\" -> \"y10\" [label=\"0.935\" color=black penwidth=1.001];\n  \"知覚品質\" -> \"知覚品質\" [label=\"1\" dir=both color=black penwidth=1.001];\n  \"信頼性\" -> \"信頼性\" [label=\"0.478\" dir=both color=black penwidth=1.001];\n  \"有形性\" -> \"有形性\" [label=\"0.314\" dir=both color=black penwidth=1.001];\n  \"応答性\" -> \"応答性\" [label=\"0.282\" dir=both color=black penwidth=1.001];\n  \"保証性\" -> \"保証性\" [label=\"0.392\" dir=both color=black penwidth=1.001];\n  \"共感性\" -> \"共感性\" [label=\"0.465\" dir=both color=black penwidth=1.001];\n  \"y1\" -> \"y1\" [label=\"0.112\" dir=both color=black penwidth=1.001];\n  \"y2\" -> \"y2\" [label=\"0.35\" dir=both color=black penwidth=1.001];\n  \"y3\" -> \"y3\" [label=\"0.366\" dir=both color=black penwidth=1.001];\n  \"y4\" -> \"y4\" [label=\"0.271\" dir=both color=black penwidth=1.001];\n  \"y5\" -> \"y5\" [label=\"0.315\" dir=both color=black penwidth=1.001];\n  \"y6\" -> \"y6\" [label=\"0.243\" dir=both color=black penwidth=1.001];\n  \"y7\" -> \"y7\" [label=\"0.246\" dir=both color=black penwidth=1.001];\n  \"y8\" -> \"y8\" [label=\"0.13\" dir=both color=black penwidth=1.001];\n  \"y9\" -> \"y9\" [label=\"0.144\" dir=both color=black penwidth=1.001];\n  \"y10\" -> \"y10\" [label=\"0.252\" dir=both color=black penwidth=1.001];\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>

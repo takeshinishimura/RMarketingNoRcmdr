@@ -1,0 +1,48 @@
+digraph "result" {
+  rankdir=LR;
+  size="8,8";
+  node [fontname="Helvetica" fontsize=14 fillcolor="transparent" shape=box style=filled];
+  edge [fontname="Helvetica" fontsize=10];
+  center=1;
+  "顧客満足" [shape=ellipse]
+  "知覚品質" [shape=ellipse]
+  "顧客期待" [shape=ellipse]
+  "知覚品質" [fillcolor="transparent"]
+  "y01" [fillcolor="transparent"]
+  "y02" [fillcolor="transparent"]
+  "y03" [fillcolor="transparent"]
+  "y04" [fillcolor="transparent"]
+  "y05" [fillcolor="transparent"]
+  "y06" [fillcolor="transparent"]
+  "y07" [fillcolor="transparent"]
+  "顧客満足" [fillcolor="transparent"]
+  "y08" [fillcolor="transparent"]
+  "y09" [fillcolor="transparent"]
+  "y10" [fillcolor="transparent"]
+  "知覚品質" -> "y01" [label="1" color=black penwidth=1.001];
+  "知覚品質" -> "y02" [label="0.916" color=black penwidth=1.001];
+  "知覚品質" -> "y03" [label="0.905" color=black penwidth=1.001];
+  "知覚品質" -> "y04" [label="0.646" color=black penwidth=1.001];
+  "顧客期待" -> "y05" [label="1" color=black penwidth=1.001];
+  "顧客期待" -> "y06" [label="1.026" color=black penwidth=1.001];
+  "顧客期待" -> "y07" [label="0.989" color=black penwidth=1.001];
+  "顧客満足" -> "y08" [label="1" color=black penwidth=1.001];
+  "顧客満足" -> "y09" [label="0.825" color=black penwidth=1.001];
+  "顧客満足" -> "y10" [label="0.789" color=black penwidth=1.001];
+  "y01" -> "y01" [label="0.227" dir=both color=black penwidth=1.001];
+  "y02" -> "y02" [label="0.145" dir=both color=black penwidth=1.001];
+  "y03" -> "y03" [label="0.165" dir=both color=black penwidth=1.001];
+  "y04" -> "y04" [label="0.575" dir=both color=black penwidth=1.001];
+  "y05" -> "y05" [label="0.719" dir=both color=black penwidth=1.001];
+  "y06" -> "y06" [label="0.257" dir=both color=black penwidth=1.001];
+  "y07" -> "y07" [label="0.31" dir=both color=black penwidth=1.001];
+  "y08" -> "y08" [label="0.224" dir=both color=black penwidth=1.001];
+  "y09" -> "y09" [label="0.274" dir=both color=black penwidth=1.001];
+  "y10" -> "y10" [label="0.335" dir=both color=black penwidth=1.001];
+  "知覚品質" -> "顧客満足" [label="0.649" color=black penwidth=1.001];
+  "顧客期待" -> "顧客満足" [label="0.284" color=black penwidth=1.001];
+  "顧客期待" -> "知覚品質" [label="0.889" color=black penwidth=1.001];
+  "知覚品質" -> "知覚品質" [label="1" dir=both color=black penwidth=1.001];
+  "顧客期待" -> "顧客期待" [label="1" dir=both color=black penwidth=1.001];
+  "顧客満足" -> "顧客満足" [label="1" dir=both color=black penwidth=1.001];
+}
