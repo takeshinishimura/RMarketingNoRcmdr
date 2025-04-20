@@ -1670,10 +1670,9 @@ node.font=c("C:/WINDOWS/Fonts/msgothic.ttc",10))
 #| message: false
 library(sem)
 
-co <- readMoments(
-  diag = TRUE, 
-  names = paste0("y", sprintf("%02d", 1:10)),
-  text = "
+co <- readMoments(diag = TRUE,
+                  names = paste0("y", sprintf("%02d", 1:10)),
+                  text = "
 1
 0.836 1
 0.788 0.841 1
@@ -1847,9 +1846,8 @@ node.font=c("C:/WINDOWS/Fonts/msgothic.ttc",10))
 #| message: false
 library(sem)
 
-cor <- readMoments(
-  names = paste0("y", 1:10),
-  text = "
+cor <- readMoments(names = paste0("y", 1:10),
+                   text = "
 1.00
 0.76 1.00
 0.39 0.32 1.00
@@ -1896,16 +1894,191 @@ y9 <-> y9, e9, NA
 y10 <-> y10, e10, NA
 ")
 
-y.sem <- sem(model, S = cor, N = 100)
-summary(y.sem,
+y_sem <- sem(model, S = cor, N = 100)
+summary(y_sem,
         fit.indices = c("GFI", "AGFI", "RMSEA","NFI", "NNFI",
                         "CFI", "RNI", "IFI", "SRMR", "AIC",
                         "AICc", "BIC", "CAIC"))
 
-pathDiagram(y.sem, ignore.double = FALSE, edge.labels = "values", digits = 3)
+pathDiagram(y_sem, ignore.double = FALSE, edge.labels = "values", digits = 3)
 ```
 ```{r}
 #| echo: false
-d <- pathDiagram(y.sem, ignore.double = FALSE, edge.labels = "values", digits = 3)
+d <- pathDiagram(y_sem, ignore.double = FALSE, edge.labels = "values", digits = 3)
 grViz(d)
+```
+
+::: {.callout-warning collapse="false" icon="false"}
+## 誤植
+
+p. 311
+
+- （誤）イルカ
+- （正）カイル
+:::
+
+
+## 第15章 Eコマースとテキスト解析
+
+### 2 テキストデータの取得と前処理
+
+#### 2.2 Rによるスクレイピングと形態素解析
+
+##### ▶ 手入力するコード（`scraping.R`）
+
+```{r}
+#| eval: false
+##############
+# テキストスクレイピングおよび前処理ーTwitterデータを例として
+
+#①パッケージのインストール
+#install.packages('rtweet', 'tidyverse')
+# （以下，省略）
+```
+
+##### ▶ 一般的なRコード
+
+`rtweet` パッケージは現在 CRAN から削除されているため，引数を指定せずに `install.packages()` を実行してもインストールできない。
+どうしても使用したい場合は，バージョン `2.0.0` が最新であるようなので，調べてインストールしてほしい。
+なお，未確認ではあるが，Twitter API はすでに利用できなくなっている可能性が高く，`rtweet` を用いた Twitter（X） からのデータ取得（スクレイピング）は現在では困難と考えられる。
+
+
+### 3 テキストの可視化
+
+#### 3.2 RによるワードクラウドとN-gramネットワーク
+
+##### ▶ 手入力するコード（`wordcloud.R`）
+
+```{r}
+#| eval: false
+####### ワードクラウド
+
+
+# RMecabで形態素解析
+# 1)　https://taku910.github.io/mecab/  <-ここでMecabの最新バージョンをダウンロード
+# 2)  install.packages("RMeCab", repos = "http://rmecab.jp/R", type = "source")1
+
+library(RMeCab)
+library(ggplot2)
+library(dplyr)
+
+#①保存されたデータの読み込み
+cleaned_texts <- read.csv('cleaned_text.csv',fileEncoding = 'shift-jis',row.names = 1)
+cleaned_texts %>% head()
+# （以下，省略）
+```
+
+##### ▶ 一般的なRコード
+
+まず，[MeCab: Yet Another Part-of-Speech and Morphological Analyzer](https://taku910.github.io/mecab/#install){target="_blank"} の指示に従って，パソコンに MeCab をインストールする。
+
+続いて，[RMeCab](https://rmecab.jp/wiki/index.php?RMeCab){target="_blank"} の指示に従って，R に RMeCab をインストールする。
+
+本章では，Rコマンダーを使用しないため，一般的なRコードは省略する。
+
+### 5 Rによる商品レビューコメントを用いた製品評価
+
+##### ▶ 手入力するコード（`LDA.R`）
+
+```{r}
+#| eval: false
+### LDA(トピックモデル)
+#①パッケージ"lda"のインストール
+# install.packages("lda")
+library(lda)
+# （以下，省略）
+```
+
+##### ▶ 一般的なRコード
+
+本章では，Rコマンダーを使用しないため，一般的なRコードは省略する。
+
+
+## 第16章 カウントデータの分析
+
+### 4 カウントデータを用いた市場反応分析
+
+#### 4.1 事例データ：入力データ
+
+##### ▶ Rコマンダーによって生成されたコード（p. 330）
+
+```{r}
+#| eval: false
+Dataset <- read.table(file.choose(), header=TRUE, 
+  stringsAsFactors=TRUE, sep=",", na.strings="NA", dec=".", strip.white=TRUE)
+with(Dataset, Hist(y, scale="frequency", breaks="Sturges", col="darkgray"))
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| echo: true
+#| eval: false
+Dataset <- read.csv(file.choose())
+
+hist(Dataset$y)
+```
+```{r}
+#| echo: false
+#| eval: true
+Dataset <- read.csv("./data/現代マーケティング・リサーチ〔新版〕_ウェブサポートデータ/16/count-data.csv")
+
+hist(Dataset$y, breaks = min(Dataset$y):max(Dataset$y), main = "", xlab = "y")
+```
+
+#### 4.2 モデルによる分析
+
+##### ▶ Rコマンダーによって生成されたコード（p. 332）
+
+```{r}
+#| eval: false
+Model1 <- glm(y ~ x1 + x2 + x3 + x4 + x5 + x6, family=poisson(log), data=Dataset)
+summary(Model1)
+exp(coef(Model1))  # Exponentiated coefficients
+Model2 <- glm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + offset(log(k)), family=poisson(log), data=Dataset)
+summary(Model2)
+exp(coef(Model2))  # Exponentiated coefficients
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+Model1 <- glm(y ~ x1 + x2 + x3 + x4 + x5 + x6, family = poisson(log), data = Dataset)
+summary(Model1)
+
+Model2 <- glm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + offset(log(k)), family = poisson(log), data = Dataset)
+summary(Model2)
+```
+
+##### ▶ 手入力するコード（`NBR.R`）
+
+```{r}
+#| eval: false
+#負の二項回帰で用いるパッケージ「MASS」を読み込む.
+library(MASS)
+#ポアソン回帰モデル（オフセット変数無）のコマンド．教科書ではRコマンダー実施している．
+#Model1 <- glm(y ~ x1 + x2 + x3 + x4 + x5 + x6, family=poisson(log),data=Dataset)
+#summary(Model1)
+#ポアソン回帰モデル（オフセット変数有）のコマンド．教科書ではRコマンダー実施している．
+#Model2 <- glm(y ~ x1 + x2 + x3 + x4 + x5 + x6 + offset(log(k)),family=poisson(log), data=Dataset)
+#summary(Model2)
+#負の二項回帰モデル（オフセット変数無）のコマンド．
+Model3 <- glm.nb(y ~ x1 + x2 + x3 + x4 + x5 + x6, link=log,data=Dataset)
+summary(Model3)
+#負の二項回帰モデル（オフセット変数有）のコマンド．
+Model4 <- glm.nb(y ~ x1 + x2 + x3 + x4 + x5 + x6 + offset(log(k)), link=log,data=Dataset)
+summary(Model4)
+```
+
+##### ▶ 一般的なRコード
+
+```{r}
+#| message: false
+library(MASS)
+
+Model3 <- glm.nb(y ~ x1 + x2 + x3 + x4 + x5 + x6, link = log, data = Dataset)
+summary(Model3)
+
+Model4 <- glm.nb(y ~ x1 + x2 + x3 + x4 + x5 + x6 + offset(log(k)), link = log, data = Dataset)
+summary(Model4)
 ```
